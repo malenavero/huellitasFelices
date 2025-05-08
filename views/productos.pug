@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title Productos
+  body
+    h1 Productos disponibles
+
+    // Filtro de categorías
+    form(method="GET")
+      select(name="categoria")
+        option(value="") Todas las categorías
+        each categoria in categorias
+          option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
+      button(type="submit") Filtrar
+
+    ul
+      each producto in productos
+        li
+          h3= producto.nombre
+          p Precio: $#{producto.precio}
+          p Stock: #{producto.stock}
+          a(href=`/productos/${producto.id}`) Más →

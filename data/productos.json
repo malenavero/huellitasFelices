@@ -1,0 +1,27 @@
+[
+    {
+      "id": "p1",
+      "nombre": "Antipulgas Julepe",
+      "categoria": "farmacia",
+      "precio": 8000,
+      "stock": 10,
+      "descripcion": "Para gatos mayores de 6 meses."
+    },
+    {
+      "id": "p2",
+      "nombre": "Pluma con cuerda",
+      "categoria": "otros",
+      "precio": 5000,
+      "stock": 20,
+      "descripcion": "Juguete para gatos."
+    },
+    {
+      "id": "p3",
+      "nombre": "Alimento NutriDog Adulto",
+      "categoria": "comida",
+      "precio": 32000,
+      "stock": 15,
+      "descripcion": "Alimento para perros adultos (+5)."
+    }
+  ]
+  

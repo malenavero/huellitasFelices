@@ -1,27 +1,46 @@
 [
-    {
-      "id": "p1",
-      "nombre": "Antipulgas Julepe",
-      "categoria": "farmacia",
-      "precio": 8000,
-      "stock": 10,
-      "descripcion": "Para gatos mayores de 6 meses."
-    },
-    {
-      "id": "p2",
-      "nombre": "Pluma con cuerda",
-      "categoria": "otros",
-      "precio": 5000,
-      "stock": 20,
-      "descripcion": "Juguete para gatos."
-    },
-    {
-      "id": "p3",
-      "nombre": "Alimento NutriDog Adulto",
-      "categoria": "comida",
-      "precio": 32000,
-      "stock": 15,
-      "descripcion": "Alimento para perros adultos (+5)."
-    }
-  ]
-  
+  {
+    "id": 1,
+    "nombre": "alimento royal kitten salmon",
+    "categoria": "comida",
+    "precio": 1200,
+    "stock": 10,
+    "descripcion": "Alimento premium para perros adultos.",
+    "fechaVencimiento": "2025-12-01",
+    "createdAt": "2025-05-17T20:15:12.432Z",
+    "updatedAt": "2025-05-17T22:10:14.357Z"
+  },
+  {
+    "id": 2,
+    "nombre": "hueso goma",
+    "categoria": "comida",
+    "precio": 1800,
+    "stock": 10,
+    "descripcion": "ALIMENTO PREMIUM PARA PERROS ADULTOS.",
+    "fechaVencimiento": "2030-03-01",
+    "createdAt": "2025-05-17T20:46:57.452Z",
+    "updatedAt": "2025-05-17T20:46:57.452Z"
+  },
+  {
+    "id": 3,
+    "nombre": "antipulgas julepe",
+    "categoria": "farmacia",
+    "precio": 8000,
+    "stock": 3,
+    "descripcion": "Solo para gatos mayores a 6 meses",
+    "fechaVencimiento": "2029-11-09",
+    "createdAt": "2025-05-17T21:27:31.896Z",
+    "updatedAt": "2025-05-17T21:27:31.896Z"
+  },
+  {
+    "id": 4,
+    "nombre": "alimento nutridog adulto",
+    "categoria": "comida",
+    "precio": 32000,
+    "stock": 15,
+    "descripcion": "Alimento para perros adultos (+5).",
+    "fechaVencimiento": "2026-02-01",
+    "createdAt": "2025-05-17T21:27:37.445Z",
+    "updatedAt": "2025-05-17T21:27:37.445Z"
+  }
+]

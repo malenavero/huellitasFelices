@@ -25,6 +25,30 @@ class DBHandler {
       console.error('Error escribiendo el archivo:', err);
     }
   }
+
+  async updateData(id, updatedFields) {
+    const data = await this.readData();
+    const index = data.findIndex(item => item.id === id);
+    if (index === -1) return null;
+
+    data[index] = {
+      ...data[index],
+      ...updatedFields,
+      updatedAt: new Date().toISOString()
+    };
+
+    await this.writeData(data);
+    return data[index];
+  }
+
+  async deleteData(id) {
+    const data = await this.readData();
+    const newData = data.filter(item => item.id !== id);
+    if (newData.length === data.length) return false;
+
+    await this.writeData(newData);
+    return true;
+  }
 }
 
 module.exports = DBHandler;

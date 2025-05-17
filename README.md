@@ -26,7 +26,7 @@ npm install
 - Modo normal:
 
 ```bash
-npm install
+node app.js
 ```
 
 - Modo reinicio automático:

@@ -102,9 +102,15 @@ async eliminarProducto(req, res) {
       return res.status(404).json({ error: 'Producto no encontrado' });
     }
 
-    if ((req.headers.accept && req.headers.accept.includes('application/json')) || req.query.format === 'json') {
+    if (
+      !req.headers.accept || 
+      req.headers.accept === '*/*' || 
+      req.headers.accept.includes('application/json') || 
+      req.query.format === 'json'
+    ) {
       return res.json({ mensaje: `Producto ${id} eliminado` });
     }
+    
 
     res.redirect('/productos');
   } catch (error) {

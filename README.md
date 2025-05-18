@@ -1,5 +1,9 @@
 # Huellitas Felices 🐾
 
+## Documentación
+
+http://localhost:3000/docs
+
 ## Requisitos
 
 - Tener instalado [Node.js](https://nodejs.org/)

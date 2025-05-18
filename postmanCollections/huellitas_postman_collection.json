@@ -87,7 +87,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/productos/1",
+							"raw": "http://localhost:3000/productos/8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -95,7 +95,7 @@
 							"port": "3000",
 							"path": [
 								"productos",
-								"1"
+								"8"
 							]
 						}
 					},
@@ -429,7 +429,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"fecha\": \"2025-06-01\",\n  \"hora\": \"11:30\",\n  \"pacienteId\": 1,\n  \"servicio\": \"veterinaria\",\n  \"precio\": 2500\n}\n"
+							"raw": "{\n  \"fecha\": \"2025-07-01\",\n  \"hora\": \"11:30\",\n  \"pacienteId\": 1,\n  \"servicio\": \"veterinaria\",\n  \"precio\": 2500\n}\n"
 						},
 						"url": {
 							"raw": "http://localhost:3000/turnos",
@@ -461,7 +461,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"pacienteId\": 2\n \n}"
+							"raw": "{\n  \"pacienteId\": 3\n \n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/turnos/1",

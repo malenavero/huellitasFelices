@@ -3,7 +3,7 @@
 		"_postman_id": "06a30c35-1fe2-4d70-a6c6-1336da9f4389",
 		"name": "Huellitas Felices - Endpoints Básicos",
 		"description": "Colección de endpoints básicos para productos, pacientes, turnos y mascotas perdidas",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "19669280"
 	},
 	"item": [
@@ -24,7 +24,17 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/productos"
+						"url": {
+							"raw": "http://localhost:3000/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
 					},
 					"response": []
 				},
@@ -76,7 +86,18 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/productos/1"
+						"url": {
+							"raw": "http://localhost:3000/productos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -96,9 +117,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "  {\n    \"nombre\": \"Plumita Violeta\",\n    \"categoria\": \"otro\", // ['farmacia', 'comida', 'otro'];\n    \"precio\": 1000,\n    \"stock\": 26,\n    \"fechaVencimiento\": \"\", //aaaa-mm-dd\n    \"descripcion\": \"Pluma jugueta gato\"\n  }"
+							"raw": "  {\n    \"nombre\": \"Pluma Colores\",\n    \"categoria\": \"otros\", // ['farmacia', 'comida', 'otros'];\n    \"precio\": 2345,\n    \"stock\": 6,\n    \"fechaVencimiento\": \"2026-09-12\", //aaaa-mm-dd\n    \"descripcion\": \"Mayor a 2 años\"\n  }"
 						},
-						"url": "http://localhost:3000/productos"
+						"url": {
+							"raw": "http://localhost:3000/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
 					},
 					"response": []
 				},
@@ -118,9 +149,20 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"plumita violeta\"\n}"
+							"raw": "{\n  \"precio\": 9800\n}"
 						},
-						"url": "http://localhost:3000/productos/5"
+						"url": {
+							"raw": "http://localhost:3000/productos/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos",
+								"8"
+							]
+						}
 					},
 					"response": []
 				},
@@ -138,7 +180,18 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/productos/5"
+						"url": {
+							"raw": "http://localhost:3000/productos/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos",
+								"6"
+							]
+						}
 					},
 					"response": []
 				}
@@ -161,7 +214,17 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/pacientes"
+						"url": {
+							"raw": "http://localhost:3000/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pacientes"
+							]
+						}
 					},
 					"response": []
 				},
@@ -179,7 +242,18 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/pacientes/1"
+						"url": {
+							"raw": "http://localhost:3000/pacientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pacientes",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -199,9 +273,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Gatito\",\n  \"especie\": \"gato\",\n  \"raza\": \"\",\n  \"fechaNacimiento\": \"2018-06-15\",\n  \"responsable\": {\n    \"nombre\": \"Tomás Pérez\",\n    \"telefono\": \"1123456789\",\n    \"email\": \"juan@mail.com\",\n    \"direccion\": \"Calle Falsa 123\"\n  }\n}\n"
+							"raw": "{\n  \"nombre\": \"Gala\",\n  \"especie\": \"gato\",\n  \"raza\": \"gris\",\n  \"fechaNacimiento\": \"2015-09-16\",\n  \"responsable\": {\n    \"nombre\": \"Elena Morley\",\n    \"telefono\": \"1123456789\",\n    \"email\": \"elena@mail.com\",\n    \"direccion\": \"Bulnes 123\"\n  }\n}\n"
 						},
-						"url": "http://localhost:3000/pacientes"
+						"url": {
+							"raw": "http://localhost:3000/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pacientes"
+							]
+						}
 					},
 					"response": []
 				},
@@ -221,9 +305,20 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Gatito 2\"\n\n}"
+							"raw": "{\n  \"nombre\": \"Gatito\"\n\n}"
 						},
-						"url": "http://localhost:3000/pacientes/2"
+						"url": {
+							"raw": "http://localhost:3000/pacientes/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pacientes",
+								"4"
+							]
+						}
 					},
 					"response": []
 				},
@@ -241,7 +336,18 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/pacientes/1"
+						"url": {
+							"raw": "http://localhost:3000/pacientes/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pacientes",
+								"4"
+							]
+						}
 					},
 					"response": []
 				}
@@ -264,7 +370,17 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/turnos"
+						"url": {
+							"raw": "http://localhost:3000/turnos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"turnos"
+							]
+						}
 					},
 					"response": []
 				},
@@ -282,7 +398,18 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/turnos/1"
+						"url": {
+							"raw": "http://localhost:3000/turnos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"turnos",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -302,9 +429,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"pacienteId\": 1,\n  \"tipo\": \"veterinaria\",\n  \"fecha\": \"2025-06-01T10:00:00\"\n}"
+							"raw": "{\n  \"fecha\": \"2025-06-01\",\n  \"hora\": \"11:30\",\n  \"pacienteId\": 1,\n  \"servicio\": \"veterinaria\",\n  \"precio\": 2500\n}\n"
 						},
-						"url": "http://localhost:3000/turnos"
+						"url": {
+							"raw": "http://localhost:3000/turnos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"turnos"
+							]
+						}
 					},
 					"response": []
 				},
@@ -324,9 +461,20 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"pacienteId\": 1,\n  \"tipo\": \"peluquería\",\n  \"fecha\": \"2025-06-01T14:00:00\"\n}"
+							"raw": "{\n  \"pacienteId\": 2\n \n}"
 						},
-						"url": "http://localhost:3000/turnos/1"
+						"url": {
+							"raw": "http://localhost:3000/turnos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"turnos",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -344,7 +492,18 @@
 								"value": "application/json"
 							}
 						],
-						"url": "http://localhost:3000/turnos/1"
+						"url": {
+							"raw": "http://localhost:3000/turnos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"turnos",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
@@ -405,7 +564,17 @@
 							"mode": "raw",
 							"raw": "{\n  \"nombre\": \"Milo\",\n  \"zona\": \"centro\",\n  \"estado\": \"perdido\"\n}"
 						},
-						"url": "http://localhost:3000/mascotas-buscadas"
+						"url": {
+							"raw": "http://localhost:3000/mascotas-buscadas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"mascotas-buscadas"
+							]
+						}
 					},
 					"response": []
 				}

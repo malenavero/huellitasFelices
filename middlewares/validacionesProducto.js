@@ -1,6 +1,8 @@
 // middlewares/validacionesProductos.js
 const { body } = require('express-validator');
 const Producto = require('../models/Producto');
+const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
+
 const { validarFecha, normalizarCamposTexto, asignarDefaults, manejoErrores, validarDuplicado, validarTexto } = require('./utils.js');
 
 // Validadores generales sin .exists ni .optional porque eso depende de si es create o update
@@ -10,9 +12,8 @@ const validarCategoria = [
   body('categoria')
     .if(body('categoria').exists({ checkFalsy: true }))
     .custom(value => {
-      const categoriasValidas = Producto.getCategorias();
-      if (!categoriasValidas.includes(value)) {
-        throw new Error(`Categoría inválida. Las válidas son: ${categoriasValidas.join(', ')}`);
+      if (!CATEGORIAS_PRODUCTO.includes(value)) {
+        throw new Error(`Categoría inválida. Las válidas son: ${CATEGORIAS_PRODUCTO.join(', ')}`);
       }
       return true;
     }),

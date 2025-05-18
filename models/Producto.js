@@ -1,7 +1,6 @@
 // models/Producto.js
 const DBHandler = require('./DBHandler');
 const db = new DBHandler('productos.json');
-const categorias = ['farmacia', 'comida', 'otro'];
 
 class Producto {
   constructor({
@@ -24,10 +23,6 @@ class Producto {
     this.descripcion = descripcion;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
-  }
-
-  static getCategorias() {
-    return categorias;
   }
 
   static async findAll() {

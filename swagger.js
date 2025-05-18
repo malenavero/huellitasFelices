@@ -1,6 +1,8 @@
 // Aca tambien pedi ayuda a la IA para configurar el archivo de swagger
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const { CATEGORIAS_PRODUCTO } = require('./utils/constants.js');
+
 
 const options = {
     definition: {
@@ -52,7 +54,7 @@ const options = {
                 nombre: { type: 'string' },
                 categoria: { 
                     type: 'string',
-                    enum: ['farmacia', 'comida', 'otros']
+                    enum: CATEGORIAS_PRODUCTO
                 },
                 precio: { type: 'number' },
                 stock: { type: 'integer', default: 0 },
@@ -69,7 +71,7 @@ const options = {
                 nombre: { type: 'string' },
                 categoria: { 
                     type: 'string',
-                    enum: ['farmacia', 'comida', 'otros']
+                    enum: CATEGORIAS_PRODUCTO
                 },
                 precio: { type: 'number' },
                 stock: { type: 'integer', default: 0 },

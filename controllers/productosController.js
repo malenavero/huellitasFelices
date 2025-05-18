@@ -1,10 +1,11 @@
 // controllers/productosControllers.js
 
 const Producto = require('../models/Producto');
+const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
 
 module.exports = {
   // GET
-  async listar(req, res, categorias) {
+  async listar(req, res) {
     // Por ahora implementé solo el filtro por categoría, deberiamos pensar una mejor manera de modularizar tema filtros?
     const categoria = req.query.categoria;
     let productos;
@@ -19,9 +20,9 @@ module.exports = {
       return res.json(productos);
     }
 
-    res.render('productos', {
+    res.render('productos/index', {
       productos,
-      categorias,
+      categorias: CATEGORIAS_PRODUCTO,
       categoriaSeleccionada: categoria || ''
     });
   },
@@ -37,7 +38,7 @@ module.exports = {
       return res.json(producto);
     }
 
-    res.render('productoDetalle', { producto });
+    res.render('productos/detalle', { producto });
   },
 
   // POST

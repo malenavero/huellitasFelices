@@ -3,8 +3,6 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/productosController');
 const { validarProductoCreate, validarProductoUpdate } = require('../middlewares/validacionesProducto');
-const Producto = require('../models/Producto');
-const categorias = Producto.getCategorias();
 
 /**
  * @swagger
@@ -30,7 +28,7 @@ const categorias = Producto.getCategorias();
  *                 $ref: '#/components/schemas/Producto'
  */
 router.get('/', (req, res) => {
-  controller.listar(req, res, categorias);
+  controller.listar(req, res);
 });
 
 /**

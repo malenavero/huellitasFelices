@@ -42,5 +42,16 @@
     "fechaVencimiento": "2026-02-01",
     "createdAt": "2025-05-17T21:27:37.445Z",
     "updatedAt": "2025-05-17T21:27:37.445Z"
+  },
+  {
+    "id": 5,
+    "nombre": "plumita violeta",
+    "categoria": "otro",
+    "precio": 1000,
+    "stock": 26,
+    "descripcion": "Pluma jugueta gato",
+    "fechaVencimiento": "",
+    "createdAt": "2025-05-18T00:13:42.423Z",
+    "updatedAt": "2025-05-18T00:14:47.612Z"
   }
 ]

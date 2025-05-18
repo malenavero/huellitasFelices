@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": 1,
+    "fecha": "2025-06-01",
+    "hora": "16:30",
+    "pacienteId": 3,
+    "servicio": "veterinaria",
+    "createdAt": "2025-05-18T22:28:36.314Z",
+    "updatedAt": "2025-05-18T23:15:34.814Z"
+  },
+  {
+    "id": 2,
+    "fecha": "2025-06-01",
+    "hora": "11:30",
+    "pacienteId": 1,
+    "servicio": "veterinaria",
+    "createdAt": "2025-05-18T22:29:03.468Z",
+    "updatedAt": "2025-05-18T22:29:03.468Z"
+  }
+]

@@ -66,21 +66,24 @@ const options = {
                 },
             },
             ProductoUpdateInput: {
-                type: 'object',
-                properties: {
-                nombre: { type: 'string' },
-                categoria: { 
-                    type: 'string',
-                    enum: CATEGORIAS_PRODUCTO
-                },
-                precio: { type: 'number' },
-                stock: { type: 'integer', default: 0 },
-                descripcion: { type: 'string' },
-                fechaVencimiento: {
-                    type: 'string',
-                    format: 'date',
-                },
-                },
+								type: 'object',
+								properties: {
+									nombre: { type: 'string' },
+									categoria: { 
+											type: 'string',
+											enum: CATEGORIAS_PRODUCTO
+									},
+									precio: { type: 'number' },
+									stock: { type: 'integer', default: 0 },
+									descripcion: { type: 'string' },
+									fechaVencimiento: {
+											type: 'string',
+											format: 'date',
+									},
+								},
+								example: {
+                	precio: 18999
+                }
             },
             Paciente: {
                 type: 'object',
@@ -141,21 +144,62 @@ const options = {
             PacienteUpdateInput: {
                 type: 'object',
                 properties: {
-                nombre: { type: 'string' },
-                especie: { type: 'string' },
-                raza: { type: 'string' },
-                fechaNacimiento: { type: 'string', format: 'date' },
-                responsable: {
-                    type: 'object',
-                    properties: {
-                    nombre: { type: 'string' },
-                    telefono: { type: 'string' },
-                    email: { type: 'string', format: 'email' },
-                    direccion: { type: 'string' }
-                    }
+									nombre: { type: 'string' },
+									especie: { type: 'string' },
+									raza: { type: 'string' },
+									fechaNacimiento: { type: 'string', format: 'date' },
+									responsable: {
+										type: 'object',
+										properties: {
+										nombre: { type: 'string' },
+										telefono: { type: 'string' },
+										email: { type: 'string', format: 'email' },
+										direccion: { type: 'string' }
+										}
+									}
+								},
+								example: {
+                	nombre: 'Susana'
                 }
+            },
+            Turno: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string' },
+                  fecha: { type: 'string', format: 'date' },
+                  hora: { type: 'string' },
+                  pacienteId: { type: 'integer' },
+                  servicio: { type: 'string' },
+                  precio: { type: 'number' },
+                  createdAt: { type: 'string', format: 'date-time' },
+                  updatedAt: { type: 'string', format: 'date-time' }
+                },
+              },
+              TurnoInput: {
+                type: 'object',
+                required: ['fecha', 'hora', 'pacienteId', 'servicio'],
+                properties: {
+                  fecha: { type: 'string', format: 'date' },
+                  hora: { type: 'string' },
+                  pacienteId: { type: 'integer' },
+                  servicio: { type: 'string' },
+                  precio: { type: 'number' }
                 }
-            },           
+              },
+              TurnoUpdateInput: {
+                type: 'object',
+                properties: {
+                  fecha: { type: 'string', format: 'date' },
+                  hora: { type: 'string' },
+                  pacienteId: { type: 'integer' },
+                  servicio: { type: 'string' },
+                  precio: { type: 'number' }
+                },
+                example: {
+                	hora: '15:30'
+                }
+              }
+                         
         },
       },
     },

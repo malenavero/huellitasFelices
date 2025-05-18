@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const productosRouter = require('./routes/productos.routes');
 const pacientesRouter = require('./routes/pacientes.routes');
+const turnosRouter = require('./routes/turnos.routes');
 
 const app = express();
 setupSwagger(app);
@@ -26,8 +27,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/productos', productosRouter);
 app.use('/pacientes', pacientesRouter);
+app.use('/turnos', turnosRouter);
 
-// catch 404 and forward to error handler
+
+// catch 404
 app.use(function(req, res, next) {
   next(createError(404));
 });

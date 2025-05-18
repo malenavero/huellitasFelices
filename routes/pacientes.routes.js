@@ -48,7 +48,7 @@ router.get('/', controller.listar);
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/:id', controller.verPaciente);
+router.get('/:id', controller.detalle);
 /**
  * @swagger
  * /pacientes:
@@ -72,14 +72,14 @@ router.get('/:id', controller.verPaciente);
  *       400:
  *         description: Datos inválidos para creación
  */
-router.post('/', validarPacienteCreate, controller.crearPaciente);
+router.post('/', validarPacienteCreate, controller.crear);
 /**
  * @swagger
  * /pacientes/{id}:
  *   put:
  *     tags:
  *       - Pacientes
- *     summary: Actualizar un paciente existente
+ *     summary: Actualizar un paciente por Id
  *     parameters:
  *       - in: path
  *         name: id
@@ -105,7 +105,7 @@ router.post('/', validarPacienteCreate, controller.crearPaciente);
  *       404:
  *         description: Paciente no encontrado
  */
-router.put('/:id', validarPacienteUpdate, controller.actualizarPaciente);
+router.put('/:id', validarPacienteUpdate, controller.actualizar);
 
 /**
  * @swagger
@@ -135,6 +135,6 @@ router.put('/:id', validarPacienteUpdate, controller.actualizarPaciente);
  *       404:
  *         description: Paciente no encontrado
  */
-router.delete('/:id', controller.eliminarPaciente);
+router.delete('/:id', controller.eliminar);
 
 module.exports = router;

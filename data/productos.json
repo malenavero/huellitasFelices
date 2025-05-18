@@ -1,57 +1,24 @@
 [
   {
-    "id": 1,
-    "nombre": "alimento royal kitten salmon",
-    "categoria": "comida",
-    "precio": 1200,
-    "stock": 10,
-    "descripcion": "Alimento premium para perros adultos.",
-    "fechaVencimiento": "2025-12-01",
-    "createdAt": "2025-05-17T20:15:12.432Z",
-    "updatedAt": "2025-05-17T22:10:14.357Z"
-  },
-  {
-    "id": 2,
-    "nombre": "hueso goma",
-    "categoria": "comida",
-    "precio": 1800,
-    "stock": 10,
-    "descripcion": "ALIMENTO PREMIUM PARA PERROS ADULTOS.",
-    "fechaVencimiento": "2030-03-01",
-    "createdAt": "2025-05-17T20:46:57.452Z",
-    "updatedAt": "2025-05-17T20:46:57.452Z"
-  },
-  {
-    "id": 3,
-    "nombre": "antipulgas julepe",
+    "id": 8,
+    "nombre": "ibuorofeno gato adulto",
     "categoria": "farmacia",
-    "precio": 8000,
-    "stock": 3,
-    "descripcion": "Solo para gatos mayores a 6 meses",
-    "fechaVencimiento": "2029-11-09",
-    "createdAt": "2025-05-17T21:27:31.896Z",
-    "updatedAt": "2025-05-17T21:27:31.896Z"
+    "precio": 9800,
+    "stock": 6,
+    "descripcion": "Mayor a 2 años",
+    "fechaVencimiento": "2026-09-12",
+    "createdAt": "2025-05-18T19:17:30.372Z",
+    "updatedAt": "2025-05-18T22:47:57.485Z"
   },
   {
-    "id": 4,
-    "nombre": "alimento nutridog adulto",
-    "categoria": "comida",
-    "precio": 32000,
-    "stock": 15,
-    "descripcion": "Alimento para perros adultos (+5).",
-    "fechaVencimiento": "2026-02-01",
-    "createdAt": "2025-05-17T21:27:37.445Z",
-    "updatedAt": "2025-05-17T21:27:37.445Z"
-  },
-  {
-    "id": 5,
-    "nombre": "plumita violeta",
-    "categoria": "otro",
-    "precio": 1000,
-    "stock": 26,
-    "descripcion": "Pluma jugueta gato",
-    "fechaVencimiento": "",
-    "createdAt": "2025-05-18T00:13:42.423Z",
-    "updatedAt": "2025-05-18T00:14:47.612Z"
+    "id": 9,
+    "nombre": "pluma colores",
+    "categoria": "otros",
+    "precio": 2345,
+    "stock": 6,
+    "descripcion": "Mayor a 2 años",
+    "fechaVencimiento": "2026-09-12",
+    "createdAt": "2025-05-18T22:47:47.552Z",
+    "updatedAt": "2025-05-18T22:47:47.552Z"
   }
 ]

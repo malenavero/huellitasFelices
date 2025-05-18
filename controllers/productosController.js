@@ -1,12 +1,10 @@
-// controllers/productosControllers.js
-
 const Producto = require('../models/Producto');
 const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
+const { returnJSON } = require('./utils.js');
 
 module.exports = {
   // GET
   async listar(req, res) {
-    // Por ahora implementé solo el filtro por categoría, deberiamos pensar una mejor manera de modularizar tema filtros?
     const categoria = req.query.categoria;
     let productos;
 
@@ -16,11 +14,11 @@ module.exports = {
       productos = await Producto.findAll();
     }
 
-    if ((req.headers.accept && req.headers.accept.includes('application/json')) || req.query.format === 'json') {
-      return res.json(productos);
+    if (returnJSON(req)) {
+      return res.status(200).json(productos);
     }
 
-    res.render('productos/index', {
+    return res.status(200).render('productos/index', {
       productos,
       categorias: CATEGORIAS_PRODUCTO,
       categoriaSeleccionada: categoria || ''
@@ -28,24 +26,28 @@ module.exports = {
   },
 
   // GET
-  async verProducto(req, res) {
+  async detalle(req, res) {
     const producto = await Producto.findById(req.params.id);
     if (!producto) {
-      return res.status(404).send('Producto no encontrado');
+      if (returnJSON(req)) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+      } else {
+        return res.status(404).render('errors/404', { mensaje: 'Producto no encontrado' });
+      }
     }
 
-    if ((req.headers.accept && req.headers.accept.includes('application/json')) || req.query.format === 'json') {
-      return res.json(producto);
+    if (returnJSON(req)) {
+      return res.status(200).json(producto);
     }
 
-    res.render('productos/detalle', { producto });
+    return res.status(200).render('productos/detalle', { producto });
   },
 
   // POST
-  async crearProducto(req, res) {
+  async crear(req, res) {
     try {
       const { nombre, categoria, precio, stock, descripcion, fechaVencimiento } = req.body;
-  
+
       const nuevoProducto = await Producto.create({
         nombre,
         categoria,
@@ -54,21 +56,25 @@ module.exports = {
         descripcion,
         fechaVencimiento
       });
-  
-      if ((req.headers.accept && req.headers.accept.includes('application/json')) || req.query.format === 'json') {
+
+      if (returnJSON(req)) {
         return res.status(201).json(nuevoProducto);
       }
-  
-      res.redirect('/productos');
+
+      const productos = await Producto.findAll();
+      return res.status(201).render('productos/index', {
+        productos,
+        categorias: CATEGORIAS_PRODUCTO,
+        categoriaSeleccionada: ''
+      });
     } catch (error) {
       console.error('Error al crear producto:', error);
-      res.status(500).json({ error: 'Error al crear producto' });
+      return res.status(500).json({ error: 'Error al crear producto' });
     }
   },
-  
 
   // PUT
-  async actualizarProducto(req, res) {
+  async actualizar(req, res) {
     try {
       const id = parseInt(req.params.id);
       const datosActualizados = req.body;
@@ -76,47 +82,54 @@ module.exports = {
       const productoActualizado = await Producto.update(id, datosActualizados);
 
       if (!productoActualizado) {
-        return res.status(404).json({ error: 'Producto no encontrado' });
+        if (returnJSON(req)) {
+          return res.status(404).json({ error: 'Producto no encontrado' });
+        } else {
+          return res.status(404).render('errors/404', { mensaje: 'Producto no encontrado' });
+        }
       }
 
-      if ((req.headers.accept && req.headers.accept.includes('application/json')) || req.query.format === 'json') {
-        return res.json(productoActualizado);
+      if (returnJSON(req)) {
+        return res.status(200).json(productoActualizado);
       }
 
-      res.redirect('/productos/' + id);
+      return res.status(200).render('productos/detalle', { producto: productoActualizado });
     } catch (error) {
       console.error('Error al actualizar producto:', error);
-      res.status(500).json({ error: 'Error al actualizar producto' });
+      return res.status(500).json({ error: 'Error al actualizar producto' });
     }
   },
 
- // DELETE
-async eliminarProducto(req, res) {
-  try {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) {
-      return res.status(400).json({ error: 'ID inválido' });
-    }
+  // DELETE
+  async eliminar(req, res) {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ error: 'ID inválido' });
+      }
 
-    const eliminado = await Producto.delete(id);
-    if (!eliminado) {
-      return res.status(404).json({ error: 'Producto no encontrado' });
-    }
+      const eliminado = await Producto.delete(id);
+      if (!eliminado) {
+        if (returnJSON(req)) {
+          return res.status(404).json({ error: 'Producto no encontrado' });
+        } else {
+          return res.status(404).render('errors/404', { mensaje: 'Producto no encontrado' });
+        }
+      }
 
-    if (
-      !req.headers.accept || 
-      req.headers.accept === '*/*' || 
-      req.headers.accept.includes('application/json') || 
-      req.query.format === 'json'
-    ) {
-      return res.json({ mensaje: `Producto ${id} eliminado` });
-    }
-    
+      if (returnJSON(req)) {
+        return res.status(200).json({ mensaje: `Producto ${id} eliminado` });
+      }
 
-    res.redirect('/productos');
-  } catch (error) {
-    console.error('Error al eliminar producto:', error);
-    res.status(500).json({ error: 'Error al eliminar producto' });
+      const productos = await Producto.findAll();
+      return res.status(200).render('productos/index', {
+        productos,
+        categorias: CATEGORIAS_PRODUCTO,
+        categoriaSeleccionada: ''
+      });
+    } catch (error) {
+      console.error('Error al eliminar producto:', error);
+      return res.status(500).json({ error: 'Error al eliminar producto' });
+    }
   }
-}
 };

@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/productosController');
-const { validarProductoCreate, validarProductoUpdate } = require('../middlewares/validacionesProducto');
+const { validarProductoCreate, validarProductoUpdate } = require('../middlewares/validacionesProductos');
 
 /**
  * @swagger
@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
  *       404:
  *         description: Producto no encontrado
  */
-router.get('/:id', controller.verProducto);
+router.get('/:id', controller.detalle);
 /**
  * @swagger
  * /productos:
@@ -79,7 +79,7 @@ router.get('/:id', controller.verProducto);
  *       400:
  *         description: Error de validación
  */
-router.post('/', validarProductoCreate, controller.crearProducto);
+router.post('/', validarProductoCreate, controller.crear);
 /**
  * @swagger
  * /productos/{id}:
@@ -112,7 +112,7 @@ router.post('/', validarProductoCreate, controller.crearProducto);
  *       404:
  *         description: Producto no encontrado
  */
-router.put('/:id', validarProductoUpdate, controller.actualizarProducto);
+router.put('/:id', validarProductoUpdate, controller.actualizar);
 /**
  * @swagger
  * /productos/{id}:
@@ -133,6 +133,6 @@ router.put('/:id', validarProductoUpdate, controller.actualizarProducto);
  *       404:
  *         description: Producto no encontrado
  */
-router.delete('/:id', controller.eliminarProducto);
+router.delete('/:id', controller.eliminar);
 
 module.exports = router;

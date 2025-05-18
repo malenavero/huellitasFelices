@@ -14,5 +14,21 @@
     "fichaMedica": [],
     "createdAt": "2025-05-17T23:59:06.838Z",
     "updatedAt": "2025-05-17T23:59:06.838Z"
+  },
+  {
+    "id": 3,
+    "nombre": "kimchi",
+    "especie": "gato",
+    "raza": "naranja",
+    "fechaNacimiento": "2015-09-15",
+    "responsable": {
+      "nombre": "Elena Morley",
+      "telefono": "1123456789",
+      "email": "elena@mail.com",
+      "direccion": "Bulnes 123"
+    },
+    "fichaMedica": [],
+    "createdAt": "2025-05-18T18:45:54.255Z",
+    "updatedAt": "2025-05-18T18:45:54.255Z"
   }
 ]

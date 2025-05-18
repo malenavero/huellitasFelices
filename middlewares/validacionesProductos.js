@@ -1,6 +1,6 @@
 // middlewares/validacionesProductos.js
 const { body } = require('express-validator');
-const Producto = require('../models/Producto');
+const Producto = require('../models/Producto.js');
 const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
 
 const { validarFecha, normalizarCamposTexto, asignarDefaults, manejoErrores, validarDuplicado, validarTexto } = require('./utils.js');

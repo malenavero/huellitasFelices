@@ -39,34 +39,34 @@ function normalizarCamposTexto(campos = []) {
     };
   }
 
-  function asignarDefaults(defaults = {}) {
-    return (req, res, next) => {
-      if (req.method === 'POST') {
-        for (const campo in defaults) {
-          if (
-            req.body[campo] === undefined || 
-            req.body[campo] === null || 
-            req.body[campo] === ''
-          ) {
-            req.body[campo] = defaults[campo];
-          }
+function asignarDefaults(defaults = {}) {
+  return (req, res, next) => {
+    if (req.method === 'POST') {
+      for (const campo in defaults) {
+        if (
+          req.body[campo] === undefined || 
+          req.body[campo] === null || 
+          req.body[campo] === ''
+        ) {
+          req.body[campo] = defaults[campo];
         }
       }
-      next();
-    };
-  }
-
-  function manejoErrores(req, res, next) {
-    const errores = validationResult(req);
-    if (!errores.isEmpty()) {
-      const erroresFormateados = errores.array().map(err => ({
-        campo: err.path,
-        mensaje: err.msg,
-      }));
-      return res.status(400).json({ errores: erroresFormateados });
     }
     next();
+  };
+}
+
+function manejoErrores(req, res, next) {
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    const erroresFormateados = errores.array().map(err => ({
+      campo: err.path,
+      mensaje: err.msg,
+    }));
+    return res.status(400).json({ errores: erroresFormateados });
   }
+  next();
+}
 
   /**
  * validarDuplicado recibe un Modelo y un array de campos a verificar como combinación única.
@@ -113,17 +113,35 @@ function validarDuplicado(Modelo, campos = []) {
   
         return true;
       });
-  }
+}
   
 
-  function validarTexto(campo, max = 100) {
-    return [
-      body(campo)
-        .if(body(campo).exists({ checkFalsy: true }))
-        .isString().withMessage(`${campo} debe ser texto`)
-        .isLength({ max }).withMessage(`${campo} máximo ${max} caracteres`)
-    ];
-  }
+function validarTexto(campo, max = 100) {
+  return [
+    body(campo)
+      .if(body(campo).exists({ checkFalsy: true }))
+      .isString().withMessage(`${campo} debe ser texto`)
+      .isLength({ max }).withMessage(`${campo} máximo ${max} caracteres`)
+  ];
+}
+
+function validarDecimal(campo) {
+  return [
+    body(campo)
+      .if(body(campo).exists({ checkFalsy: true }))
+      .isFloat({ min: 0.01 })
+      .withMessage(`${campo} debe ser un número positivo`),
+  ];
+} 
+
+function validarEntero(campo) {
+  return [
+    body(campo)
+      .if(body(campo).exists({ checkFalsy: true }))
+      .isInt({ min: 1 })
+      .withMessage(`${campo} debe ser un número entero positivo`),
+  ];
+} 
   
 
   module.exports = {
@@ -132,5 +150,7 @@ function validarDuplicado(Modelo, campos = []) {
     asignarDefaults,
     manejoErrores,
     validarDuplicado,
-    validarTexto
+    validarTexto,
+    validarDecimal,
+    validarEntero
   };

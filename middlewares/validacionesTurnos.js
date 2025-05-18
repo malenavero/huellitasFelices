@@ -68,7 +68,7 @@ const validarTurnoCreate = [
     .withMessage('El precio es obligatorio'),
   ...validarDecimal('precio'),
 
-  validarDuplicado(Turno, ['fecha', 'hora']),
+  validarDuplicado(Turno, ['fecha', 'hora', 'servicio']),
   manejoErrores,
 ];
 
@@ -100,7 +100,7 @@ const validarTurnoUpdate = [
 
   ...validarDecimal('precio').map(val => val.optional()),
 
-  validarDuplicado(Turno, ['fecha', 'hora']),
+  validarDuplicado(Turno, ['fecha', 'hora', 'servicio']),
   manejoErrores,
 ];
 

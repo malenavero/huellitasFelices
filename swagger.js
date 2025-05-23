@@ -18,6 +18,10 @@ const options = {
           description: 'Operaciones relacionadas con productos del petshop',
         },
         {
+          name: 'Productos (Vistas)',
+          description: 'Vistas HTML para formularios de productos',
+        },
+        {
           name: 'Pacientes',
           description: 'Operaciones relacionadas con pacientes (mascotas)',
         }

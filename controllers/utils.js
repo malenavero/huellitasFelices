@@ -8,7 +8,15 @@ function returnJSON(req) {
     );
   }
 
+function handleError(req, res, status, message = '') {
+  if (returnJSON(req)) {
+    return res.status(status).json({ error: message });
+  } else {
+    return res.status(status).render(`errors/${status}`, { mensaje: message });
+  }
+}
 
 module.exports = {
-    returnJSON
+    returnJSON,
+    handleError
 }

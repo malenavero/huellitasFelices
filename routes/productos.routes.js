@@ -3,6 +3,44 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/productosController');
 const { validarProductoCreate, validarProductoUpdate } = require('../middlewares/validacionesProductos');
+const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
+
+/**
+ * @swagger
+ * /productos/crear:
+ *   get:
+ *     summary: Renderiza el formulario de creación de productos
+ *     tags:
+ *       - Productos (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de creación
+ */
+router.get('/crear', (req, res) => {
+  res.render('productos/form', {
+    modo: 'crear',
+    producto: {},
+    categorias: CATEGORIAS_PRODUCTO,
+    errores: []
+  });
+});
+
+/**
+ * @swagger
+ * /productos/{id}/editar:
+ *   get:
+ *     summary: Renderiza el formulario de edición para un producto
+ *     tags:
+ *       - Productos (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de edición
+ *       404:
+ *         description: Producto no encontrado
+ */
+
+router.get('/:id/editar', controller.formEditar);
+
 
 /**
  * @swagger

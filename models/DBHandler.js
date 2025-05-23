@@ -14,7 +14,7 @@ class DBHandler {
       return JSON.parse(data);
     } catch (err) {
       console.error('Error leyendo el archivo:', err);
-      return [];
+      throw err;
     }
   }
 
@@ -23,6 +23,7 @@ class DBHandler {
       await fs.writeFile(this.filePath, JSON.stringify(data, null, 2));
     } catch (err) {
       console.error('Error escribiendo el archivo:', err);
+      throw err;
     }
   }
 
@@ -43,12 +44,17 @@ class DBHandler {
 
   async deleteData(id) {
     const data = await this.readData();
+    const initialLength = data.length;
     const newData = data.filter(item => item.id !== id);
-    if (newData.length === data.length) return false;
+
+    if (newData.length === initialLength) {
+      return null;
+    }
 
     await this.writeData(newData);
-    return true;
+    return id; 
   }
+
 }
 
 module.exports = DBHandler;

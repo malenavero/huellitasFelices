@@ -22,39 +22,51 @@ async function renderListView(res, status = 200, query = {}) {
 module.exports = {
   // GET
   async listar(req, res) {
-    if (returnJSON(req)) {
-      const busquedas = await Busqueda.findAll(req.query);
-      return res.status(200).json(busquedas);
+    try {
+      if (returnJSON(req)) {
+        const busquedas = await Busqueda.findAll(req.query);
+        return res.status(200).json(busquedas);
+      }
+      return renderListView(res, 200, req.query);
+    } catch (error) {
+      return handleError(req, res, 500, 'Error al obtener búsquedas');
     }
-    return renderListView(res, 200, req.query);
   },
 
   async detalle(req, res) {
-    const busqueda = await Busqueda.findById(req.params.id);
-    if (!busqueda) {
-      return handleError(req, res, 404, 'Búsqueda no encontrada');
+    try {
+      const busqueda = await Busqueda.findById(req.params.id);
+      if (!busqueda) {
+        return handleError(req, res, 404, 'Búsqueda no encontrada');
+      }
+      if (returnJSON(req)) {
+        return res.status(200).json(busqueda);
+      }
+      return res.status(200).render('busquedas/detalle', { busqueda });
+    } catch (error) {
+      return handleError(req, res, 500, 'Error al obtener búsqueda');
     }
-    if (returnJSON(req)) {
-      return res.status(200).json(busqueda);
-    }
-    return res.status(200).render('busquedas/detalle', { busqueda });
   },
 
+  // GET - formulario para editar
   async formEditar(req, res) {
-    const busqueda = await Busqueda.findById(req.params.id);
-    if (!busqueda) {
-      return handleError(req, res, 404, message = 'Busqueda no encontrada')
+    try {
+      const busqueda = await Busqueda.findById(req.params.id);
+      if (!busqueda) {
+        return handleError(req, res, 404, 'Búsqueda no encontrada');
+      }
+      return res.render('busquedas/form', {
+        modo: 'editar',
+        busqueda,
+        ANIMALES_VALIDOS,
+        TIPOS_BUSQUEDA
+      });
+    } catch (error) {
+      return handleError(req, res, 500, 'Error al cargar formulario de edición');
     }
-    res.render('busquedas/form', {
-      modo: 'editar',
-      busqueda,
-      ANIMALES_VALIDOS,
-      TIPOS_BUSQUEDA
-    });
   },
 
   // POST
-
   async crear(req, res) {
     try {
       const nuevaBusqueda = await Busqueda.create(req.body);
@@ -66,32 +78,46 @@ module.exports = {
       return handleError(req, res, 500, 'Error al crear búsqueda');
     }
   },
-  // PUT
 
+ // PUT 
   async actualizar(req, res) {
     try {
       const id = parseInt(req.params.id);
-      const actualizada = await Busqueda.update(id, req.body);
-      if (!actualizada) {
+      const busqueda = await Busqueda.findById(id);
+      if (!busqueda) {
         return handleError(req, res, 404, 'Búsqueda no encontrada');
       }
+
+      const success = await busqueda.update(req.body);
+      if (!success) {
+        return handleError(req, res, 500, 'Error al actualizar búsqueda');
+      }
+
       if (returnJSON(req)) {
-        return res.status(200).json(actualizada);
+        return res.status(200).json(busqueda);
       }
       return renderListView(res, 200);
     } catch (error) {
       return handleError(req, res, 500, 'Error al actualizar búsqueda');
     }
   },
-  // DELETE
 
+
+  
+// DELETE 
   async eliminar(req, res) {
     try {
       const id = parseInt(req.params.id);
-      const eliminado = await Busqueda.delete(id);
-      if (!eliminado) {
+      const busqueda = await Busqueda.findById(id);
+      if (!busqueda) {
         return handleError(req, res, 404, 'Búsqueda no encontrada');
       }
+
+      const success = await busqueda.delete();
+      if (!success) {
+        return handleError(req, res, 500, 'Error al eliminar búsqueda');
+      }
+
       if (returnJSON(req)) {
         return res.status(200).json({ mensaje: `Búsqueda ${id} eliminada` });
       }

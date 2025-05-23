@@ -1,5 +1,5 @@
 const Paciente = require('../models/Paciente');
-const { returnJSON, handleError, urls} = require('./utils.js');
+const { returnJSON, handleError, urls } = require('./utils.js');
 
 async function getListParams(query = {}) {
   const pacientes = await Paciente.findAll(query);
@@ -15,11 +15,10 @@ async function renderListView(res, status = 200, query = {}) {
 }
 
 module.exports = {
-
   // GET
   async listar(req, res) {
     if (returnJSON(req)) {
-      const pacientes = await Paciente.findAll(req.query);    
+      const pacientes = await Paciente.findAll(req.query);
       return res.status(200).json(pacientes);
     }
     return renderListView(res, 200, req.query);
@@ -28,7 +27,7 @@ module.exports = {
   async detalle(req, res) {
     const paciente = await Paciente.findById(req.params.id);
     if (!paciente) {
-      return handleError(req, res, 404, message = 'Paciente no encontrado')
+      return handleError(req, res, 404, 'Paciente no encontrado')
     }
 
     if (returnJSON(req)) {
@@ -41,7 +40,7 @@ module.exports = {
   async formEditar(req, res) {
     const paciente = await Paciente.findById(req.params.id);
     if (!paciente) {
-      return handleError(req, res, 404, message = 'Paciente no encontrado')
+      return handleError(req, res, 404, 'Paciente no encontrado')
     }
     res.render('pacientes/form', {
       modo: 'editar',
@@ -49,18 +48,19 @@ module.exports = {
     });
   },
 
-  // POST
+  // POST 
   async crear(req, res) {
     try {
-      const nuevoPaciente = await Paciente.create(req.body);
+      const paciente = new Paciente(req.body);
+      await paciente.save();
 
       if (returnJSON(req)) {
-        return res.status(201).json(nuevoPaciente);
+        return res.status(201).json(paciente);
       }
 
       return renderListView(res, 201, req.query);
     } catch (error) {
-      handleError(req, res, 500, message = 'Error al crear paciente');
+      return handleError(req, res, 500, 'Error al crear paciente');
     }
   },
 
@@ -68,19 +68,22 @@ module.exports = {
   async actualizar(req, res) {
     try {
       const id = parseInt(req.params.id);
-      const actualizado = await Paciente.update(id, req.body);
+      const paciente = await Paciente.findById(id);
 
-      if (!actualizado) {
-        return handleError(req, res, 404, message = 'Paciente no encontrado')
+      if (!paciente) {
+        return handleError(req, res, 404, 'Paciente no encontrado');
       }
+
+      Object.assign(paciente, req.body);
+      await paciente.save();
 
       if (returnJSON(req)) {
-        return res.status(200).json(actualizado);
+        return res.status(200).json(paciente);
       }
 
-      return renderListView(res, 201, req.query);
+      return renderListView(res, 200, req.query);
     } catch (error) {
-      return handleError(req, res, 500, message = 'Error al actualizar paciente')
+      return handleError(req, res, 500, 'Error al actualizar paciente');
     }
   },
 
@@ -90,7 +93,7 @@ module.exports = {
       const id = parseInt(req.params.id);
       const idEliminado = await Paciente.delete(id);
       if (!idEliminado) {
-        return handleError(req, res, 404, message = 'Paciente no encontrado')
+        return handleError(req, res, 404, 'Paciente no encontrado')
       }
 
       if (returnJSON(req)) {
@@ -100,7 +103,7 @@ module.exports = {
       return renderListView(res, 200, req.query);
 
     } catch (error) {
-      return handleError(req, res, 500, message = 'Error al eliminar paciente')
+      return handleError(req, res, 500, 'Error al eliminar paciente');
     }
   }
 };

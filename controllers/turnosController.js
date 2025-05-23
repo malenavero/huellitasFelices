@@ -1,59 +1,71 @@
 const Turno = require('../models/Turno');
-const { returnJSON, handleError, urls} = require('./utils.js');
+const { returnJSON, handleError, urls } = require('./utils.js');
 
 async function getListParams(query = {}) {
   const turnos = await Turno.findAll(query);
   return {
     turnos,
     ...urls
-  }
+  };
 }
 
 async function renderListView(res, status = 200, query = {}) {
-  const params = await getListParams(query)
+  const params = await getListParams(query);
   return res.status(status).render('turnos/index', params);
 }
 
 module.exports = {
-   // GET
+  // GET
   async listar(req, res) {
-
-    if (returnJSON(req)) {
-      const turnos = await Turno.findAll(req.query);    
-      return res.status(200).json(turnos);
+    try {
+      if (returnJSON(req)) {
+        const turnos = await Turno.findAll(req.query);
+        return res.status(200).json(turnos);
+      }
+      return renderListView(res, 200, req.query);
+    } catch (error) {
+      return handleError(req, res, 500, 'Error al listar turnos');
     }
-    return renderListView(res, 200, req.query);
   },
 
   async detalle(req, res) {
-    const turno = await Turno.findById(req.params.id);
-    if (!turno) {
-      return handleError(req, res, 404, message = 'Turno no encontrado')
-    }
+    try {
+      const turno = await Turno.findById(req.params.id);
+      if (!turno) {
+        return handleError(req, res, 404, 'Turno no encontrado');
+      }
 
-    if (returnJSON(req)) {
-      return res.status(200).json(turno);
-    }
+      if (returnJSON(req)) {
+        return res.status(200).json(turno);
+      }
 
-    return res.status(200).render('turnos/detalle', { turno });
+      return res.status(200).render('turnos/detalle', { turno });
+    } catch (error) {
+      return handleError(req, res, 500, 'Error al obtener detalle de turno');
+    }
   },
 
   async formEditar(req, res) {
-    const turno = await Turno.findById(req.params.id);
-    if (!turno) {
-      return handleError(req, res, 404, message = 'Turno no encontrado')
+    try {
+      const turno = await Turno.findById(req.params.id);
+      if (!turno) {
+        return handleError(req, res, 404, 'Turno no encontrado');
+      }
+      res.render('turnos/form', {
+        modo: 'editar',
+        turno
+      });
+    } catch (error) {
+      return handleError(req, res, 500, 'Error al cargar formulario de edición');
     }
-    res.render('turnos/form', {
-      modo: 'editar',
-      turno
-    });
   },
 
-  // POST
+  // POST (crear)
   async crear(req, res) {
     try {
-      const { fecha, hora, pacienteId, servicio } = req.body;
-      const nuevoTurno = await Turno.create({ fecha, hora, pacienteId, servicio });
+      // El middleware ya validó req.body y pacienteId existe
+
+      const nuevoTurno = await Turno.create(req.body);
 
       if (returnJSON(req)) {
         return res.status(201).json(nuevoTurno);
@@ -61,28 +73,28 @@ module.exports = {
 
       return renderListView(res, 201, req.query);
     } catch (error) {
-      handleError(req, res, 500, message = 'Error al crear turno');
+      return handleError(req, res, 500, 'Error al crear turno');
     }
   },
 
-  // PUT
+  // PUT (actualizar)
   async actualizar(req, res) {
     try {
       const id = parseInt(req.params.id);
-      const datosActualizados = req.body;
 
-      const turnoActualizado = await Turno.update(id, datosActualizados);
+      const turnoActualizado = await Turno.update(id, req.body);
 
       if (!turnoActualizado) {
-        return handleError(req, res, 404, message = 'Turno no encontrado')
+        return handleError(req, res, 404, 'Turno no encontrado');
       }
 
       if (returnJSON(req)) {
         return res.status(200).json(turnoActualizado);
       }
-      return renderListView(res, 201, req.query);
+
+      return renderListView(res, 200, req.query);
     } catch (error) {
-      return handleError(req, res, 500, message = 'Error al actualizar turno')
+      return handleError(req, res, 500, 'Error al actualizar turno');
     }
   },
 
@@ -92,7 +104,7 @@ module.exports = {
       const id = parseInt(req.params.id);
       const idEliminado = await Turno.delete(id);
       if (!idEliminado) {
-        return handleError(req, res, 404, message = 'Turno no encontrado')
+        return handleError(req, res, 404, 'Turno no encontrado');
       }
 
       if (returnJSON(req)) {
@@ -100,9 +112,8 @@ module.exports = {
       }
 
       return renderListView(res, 200, req.query);
-
     } catch (error) {
-      return handleError(req, res, 500, message = 'Error al eliminar turno')
+      return handleError(req, res, 500, 'Error al eliminar turno');
     }
   }
 };

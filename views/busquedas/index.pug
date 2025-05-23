@@ -60,5 +60,5 @@ block content
           div.acciones(style="margin-top: 10px;")
             a(href=`/busquedas/${busqueda.id}`, style="margin-right: 10px;") 👁️ Ver
             a(href=`/busquedas/${busqueda.id}/editar`, style="margin-right: 10px;") ✏️ Editar
-            form(method="POST", action=`/busquedas/${busqueda.id}?_method=DELETE`, style="display:inline")
-              button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar esta búsqueda?')") 🗑️ Eliminar
+            form(method="POST", action=`/busquedas/${busqueda.id}?_method=DELETE`)
+              button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar esta busqueda?')") 🗑️ Eliminar

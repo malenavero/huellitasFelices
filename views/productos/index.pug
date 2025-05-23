@@ -3,8 +3,8 @@ extends ../layout
 block content
   h1 Productos disponibles
 
-  //Filtrado por categoría
-  form(method="GET", style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;")
+  // Filtrado por categoría
+  form(method="GET", class="form-box form-flex")
     select(name="categoria")
       option(value="") Todas las categorías
       each categoria in categorias
@@ -26,9 +26,15 @@ block content
           span.detail-label Stock:
           | #{producto.stock}
         
-        // 🔹 Acciones
-        div(style="margin-top: 10px;")
-          a(href=`/productos/${producto.id}`, style="margin-right: 10px;") 👁️ Ver
-          a(href=`/productos/${producto.id}/editar`, style="margin-right: 10px;") ✏️ Editar
-          form(method="POST", action=`/productos/${producto.id}?_method=DELETE`, style="display:inline")
-            button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')") 🗑️ Eliminar
+        //  Acciones principales
+        div(class="acciones")
+          a(href=`/productos/${producto.id}`) 👁️ Ver
+          a(href=`/productos/${producto.id}/editar`) ✏️ Editar
+          form(method="POST", action=`/productos/${producto.id}?_method=DELETE`)
+            button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')") 🗑️ Eliminar
+
+        //  Formulario para vender
+        form(method="POST", action=`/productos/${producto.id}/vender`, class="form-flex venta-form")
+          label(for=`cantidad-${producto.id}`) Cantidad:
+          input(type="number", id=`cantidad-${producto.id}`, name="cantidad", min="1", max=producto.stock, value="1", required)
+          button(type="submit") Vender

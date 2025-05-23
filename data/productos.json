@@ -3,12 +3,12 @@
     "id": 8,
     "nombre": "ibuorofeno gato adulto",
     "categoria": "farmacia",
-    "precio": 9800,
-    "stock": 6,
+    "precio": "9800",
+    "stock": 60,
     "descripcion": "Mayor a 2 años",
     "fechaVencimiento": "2026-09-12",
     "createdAt": "2025-05-18T19:17:30.372Z",
-    "updatedAt": "2025-05-23T14:11:17.546Z"
+    "updatedAt": "2025-05-23T21:08:15.994Z"
   },
   {
     "id": 9,
@@ -21,5 +21,4 @@
     "createdAt": "2025-05-18T22:47:47.552Z",
     "updatedAt": "2025-05-18T22:47:47.552Z"
   }
-  
 ]

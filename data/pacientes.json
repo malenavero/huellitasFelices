@@ -32,8 +32,8 @@
     "updatedAt": "2025-05-18T18:45:54.255Z"
   },
   {
-    "id": 4,
-    "nombre": "gala4",
+    "id": 5,
+    "nombre": "gala5",
     "especie": "gato",
     "raza": "gris",
     "fechaNacimiento": "2015-09-16",
@@ -44,7 +44,25 @@
       "direccion": "Bulnes 123"
     },
     "fichaMedica": [],
-    "createdAt": "2025-05-23T14:49:03.217Z",
-    "updatedAt": "2025-05-23T14:49:03.217Z"
+    "consultas": [],
+    "createdAt": "2025-05-23T20:23:08.935Z",
+    "updatedAt": "2025-05-23T20:23:08.935Z"
+  },
+  {
+    "id": 6,
+    "nombre": "gala5",
+    "especie": "gato",
+    "raza": "gris",
+    "fechaNacimiento": "2015-09-16",
+    "responsable": {
+      "nombre": "Elena Morley",
+      "telefono": "1123456789",
+      "email": "otroResponsabe@mail.com",
+      "direccion": "Bulnes 123"
+    },
+    "fichaMedica": [],
+    "consultas": [],
+    "createdAt": "2025-05-23T20:32:53.187Z",
+    "updatedAt": "2025-05-23T20:32:53.187Z"
   }
 ]

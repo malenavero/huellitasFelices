@@ -664,6 +664,122 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Registrar usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"nombre\": \"Nicolás\",\n  \"apellido\": \"Pereyra\",\n  \"telefono\": \"1155337799\",\n  \"direccion\": \"Av. Salud Animal 100\",\n  \"correo\": \"nicolas@ejemplo.com\",\n  \"password\": \"12345\",\n  \"rol\": \"gerente\"\n}",
+						"options": {
+							"raw": {
+							"language": "json"
+							}
+						}
+						},
+						"url": {
+						"raw": "http://localhost:3000/usuarios",
+						"protocol": "http",
+						"host": ["localhost"],
+						"port": "3000",
+						"path": ["usuarios"]
+						}
+					}
+				},
+				{
+					"name": "Obtener usuario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "http://localhost:3000/usuarios/11",
+						"protocol": "http",
+						"host": ["localhost"],
+						"port": "3000",
+						"path": ["usuarios", "11"]
+						}
+					}
+				},
+				{
+				"name": "Actualizar un usuario por ID",
+				"request": {
+					"method": "PUT",
+					"header": [],
+					"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"daniel\",\n  \"apellido\": \"pugliese\",\n  \"password\": \"hola123\",\n  \"telefono\": \"011568417854\",\n  \"direccion\": \"Av. de mayo 1112\",\n  \"correo\": \"dani@test.com\",\n  \"rol\": \"recepcion\"\n}",
+					"options": {
+						"raw": {
+						"language": "json"
+						}
+					}
+					},
+					"url": {
+					"raw": "http://localhost:3000/usuarios/11",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["usuarios", "11"]
+					}
+				}
+				},
+				{
+				"name": "Eliminar un usuario por ID",
+				"request": {
+					"method": "DELETE",
+					"header": [],
+					"url": {
+					"raw": "http://localhost:3000/usuarios/11",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["usuarios", "11"]
+					}
+				}
+				},
+				{
+					"name": "Login de usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"correo\":\"nicolas@ejemplo.com\",\n  \"password\":\"12345\"\n}",
+						"options": {
+							"raw": {
+							"language": "json"
+							}
+						}
+						},
+						"url": {
+						"raw": "http://localhost:3000/usuarios/login",
+						"protocol": "http",
+						"host": ["localhost"],
+						"port": "3000",
+						"path": ["usuarios", "login"]
+						}
+					}
+				},
+				{
+					"name": "Listar usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "http://localhost:3000/usuarios",
+						"protocol": "http",
+						"host": ["localhost"],
+						"port": "3000",
+						"path": ["usuarios"]
+						}
+					}
+				}
+				]
 		}
 	]
 }

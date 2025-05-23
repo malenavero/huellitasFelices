@@ -23,8 +23,20 @@ class Turno {
     this.updatedAt = updatedAt;
   }
 
-  static async findAll() {
-    return await db.readData();
+  static async findAll(query = {}) {
+    const data = await db.readData();
+    let filteredData = data;
+    if (query.servicio) {
+        filteredData = data.filter(p => p.servicio === query.servicio);
+    }
+    if (query.fecha) {
+        filteredData = data.filter(p => p.fecha === query.fecha);
+    }
+    if (query.pacienteId) {
+        filteredData = data.filter(p => p.pacienteId === query.pacienteId);
+    }
+    // aca podmeos agregar si pensamos mas campos de filtrado
+    return filteredData;  
   }
 
   static async findById(id) {

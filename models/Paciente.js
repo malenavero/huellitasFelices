@@ -28,9 +28,13 @@ class Paciente {
   }
 
   // Cuando listamos, agregamos la edad calculada
-  static async findAll() {
+  static async findAll(query = {}) {
     const pacientes = await db.readData();
-    return pacientes.map(p => ({
+    let pacientesFiltrados = pacientes;
+    if (query.nombre) {
+        filteredData = data.filter(p => p.nombre === query.nombre);
+    }
+    return pacientesFiltrados.map(p => ({
       ...p,
       edad: this.calcularEdad(p.fechaNacimiento)
     }));

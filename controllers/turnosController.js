@@ -1,46 +1,55 @@
 const Turno = require('../models/Turno');
-const { returnJSON } = require('./utils.js');
+const { returnJSON, handleError, urls} = require('./utils.js');
+
+async function getListParams(query = {}) {
+  const turnos = await Turno.findAll(query);
+  return {
+    turnos,
+    ...urls
+  }
+}
+
+async function renderListView(res, status = 200, query = {}) {
+  const params = await getListParams(query)
+  return res.status(status).render('turnos/index', params);
+}
 
 module.exports = {
+   // GET
   async listar(req, res) {
-    try {
-      const turnos = await Turno.findAll();
 
-      if (returnJSON(req)) {
-        return res.status(200).json(turnos);
-      }
-
-      return res.status(200).render('turnos/index', { turnos });
-    } catch (error) {
-      console.error('Error al obtener los turnos:', error);
-      return res.status(500).render('errors/500', { mensaje: 'Error al obtener los turnos' });
+    if (returnJSON(req)) {
+      const turnos = await Turno.findAll(req.query);    
+      return res.status(200).json(turnos);
     }
+    return renderListView(res, 200, req.query);
   },
 
   async detalle(req, res) {
-    try {
-      const id = req.params.id;
-      const turno = await Turno.findById(id);
-
-      if (!turno) {
-        if (returnJSON(req)) {
-          return res.status(404).json({ error: 'Turno no encontrado' });
-        } else {
-          return res.status(404).render('errors/404', { mensaje: 'Turno no encontrado' });
-        }
-      }
-
-      if (returnJSON(req)) {
-        return res.status(200).json(turno);
-      }
-
-      return res.status(200).render('turnos/detalle', { turno });
-    } catch (error) {
-      console.error('Error al obtener el turno:', error);
-      return res.status(500).render('errors/500', { mensaje: 'Error al obtener el turno' });
+    const turno = await Turno.findById(req.params.id);
+    if (!turno) {
+      return handleError(req, res, 404, message = 'Turno no encontrado')
     }
+
+    if (returnJSON(req)) {
+      return res.status(200).json(turno);
+    }
+
+    return res.status(200).render('turnos/detalle', { turno });
   },
 
+  async formEditar(req, res) {
+    const turno = await Turno.findById(req.params.id);
+    if (!turno) {
+      return handleError(req, res, 404, message = 'Turno no encontrado')
+    }
+    res.render('turnos/form', {
+      modo: 'editar',
+      turno
+    });
+  },
+
+  // POST
   async crear(req, res) {
     try {
       const { fecha, hora, pacienteId, servicio } = req.body;
@@ -50,14 +59,13 @@ module.exports = {
         return res.status(201).json(nuevoTurno);
       }
 
-      const turnos = await Turno.findAll();
-      return res.status(201).render('turnos/index', { turnos });
+      return renderListView(res, 201, req.query);
     } catch (error) {
-      console.error('Error al crear turno:', error);
-      return res.status(500).json({ error: 'Error al crear turno' });
+      handleError(req, res, 500, message = 'Error al crear turno');
     }
   },
 
+  // PUT
   async actualizar(req, res) {
     try {
       const id = parseInt(req.params.id);
@@ -66,48 +74,35 @@ module.exports = {
       const turnoActualizado = await Turno.update(id, datosActualizados);
 
       if (!turnoActualizado) {
-        if (returnJSON(req)) {
-          return res.status(404).json({ error: 'Turno no encontrado' });
-        } else {
-          return res.status(404).render('errors/404', { mensaje: 'Turno no encontrado' });
-        }
+        return handleError(req, res, 404, message = 'Turno no encontrado')
       }
 
       if (returnJSON(req)) {
         return res.status(200).json(turnoActualizado);
       }
-
-      return res.status(200).render('turnos/detalle', { turno: turnoActualizado });
+      return renderListView(res, 201, req.query);
     } catch (error) {
-      console.error('Error al actualizar turno:', error);
-      return res.status(500).json({ error: 'Error al actualizar turno' });
+      return handleError(req, res, 500, message = 'Error al actualizar turno')
     }
   },
 
+  // DELETE
   async eliminar(req, res) {
     try {
-      const id = req.params.id;
-      const turnoExistente = await Turno.findById(id);
-
-      if (!turnoExistente) {
-        if (returnJSON(req)) {
-          return res.status(404).json({ error: 'Turno no encontrado' });
-        } else {
-          return res.status(404).render('errors/404', { mensaje: 'Turno no encontrado' });
-        }
+      const id = parseInt(req.params.id);
+      const idEliminado = await Turno.delete(id);
+      if (!idEliminado) {
+        return handleError(req, res, 404, message = 'Turno no encontrado')
       }
-
-      await Turno.delete(id);
 
       if (returnJSON(req)) {
-        return res.status(200).json({ mensaje: 'Turno eliminado correctamente' });
+        return res.status(200).json({ mensaje: `Turno ${idEliminado} eliminado` });
       }
 
-      const turnos = await Turno.findAll();
-      return res.status(200).render('turnos/index', { turnos });
+      return renderListView(res, 200, req.query);
+
     } catch (error) {
-      console.error('Error al eliminar turno:', error);
-      return res.status(500).json({ error: 'Error al eliminar turno' });
+      return handleError(req, res, 500, message = 'Error al eliminar turno')
     }
   }
 };

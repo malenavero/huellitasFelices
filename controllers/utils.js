@@ -16,7 +16,14 @@ function handleError(req, res, status, message = '') {
   }
 }
 
+const urls = {
+  productosUrl: '/productos',
+  pacientesUrl: '/pacientes',
+  turnosUrl: '/turnos'
+}
+
 module.exports = {
     returnJSON,
-    handleError
+    handleError,
+    urls
 }

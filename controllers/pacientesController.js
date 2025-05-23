@@ -1,45 +1,55 @@
 const Paciente = require('../models/Paciente');
-const { returnJSON } = require('./utils.js');
+const { returnJSON, handleError, urls} = require('./utils.js');
+
+async function getListParams(query = {}) {
+  const pacientes = await Paciente.findAll(query);
+  return {
+    pacientes,
+    ...urls
+  }
+}
+
+async function renderListView(res, status = 200, query = {}) {
+  const params = await getListParams(query)
+  return res.status(status).render('pacientes/index', params);
+}
 
 module.exports = {
+
+  // GET
   async listar(req, res) {
-    try {
-      const pacientes = await Paciente.findAll();
-
-      if (returnJSON(req)) {
-        return res.status(200).json(pacientes);
-      }
-
-      return res.status(200).render('pacientes/index', { pacientes });
-    } catch (error) {
-      console.error('Error al listar pacientes:', error);
-      return res.status(500).json({ error: 'Error al listar pacientes' });
+    if (returnJSON(req)) {
+      const pacientes = await Paciente.findAll(req.query);    
+      return res.status(200).json(pacientes);
     }
+    return renderListView(res, 200, req.query);
   },
 
   async detalle(req, res) {
-    try {
-      const paciente = await Paciente.findById(req.params.id);
-
-      if (!paciente) {
-        if (returnJSON(req)) {
-          return res.status(404).json({ error: 'Paciente no encontrado' });
-        } else {
-          return res.status(404).render('errors/404', { mensaje: 'Paciente no encontrado' });
-        }
-      }
-
-      if (returnJSON(req)) {
-        return res.status(200).json(paciente);
-      }
-
-      return res.status(200).render('pacientes/detalle', { paciente });
-    } catch (error) {
-      console.error('Error al obtener detalle de paciente:', error);
-      return res.status(500).json({ error: 'Error al obtener paciente' });
+    const paciente = await Paciente.findById(req.params.id);
+    if (!paciente) {
+      return handleError(req, res, 404, message = 'Paciente no encontrado')
     }
+
+    if (returnJSON(req)) {
+      return res.status(200).json(paciente);
+    }
+
+    return res.status(200).render('pacientes/detalle', { paciente });
   },
 
+  async formEditar(req, res) {
+    const paciente = await Paciente.findById(req.params.id);
+    if (!paciente) {
+      return handleError(req, res, 404, message = 'Paciente no encontrado')
+    }
+    res.render('pacientes/form', {
+      modo: 'editar',
+      paciente
+    });
+  },
+
+  // POST
   async crear(req, res) {
     try {
       const nuevoPaciente = await Paciente.create(req.body);
@@ -48,64 +58,49 @@ module.exports = {
         return res.status(201).json(nuevoPaciente);
       }
 
-      const pacientes = await Paciente.findAll();
-      return res.status(201).render('pacientes/index', { pacientes });
+      return renderListView(res, 201, req.query);
     } catch (error) {
-      console.error('Error al crear paciente:', error);
-      return res.status(500).json({ error: 'Error al crear paciente' });
+      handleError(req, res, 500, message = 'Error al crear paciente');
     }
   },
 
+  // PUT
   async actualizar(req, res) {
     try {
       const id = parseInt(req.params.id);
       const actualizado = await Paciente.update(id, req.body);
 
       if (!actualizado) {
-        if (returnJSON(req)) {
-          return res.status(404).json({ error: 'Paciente no encontrado' });
-        } else {
-          return res.status(404).render('errors/404', { mensaje: 'Paciente no encontrado' });
-        }
+        return handleError(req, res, 404, message = 'Paciente no encontrado')
       }
 
       if (returnJSON(req)) {
         return res.status(200).json(actualizado);
       }
 
-      return res.status(200).render('pacientes/detalle', { paciente: actualizado });
+      return renderListView(res, 201, req.query);
     } catch (error) {
-      console.error('Error al actualizar paciente:', error);
-      return res.status(500).json({ error: 'Error al actualizar paciente' });
+      return handleError(req, res, 500, message = 'Error al actualizar paciente')
     }
   },
 
+  // DELETE
   async eliminar(req, res) {
     try {
       const id = parseInt(req.params.id);
-      if (isNaN(id)) {
-        return res.status(400).json({ error: 'ID inválido' });
-      }
-
-      const eliminado = await Paciente.delete(id);
-
-      if (!eliminado) {
-        if (returnJSON(req)) {
-          return res.status(404).json({ error: 'Paciente no encontrado' });
-        } else {
-          return res.status(404).render('errors/404', { mensaje: 'Paciente no encontrado' });
-        }
+      const idEliminado = await Paciente.delete(id);
+      if (!idEliminado) {
+        return handleError(req, res, 404, message = 'Paciente no encontrado')
       }
 
       if (returnJSON(req)) {
-        return res.status(200).json({ mensaje: `Paciente ${id} eliminado` });
+        return res.status(200).json({ mensaje: `Paciente ${idEliminado} eliminado` });
       }
 
-      const pacientes = await Paciente.findAll();
-      return res.status(200).render('pacientes/index', { pacientes });
+      return renderListView(res, 200, req.query);
+
     } catch (error) {
-      console.error('Error al eliminar paciente:', error);
-      return res.status(500).json({ error: 'Error al eliminar paciente' });
+      return handleError(req, res, 500, message = 'Error al eliminar paciente')
     }
   }
 };

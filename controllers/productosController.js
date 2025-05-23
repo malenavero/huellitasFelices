@@ -2,13 +2,7 @@
 
 const Producto = require('../models/Producto');
 const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
-const { returnJSON, handleError} = require('./utils.js');
-
-const urls = {
-  productosUrl: '/productos',
-  pacientesUrl: '/pacientes',
-  turnosUrl: '/turnos'
-}
+const { returnJSON, handleError, urls} = require('./utils.js');
 
 async function getListParams(query = {}) {
   const productos = await Producto.findAll(query);
@@ -16,7 +10,7 @@ async function getListParams(query = {}) {
     productos,
     categorias: CATEGORIAS_PRODUCTO,
     categoriaSeleccionada: query.categoria || '',
-    ...urls,
+    ...urls
   }
 }
 

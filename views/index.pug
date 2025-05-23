@@ -3,7 +3,13 @@ extends layout
 block content
   h1= title
 
-  a(href=productosUrl) Ver Productos
-  a(href=pacientesUrl) Ver Pacientes
-  a(href=turnosUrl) Ver Turnos
+  div.card-container
+    div.card
+      a(href=productosUrl) Productos
+    div.card
+      a(href=pacientesUrl) Pacientes
+    div.card
+      a(href=turnosUrl) Turnos
 
+
+      

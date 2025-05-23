@@ -49,6 +49,53 @@ li:hover {
   box-shadow: 0 0 12px #0077ccaa;
 }
 
+.nav-links {
+  display: flex; /* Makes the nav items a flex container */
+  justify-content: space-between; /* Pushes items to ends of container */
+  align-items: center; /* Vertically centers items */
+  padding: 10px 0; /* Add some padding to the nav bar */
+  margin-bottom: 30px; /* Space below the nav bar */
+}
+
+.nav-links a {
+  margin-right: 15px;
+  font-weight: 600;
+}
+
+.nav-links .main-nav-items {
+  display: flex;
+  margin-left: auto; /* This is the key to push them to the right */
+}
+
+.card-container {
+  display: flex; /* Use flexbox for horizontal layout */
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  gap: 20px; /* Space between cards */
+  margin-bottom: 30px; /* Add some space below the cards */
+}
+
+.card {
+  background: #fff;
+  padding: 20px; /* Slightly more padding for a card feel */
+  border-radius: 8px; /* Slightly more rounded corners for cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+  transition: all 0.3s ease;
+  flex: 1; /* Allow cards to grow and shrink */
+  min-width: 200px; /* Minimum width for cards before wrapping */
+  text-align: center; /* Center the text inside the card */
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 119, 204, 0.3); /* Enhanced hover shadow */
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+.card a {
+  display: block; /* Make the link fill the whole card for better click area */
+  font-weight: 600;
+  font-size: 1.1em; /* Make the link text slightly larger */
+}
+
 form {
   background: #fff;
   padding: 20px;

@@ -13,5 +13,20 @@
     "activa": true,
     "createdAt": "2025-05-23T19:02:38.334Z",
     "updatedAt": "2025-05-23T19:02:38.334Z"
+  },
+  {
+    "id": 2,
+    "tipo": "encontrada",
+    "nombre": "roberto",
+    "zona": "caballito",
+    "fecha": "2021-02-20",
+    "descripcion": "mala onda",
+    "contacto": "1132221111",
+    "imagen": null,
+    "animal": "gato",
+    "color": null,
+    "activa": true,
+    "createdAt": "2025-05-23T21:25:44.162Z",
+    "updatedAt": "2025-05-23T21:25:44.162Z"
   }
 ]

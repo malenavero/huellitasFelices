@@ -187,6 +187,3 @@ router.put('/:id', validarBusquedaUpdate, controller.actualizar);
 router.delete('/:id', controller.eliminar);
 
 module.exports = router;
-
-
-module.exports = router;

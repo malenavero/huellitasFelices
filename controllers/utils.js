@@ -20,7 +20,8 @@ const urls = {
   productosUrl: '/productos',
   pacientesUrl: '/pacientes',
   turnosUrl: '/turnos',
-  busquedasUrl: '/busquedas'
+  busquedasUrl: '/busquedas',
+  documentacionUrl: '/documentacion'
 }
 
 module.exports = {

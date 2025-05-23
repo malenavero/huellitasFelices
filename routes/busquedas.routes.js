@@ -11,7 +11,7 @@ const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require('../utils/constants.js');
  *   get:
  *     summary: Renderiza el formulario de creación de busquedas
  *     tags:
- *       - Busquedas (Vistas)
+ *       - Búsquedas (Vistas)
  *     responses:
  *       200:
  *         description: Formulario HTML de creación
@@ -32,7 +32,7 @@ router.get('/crear', (req, res) => {
  *   get:
  *     summary: Renderiza el formulario de edición para una busqueda
  *     tags:
- *       - Busquedas (Vistas)
+ *       - Búsquedas (Vistas)
  *     responses:
  *       200:
  *         description: Formulario HTML de edición
@@ -50,7 +50,7 @@ router.get('/:id/editar', controller.formEditar);
  *   get:
  *     summary: Obtiene todos los busquedas
  *     tags:
- *       - Busquedas
+ *       - Búsquedas
  *     parameters:
  *       - in: query
  *         name: categoria
@@ -77,7 +77,7 @@ router.get('/', (req, res) => {
  *   get:
  *     summary: Obtiene una busqueda por ID
  *     tags:
- *       - Busquedas
+ *       - Búsquedas
  *     parameters:
  *       - in: path
  *         name: id
@@ -106,7 +106,7 @@ router.get('/:id', controller.detalle);
  *   post:
  *     summary: Crea una nueva busqueda
  *     tags:
- *       - Busquedas
+ *       - Búsquedas
  *     requestBody:
  *       required: true
  *       content:
@@ -133,7 +133,7 @@ router.post('/', validarBusquedaCreate, controller.crear);
  *   put:
  *     summary: Actualiza una busqueda por ID
  *     tags:
- *       - Busquedas
+ *       - Búsquedas
  *     parameters:
  *       - in: path
  *         name: id
@@ -170,7 +170,7 @@ router.put('/:id', validarBusquedaUpdate, controller.actualizar);
  *   delete:
  *     summary: Elimina una busqueda por ID
  *     tags:
- *       - Busquedas
+ *       - Búsquedas
  *     parameters:
  *       - in: path
  *         name: id

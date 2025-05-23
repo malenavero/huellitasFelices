@@ -1,7 +1,7 @@
 // Aca tambien pedi ayuda a la IA para configurar el archivo de swagger
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const { CATEGORIAS_PRODUCTO } = require('./utils/constants.js');
+const { CATEGORIAS_PRODUCTO, TIPOS_BUSQUEDA, ANIMALES_VALIDOS } = require('./utils/constants.js');
 
 
 const options = {
@@ -225,33 +225,45 @@ const options = {
               }
             },
             Busqueda: {
-                type: 'object',
-                properties: {
-                  id: { type: 'string' },
-                  tipo: { type: 'string' },
-                  zona: { type: 'string' },
-                  fecha: { type: 'string', format: 'date' },
-                  descripcion: { type: 'string' },
-                  contacto: { type: 'string' },
-                  imagen: { type: 'string' },
-                  animal: { type: 'string' },
-                  color: { type: 'string' },
-                  activa: { type: 'boolean' },
-                  createdAt: { type: 'string', format: 'date-time' },
-                  updatedAt: { type: 'string', format: 'date-time' }
-                },
-            },
-            BusquedaInput: {
               type: 'object',
-              required: ['tipo', 'zona', 'fecha', 'contacto', 'activa'],
               properties: {
-                tipo: { type: 'string' },
+                id: { type: 'integer' },
+                tipo: {
+                  type: 'string',
+                  enum: TIPOS_BUSQUEDA
+                },
                 zona: { type: 'string' },
                 fecha: { type: 'string', format: 'date' },
                 descripcion: { type: 'string' },
                 contacto: { type: 'string' },
                 imagen: { type: 'string' },
-                animal: { type: 'string' },
+                animal: {
+                  type: 'string',
+                  enum: ANIMALES_VALIDOS
+                },
+                color: { type: 'string' },
+                activa: { type: 'boolean' },
+                createdAt: { type: 'string', format: 'date-time' },
+                updatedAt: { type: 'string', format: 'date-time' }
+              }
+            },
+            BusquedaInput: {
+              type: 'object',
+              required: ['tipo', 'zona', 'fecha', 'contacto', 'activa'],
+              properties: {
+                tipo: {
+                  type: 'string',
+                  enum: TIPOS_BUSQUEDA
+                },
+                zona: { type: 'string' },
+                fecha: { type: 'string', format: 'date' },
+                descripcion: { type: 'string' },
+                contacto: { type: 'string' },
+                imagen: { type: 'string' },
+                animal: {
+                  type: 'string',
+                  enum: ANIMALES_VALIDOS
+                },
                 color: { type: 'string' },
                 activa: { type: 'boolean' }
               }
@@ -259,13 +271,19 @@ const options = {
             BusquedaUpdateInput: {
               type: 'object',
               properties: {
-               tipo: { type: 'string' },
+                tipo: {
+                  type: 'string',
+                  enum: TIPOS_BUSQUEDA
+                },
                 zona: { type: 'string' },
                 fecha: { type: 'string', format: 'date' },
                 descripcion: { type: 'string' },
                 contacto: { type: 'string' },
                 imagen: { type: 'string' },
-                animal: { type: 'string' },
+                animal: {
+                  type: 'string',
+                  enum: ANIMALES_VALIDOS
+                },
                 color: { type: 'string' },
                 activa: { type: 'boolean' }
               },
@@ -273,8 +291,7 @@ const options = {
                 activa: false
               }
             }
-                         
-        },
+        }                         
       },
     },
     apis: ['./routes/*.js'],

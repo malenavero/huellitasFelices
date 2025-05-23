@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+  h1 Detalle de búsqueda
+
+  if !busqueda
+    p No se encontró la búsqueda.
+  else
+    h2= busqueda.nombre ? busqueda.nombre.charAt(0).toUpperCase() + busqueda.nombre.slice(1) : '(Sin nombre)'
+    p
+      strong Tipo: 
+      | #{busqueda.tipo}
+    p
+      strong Animal: 
+      | #{busqueda.animal || 'No especificado'}
+    p
+      strong Zona: 
+      | #{busqueda.zona}
+    p
+      strong Fecha: 
+      | #{busqueda.fecha ? new Date(busqueda.fecha).toLocaleDateString() : 'No especificada'}
+    p
+      strong Descripción:
+      | #{busqueda.descripcion || 'No hay descripción'}
+    p
+      strong Contacto:
+      | #{busqueda.contacto}
+    p
+      strong Estado:
+      | #{busqueda.activa ? 'Activa' : 'Resuelta'}
+    if busqueda.imagen
+      img(src=busqueda.imagen, alt=`Imagen de ${busqueda.nombre}`, style="max-width: 300px;")
+    
+    a(href="/busquedas") ← Volver al listado
+    a(href=`/busquedas/${busqueda.id}/editar`) ✏️ Editar
+

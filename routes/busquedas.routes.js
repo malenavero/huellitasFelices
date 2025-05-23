@@ -1,52 +1,56 @@
-// routes/productos.routes.js
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/productosController');
-const { validarProductoCreate, validarProductoUpdate } = require('../middlewares/validacionesProductos');
-const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
+const controller = require('../controllers/busquedasController');
+const { validarBusquedaCreate, validarBusquedaUpdate } = require('../middlewares/validacionesBusquedas');
+const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require('../utils/constants.js');
 
+// GET VISTAS
 /**
  * @swagger
- * /productos/crear:
+ * /busquedas/crear:
  *   get:
- *     summary: Renderiza el formulario de creación de productos
+ *     summary: Renderiza el formulario de creación de busquedas
  *     tags:
- *       - Productos (Vistas)
+ *       - Busquedas (Vistas)
  *     responses:
  *       200:
  *         description: Formulario HTML de creación
  */
 router.get('/crear', (req, res) => {
-  res.render('productos/form', {
+  res.render('busquedas/form', {
     modo: 'crear',
-    producto: {},
-    categorias: CATEGORIAS_PRODUCTO,
-    errores: []
+    busqueda: {},
+    errores: [],
+    ANIMALES_VALIDOS,
+    TIPOS_BUSQUEDA
   });
 });
 
 /**
  * @swagger
- * /productos/{id}/editar:
+ * /busquedas/{id}/editar:
  *   get:
- *     summary: Renderiza el formulario de edición para un producto
+ *     summary: Renderiza el formulario de edición para una busqueda
  *     tags:
- *       - Productos (Vistas)
+ *       - Busquedas (Vistas)
  *     responses:
  *       200:
  *         description: Formulario HTML de edición
  *       404:
- *         description: Producto no encontrado
+ *         description: Busqueda no encontrada
  */
 router.get('/:id/editar', controller.formEditar);
 
+
+// GET 
+
 /**
  * @swagger
- * /productos:
+ * /busquedas:
  *   get:
- *     summary: Obtiene todos los productos
+ *     summary: Obtiene todos los busquedas
  *     tags:
- *       - Productos
+ *       - Busquedas
  *     parameters:
  *       - in: query
  *         name: categoria
@@ -55,13 +59,13 @@ router.get('/:id/editar', controller.formEditar);
  *         description: Filtra por categoría
  *     responses:
  *       200:
- *         description: Lista de productos
+ *         description: Lista de busquedas
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Producto'
+ *                 $ref: '#/components/schemas/Busqueda'
  */
 router.get('/', (req, res) => {
   controller.listar(req, res);
@@ -69,109 +73,120 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
- * /productos/{id}:
+ * /busquedas/{id}:
  *   get:
- *     summary: Obtiene un producto por ID
+ *     summary: Obtiene una busqueda por ID
  *     tags:
- *       - Productos
+ *       - Busquedas
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del producto
+ *         description: ID de la busqueda
  *     responses:
  *       200:
- *         description: Producto encontrado
+ *         description: Busqueda encontrada
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Producto'
+ *               $ref: '#/components/schemas/Busqueda'
  *       404:
- *         description: Producto no encontrado
+ *         description: Busqueda no encontrada
  */
 router.get('/:id', controller.detalle);
 
+
+// POST
+
 /**
  * @swagger
- * /productos:
+ * /busquedas:
  *   post:
- *     summary: Crea un nuevo producto
+ *     summary: Crea una nueva busqueda
  *     tags:
- *       - Productos
+ *       - Busquedas
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ProductoInput'
+ *             $ref: '#/components/schemas/BusquedaInput'
  *     responses:
  *       201:
- *         description: Producto creado correctamente
+ *         description: Busqueda creado correctamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Producto'
+ *               $ref: '#/components/schemas/Busqueda'
  *       400:
  *         description: Error de validación
  */
-router.post('/', validarProductoCreate, controller.crear);
+router.post('/', validarBusquedaCreate, controller.crear);
 
+
+// PUT
 /**
  * @swagger
- * /productos/{id}:
+ * /busquedas/{id}:
  *   put:
- *     summary: Actualiza un producto por ID
+ *     summary: Actualiza una busqueda por ID
  *     tags:
- *       - Productos
+ *       - Busquedas
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del producto a actualizar
+ *         description: ID de la busqueda a actualizar
  *     requestBody:
  *       required: false
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ProductoUpdateInput'
+ *             $ref: '#/components/schemas/BusquedaUpdateInput'
  *     responses:
  *       200:
- *         description: Producto actualizado correctamente
+ *         description: Busqueda actualizada correctamente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Producto'
+ *               $ref: '#/components/schemas/Busqueda'
  *       400:
  *         description: Datos inválidos
  *       404:
- *         description: Producto no encontrado
+ *         description: Busqueda no encontrada
  */
-router.put('/:id', validarProductoUpdate, controller.actualizar);
+router.put('/:id', validarBusquedaUpdate, controller.actualizar);
+
+
+// DELETE
 
 /**
  * @swagger
- * /productos/{id}:
+ * /busquedas/{id}:
  *   delete:
- *     summary: Elimina un producto por ID
+ *     summary: Elimina una busqueda por ID
  *     tags:
- *       - Productos
+ *       - Busquedas
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del producto a eliminar
+ *         description: ID de la busqueda a eliminar
  *     responses:
  *       200:
- *         description: Producto <numero> eliminado
+ *         description: Busqueda <numero> eliminado
  *       404:
- *         description: Producto no encontrado
+ *         description: Busqueda no encontrada
  */
 router.delete('/:id', controller.eliminar);
+
+module.exports = router;
+
 
 module.exports = router;

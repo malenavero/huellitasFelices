@@ -1,6 +1,7 @@
 // models/Turno.js
 const DBHandler = require('./DBHandler');
 const db = new DBHandler('turnos.json');
+const {getNewId} = require('./utils.js')
 
 class Turno {
   constructor({
@@ -46,7 +47,7 @@ class Turno {
 
   static async create({ fecha, hora, pacienteId, servicio, precio}) {
     const turnos = await db.readData();
-    const nuevoId = db.getNewId(turnos)
+    const nuevoId = getNewId(turnos)
     const now = new Date().toISOString();
 
     const nuevoTurno = {

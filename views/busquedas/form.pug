@@ -1,0 +1,44 @@
+extends ../layout
+
+block content
+  a(href="/busquedas") ← Volver al listado
+
+  h1= modo === 'editar' ? 'Editar Búsqueda' : 'Nueva Búsqueda'
+
+  form(method="POST", action=modo === 'editar' ? `/busquedas/${busqueda.id}?_method=PUT` : '/busquedas')
+    label(for="nombre") Nombre:
+    input(type="text", name="nombre", id="nombre", value=(busqueda && busqueda.nombre) || '', placeholder="Nombre de la mascota")
+
+    label(for="tipo") Tipo:
+    select(name="tipo", id="tipo", required)
+      option(value="" selected=!(busqueda && busqueda.tipo)) -- Seleccione un tipo --
+      each tipo in TIPOS_BUSQUEDA
+        option(value=tipo selected=(busqueda && busqueda.tipo === tipo))= tipo.charAt(0).toUpperCase() + tipo.slice(1)
+
+    label(for="animal") Animal:
+    select(name="animal", id="animal")
+      option(value="" selected=!(busqueda && busqueda.animal)) -- Seleccione un animal --
+      each animal in ANIMALES_VALIDOS
+        option(value=animal selected=(busqueda && busqueda.animal === animal))= animal
+
+    label(for="zona") Zona:
+    input(type="text", name="zona", id="zona", value=(busqueda && busqueda.zona) || '', placeholder="Zona o barrio", required)
+
+    label(for="fecha") Fecha:
+    input(type="date", name="fecha", id="fecha", value=(busqueda && busqueda.fecha) || '')
+
+    label(for="descripcion") Descripción:
+    textarea(name="descripcion", id="descripcion", placeholder="Descripción adicional")= (busqueda && busqueda.descripcion) || ''
+
+    label(for="contacto") Contacto:
+    input(type="text", name="contacto", id="contacto", value=(busqueda && busqueda.contacto) || '', placeholder="Teléfono o email", required)
+
+    label(for="activa") Estado:
+    select(name="activa", id="activa", required)
+      option(value="true" selected=(busqueda && busqueda.activa === true)) Activa
+      option(value="false" selected=(busqueda && busqueda.activa === false)) Resuelta
+
+    label(for="imagen") Imagen URL:
+    input(type="url", name="imagen", id="imagen", value=(busqueda && busqueda.imagen) || '', placeholder="URL de la imagen")
+
+    button(type="submit")= modo === 'editar' ? 'Actualizar' : 'Crear'

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "tipo": "perdida",
+    "nombre": "luna",
+    "zona": "almagro",
+    "fecha": "2025-05-20",
+    "descripcion": "gata blanca con manchas negras.",
+    "contacto": "test@busqueda.com",
+    "imagen": null,
+    "animal": "gato",
+    "color": "blanco con negro",
+    "activa": true,
+    "createdAt": "2025-05-23T19:02:38.334Z",
+    "updatedAt": "2025-05-23T19:02:38.334Z"
+  },
+  {
+    "id": 2,
+    "tipo": "perdida",
+    "nombre": "kimchi",
+    "zona": "almagro",
+    "fecha": "2025-05-20",
+    "descripcion": "arisco",
+    "contacto": "gato@busqueda.com",
+    "imagen": null,
+    "animal": "gato",
+    "color": "naranja",
+    "activa": false,
+    "createdAt": "2025-05-23T19:32:52.338Z",
+    "updatedAt": "2025-05-23T19:33:41.215Z"
+  }
+]

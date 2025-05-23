@@ -9,6 +9,8 @@ const usersRouter = require('./routes/users');
 const productosRouter = require('./routes/productos.routes');
 const pacientesRouter = require('./routes/pacientes.routes');
 const turnosRouter = require('./routes/turnos.routes');
+const busquedasRouter = require('./routes/busquedas.routes');
+
 const methodOverride = require('method-override');
 
 const app = express();
@@ -28,6 +30,7 @@ app.use((req, res, next) => {
   res.locals.productosUrl = '/productos';
   res.locals.pacientesUrl = '/pacientes';
   res.locals.turnosUrl = '/turnos';
+  res.locals.busquedasUrl = '/busquedas';
   next();
 });
 
@@ -39,6 +42,8 @@ app.use('/users', usersRouter);
 app.use('/productos', productosRouter);
 app.use('/pacientes', pacientesRouter);
 app.use('/turnos', turnosRouter);
+app.use('/busquedas', busquedasRouter);
+
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

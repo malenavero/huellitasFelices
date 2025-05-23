@@ -7,7 +7,8 @@ router.get('/', (req, res) => {
     title: 'Huellitas Felices',
     productosUrl: '/productos',
     pacientesUrl: '/pacientes',
-    turnosUrl: '/turnos'
+    turnosUrl: '/turnos',
+    busquedasUrl: '/busquedas'
   });
 });
 

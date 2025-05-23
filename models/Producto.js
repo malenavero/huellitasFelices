@@ -1,5 +1,6 @@
 const DBHandler = require('./DBHandler');
 const db = new DBHandler('productos.json');
+const {getNewId} = require('./utils.js')
 
 class Producto {
   static async findAll(query = {}) {
@@ -19,7 +20,7 @@ class Producto {
 
   static async create({ nombre, categoria, precio, stock, descripcion, fechaVencimiento }) {
     const productos = await db.readData();
-    const nuevoId = db.getNewId(productos)
+    const nuevoId = getNewId(productos)
 
     const now = new Date().toISOString();
     const nuevoProducto = {

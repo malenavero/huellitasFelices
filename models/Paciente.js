@@ -1,5 +1,6 @@
 const DBHandler = require('./DBHandler');
 const db = new DBHandler('pacientes.json');
+const {getNewId} = require('./utils.js')
 
 class Paciente {
   constructor({ id, nombre, especie, raza, fechaNacimiento, responsable, fichaMedica = [], createdAt, updatedAt }) {
@@ -52,7 +53,7 @@ class Paciente {
 
   static async create({ nombre, especie, raza, fechaNacimiento, responsable }) {
     const pacientes = await db.readData();
-    const nuevoId = db.getNewId(pacientes)
+    const nuevoId = getNewId(pacientes)
     const now = new Date().toISOString();
 
     const nuevoPaciente = {

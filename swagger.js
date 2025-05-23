@@ -24,7 +24,28 @@ const options = {
         {
           name: 'Pacientes',
           description: 'Operaciones relacionadas con pacientes (mascotas)',
-        }
+        },
+        {
+          name: 'Pacientes (Vistas)',
+          description: 'Vistas HTML para formularios de pacientes',
+        },
+         {
+          name: 'Turnos',
+          description: 'Operaciones relacionadas con turnos',
+        },
+        {
+          name: 'Turnos (Vistas)',
+          description: 'Vistas HTML para formularios de turnos',
+        },
+          {
+          name: 'Búsquedas',
+          description: 'Operaciones relacionadas con búsquedas',
+        },
+        {
+          name: 'Búsquedas (Vistas)',
+          description: 'Vistas HTML para formularios de búsquedas',
+        },
+        
       ],
       components: {
         schemas: {
@@ -178,31 +199,80 @@ const options = {
                   createdAt: { type: 'string', format: 'date-time' },
                   updatedAt: { type: 'string', format: 'date-time' }
                 },
-              },
-              TurnoInput: {
-                type: 'object',
-                required: ['fecha', 'hora', 'pacienteId', 'servicio'],
-                properties: {
-                  fecha: { type: 'string', format: 'date' },
-                  hora: { type: 'string' },
-                  pacienteId: { type: 'integer' },
-                  servicio: { type: 'string' },
-                  precio: { type: 'number' }
-                }
-              },
-              TurnoUpdateInput: {
-                type: 'object',
-                properties: {
-                  fecha: { type: 'string', format: 'date' },
-                  hora: { type: 'string' },
-                  pacienteId: { type: 'integer' },
-                  servicio: { type: 'string' },
-                  precio: { type: 'number' }
-                },
-                example: {
-                	hora: '15:30'
-                }
+            },
+            TurnoInput: {
+              type: 'object',
+              required: ['fecha', 'hora', 'pacienteId', 'servicio'],
+              properties: {
+                fecha: { type: 'string', format: 'date' },
+                hora: { type: 'string' },
+                pacienteId: { type: 'integer' },
+                servicio: { type: 'string' },
+                precio: { type: 'number' }
               }
+            },
+            TurnoUpdateInput: {
+              type: 'object',
+              properties: {
+                fecha: { type: 'string', format: 'date' },
+                hora: { type: 'string' },
+                pacienteId: { type: 'integer' },
+                servicio: { type: 'string' },
+                precio: { type: 'number' }
+              },
+              example: {
+                hora: '15:30'
+              }
+            },
+            Busqueda: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string' },
+                  tipo: { type: 'string' },
+                  zona: { type: 'string' },
+                  fecha: { type: 'string', format: 'date' },
+                  descripcion: { type: 'string' },
+                  contacto: { type: 'string' },
+                  imagen: { type: 'string' },
+                  animal: { type: 'string' },
+                  color: { type: 'string' },
+                  activa: { type: 'boolean' },
+                  createdAt: { type: 'string', format: 'date-time' },
+                  updatedAt: { type: 'string', format: 'date-time' }
+                },
+            },
+            BusquedaInput: {
+              type: 'object',
+              required: ['tipo', 'zona', 'fecha', 'contacto', 'activa'],
+              properties: {
+                tipo: { type: 'string' },
+                zona: { type: 'string' },
+                fecha: { type: 'string', format: 'date' },
+                descripcion: { type: 'string' },
+                contacto: { type: 'string' },
+                imagen: { type: 'string' },
+                animal: { type: 'string' },
+                color: { type: 'string' },
+                activa: { type: 'boolean' }
+              }
+            },
+            BusquedaUpdateInput: {
+              type: 'object',
+              properties: {
+               tipo: { type: 'string' },
+                zona: { type: 'string' },
+                fecha: { type: 'string', format: 'date' },
+                descripcion: { type: 'string' },
+                contacto: { type: 'string' },
+                imagen: { type: 'string' },
+                animal: { type: 'string' },
+                color: { type: 'string' },
+                activa: { type: 'boolean' }
+              },
+              example: {
+                activa: false
+              }
+            }
                          
         },
       },

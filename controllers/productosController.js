@@ -11,7 +11,7 @@ const urls = {
 }
 
 async function getListParams(query = {}) {
-  const productos = await Producto.findAll();
+  const productos = await Producto.findAll(query);
   return {
     productos,
     categorias: CATEGORIAS_PRODUCTO,
@@ -28,9 +28,9 @@ async function renderListView(res, status = 200, query = {}) {
 module.exports = {
   // GET
   async listar(req, res) {
-    const productos = await Producto.findAll(req.query);    
 
     if (returnJSON(req)) {
+      const productos = await Producto.findAll(req.query);    
       return res.status(200).json(productos);
     }
     return renderListView(res, 200, req.query);

@@ -55,6 +55,10 @@ class DBHandler {
     return id; 
   }
 
+  getNewId(data) {
+    return data.length > 0 ? data[data.length - 1].id + 1 : 1;
+  }
+
 }
 
 module.exports = DBHandler;

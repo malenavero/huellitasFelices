@@ -30,5 +30,21 @@
     "fichaMedica": [],
     "createdAt": "2025-05-18T18:45:54.255Z",
     "updatedAt": "2025-05-18T18:45:54.255Z"
+  },
+  {
+    "id": 4,
+    "nombre": "gala4",
+    "especie": "gato",
+    "raza": "gris",
+    "fechaNacimiento": "2015-09-16",
+    "responsable": {
+      "nombre": "Elena Morley",
+      "telefono": "1123456789",
+      "email": "elena@mail.com",
+      "direccion": "Bulnes 123"
+    },
+    "fichaMedica": [],
+    "createdAt": "2025-05-23T14:49:03.217Z",
+    "updatedAt": "2025-05-23T14:49:03.217Z"
   }
 ]

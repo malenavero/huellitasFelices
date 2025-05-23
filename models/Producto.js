@@ -19,7 +19,7 @@ class Producto {
 
   static async create({ nombre, categoria, precio, stock, descripcion, fechaVencimiento }) {
     const productos = await db.readData();
-    const nuevoId = productos.length > 0 ? productos[productos.length - 1].id + 1 : 1;
+    const nuevoId = db.getNewId(productos)
 
     const now = new Date().toISOString();
     const nuevoProducto = {

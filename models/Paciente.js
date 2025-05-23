@@ -48,7 +48,8 @@ class Paciente {
 
   static async create({ nombre, especie, raza, fechaNacimiento, responsable }) {
     const pacientes = await db.readData();
-    const nuevoId = pacientes.length > 0 ? pacientes[pacientes.length - 1].id + 1 : 1;
+    const nuevoId = db.getNewId(pacientes)
+    const now = new Date().toISOString();
 
     const nuevoPaciente = {
       id: nuevoId,
@@ -58,8 +59,8 @@ class Paciente {
       fechaNacimiento,
       responsable,
       fichaMedica: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      createdAt: now,
+      updatedAt: now
     };
 
     pacientes.push(nuevoPaciente);

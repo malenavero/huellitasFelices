@@ -1,20 +1,36 @@
 const DBHandler = require('./DBHandler');
 const db = new DBHandler('pacientes.json');
+const { getNewId } = require('./utils.js');
 
 class Paciente {
-  constructor({ id, nombre, especie, raza, fechaNacimiento, responsable, fichaMedica = [], createdAt, updatedAt }) {
+  constructor({
+    id,
+    nombre,
+    especie,
+    raza,
+    fechaNacimiento,
+    responsable,
+    fichaMedica = [],
+    consultas = [],
+    createdAt,
+    updatedAt
+  }) {
     this.id = id;
     this.nombre = nombre;
     this.especie = especie;
     this.raza = raza;
-    this.fechaNacimiento = fechaNacimiento; // AAAA-MM-DD
+    this.fechaNacimiento = fechaNacimiento;
     this.responsable = responsable;
     this.fichaMedica = fichaMedica;
+    this.consultas = consultas;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
 
-  // Método para calcular edad en años basado en fechaNacimiento
+  get edad() {
+    return Paciente.calcularEdad(this.fechaNacimiento);
+  }
+
   static calcularEdad(fechaNacimiento) {
     if (!fechaNacimiento) return null;
     const hoy = new Date();
@@ -27,64 +43,67 @@ class Paciente {
     return edad;
   }
 
-  // Cuando listamos, agregamos la edad calculada
-  static async findAll() {
+  static async findAll(query = {}) {
     const pacientes = await db.readData();
-    return pacientes.map(p => ({
-      ...p,
-      edad: this.calcularEdad(p.fechaNacimiento)
-    }));
+    let pacientesFiltrados = pacientes;
+
+    if (query.nombre) {
+      pacientesFiltrados = pacientesFiltrados.filter(p => p.nombre === query.nombre);
+    }
+
+    return pacientesFiltrados.map(p => new Paciente(p));
   }
 
   static async findById(id) {
     const pacientes = await db.readData();
     const paciente = pacientes.find(p => parseInt(p.id) === parseInt(id));
     if (!paciente) return null;
-    return {
-      ...paciente,
-      edad: this.calcularEdad(paciente.fechaNacimiento)
-    };
+    return new Paciente(paciente);
   }
 
-  static async create({ nombre, especie, raza, fechaNacimiento, responsable }) {
+  async save() {
     const pacientes = await db.readData();
-    const nuevoId = pacientes.length > 0 ? pacientes[pacientes.length - 1].id + 1 : 1;
+    const index = pacientes.findIndex(p => p.id === this.id);
+    const now = new Date().toISOString();
 
-    const nuevoPaciente = {
-      id: nuevoId,
-      nombre,
-      especie,
-      raza,
-      fechaNacimiento,
-      responsable,
-      fichaMedica: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
+    if (index === -1) {
+      // Nuevo paciente
+      this.id = getNewId(pacientes);
+      this.createdAt = now;
+      this.updatedAt = now;
+      pacientes.push(this);
+    } else {
+      // Actualización
+      this.updatedAt = now;
+      pacientes[index] = this;
+    }
 
-    pacientes.push(nuevoPaciente);
     await db.writeData(pacientes);
-    return {
-      ...nuevoPaciente,
-      edad: this.calcularEdad(fechaNacimiento)
-    };
+    return this;
   }
 
   static async update(id, updatedFields) {
-    // Actualizamos los datos
-    const pacienteActualizado = await db.updateData(id, updatedFields);
-    if (!pacienteActualizado) return null;
+    // Opcional: podés dejar este helper o eliminarlo si preferís solo save()
+    const paciente = await Paciente.findById(id);
+    if (!paciente) return null;
 
-    // Calculamos edad con fechaNacimiento actualizada o previa
-    const fechaNac = updatedFields.fechaNacimiento || pacienteActualizado.fechaNacimiento;
-    return {
-      ...pacienteActualizado,
-      edad: this.calcularEdad(fechaNac)
-    };
+    Object.assign(paciente, updatedFields);
+    return paciente.save();
   }
 
   static async delete(id) {
     return await db.deleteData(id);
+  }
+
+  static async addConsulta(id, nuevaConsulta) {
+    const paciente = await Paciente.findById(id);
+    if (!paciente) return null;
+
+    if (!paciente.consultas) paciente.consultas = [];
+    if (!nuevaConsulta.fecha) nuevaConsulta.fecha = new Date().toISOString();
+    paciente.consultas.push(nuevaConsulta);
+
+    return paciente.save();
   }
 }
 

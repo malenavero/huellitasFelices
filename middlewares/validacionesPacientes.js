@@ -17,10 +17,10 @@ const validarResponsableTexto = [
 
 // === CREATE ===
 const validarPacienteCreate = [
-  normalizarCamposTexto(['nombre', 'especie', 'raza', 'responsable.nombre']),
+  normalizarCamposTexto(['nombre', 'especie', 'raza', 'responsable.nombre', 'responsable.email', 'responsable.telefono', 'responsable.direccion']),
   asignarDefaults({ 'raza': '' }),
 
-  // obligatios
+  // obligatorios
   body('nombre')
     .exists({ checkFalsy: true }).withMessage('Nombre obligatorio'),
   ...validarTexto('nombre', 100),
@@ -29,23 +29,22 @@ const validarPacienteCreate = [
     .exists({ checkFalsy: true }).withMessage('Especie obligatoria'),
   ...validarTexto('especie', 50),
 
-  
   body('responsable.nombre')
-  .exists({ checkFalsy: true }).withMessage('Nombre del responsable obligatorio'),
-  
+    .exists({ checkFalsy: true }).withMessage('Nombre del responsable obligatorio'),
+
   body('responsable.telefono')
-  .exists({ checkFalsy: true }).withMessage('Teléfono del responsable obligatorio'),
-  
+    .exists({ checkFalsy: true }).withMessage('Teléfono del responsable obligatorio'),
+
   body('responsable.email')
-  .exists({ checkFalsy: true }).withMessage('Email del responsable obligatorio')
-  .isEmail().withMessage('Email inválido'),
-  
+    .exists({ checkFalsy: true }).withMessage('Email del responsable obligatorio')
+    .isEmail().withMessage('Email inválido'),
+
   ...validarResponsableTexto,
-  
+
   // opcionales
   ...validarTexto('raza', 50),
 
-  //duplicados
+  // duplicados
   validarDuplicado(Paciente, ['nombre', 'responsable.email']),
 
   manejoErrores
@@ -53,7 +52,7 @@ const validarPacienteCreate = [
 
 // === UPDATE ===
 const validarPacienteUpdate = [
-  normalizarCamposTexto(['nombre', 'especie', 'raza', 'responsable.nombre']),
+  normalizarCamposTexto(['nombre', 'especie', 'raza', 'responsable.nombre', 'responsable.email', 'responsable.telefono', 'responsable.direccion']),
 
   body('nombre').optional(),
   ...validarTexto('nombre', 100),

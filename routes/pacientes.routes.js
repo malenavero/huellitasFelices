@@ -7,8 +7,47 @@ const {
   validarPacienteUpdate
 } = require('../middlewares/validacionesPacientes');
 
+
 //router.use(autorizarRol('admin', 'veterinaria_gerencia', 'veterinaria', 'gerencia'));
 
+
+// GET VISTAS
+/**
+ * @swagger
+ * /pacientes/crear:
+ *   get:
+ *     summary: Renderiza el formulario de registro de pacientes
+ *     tags:
+ *       - Pacientes (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de creación
+ */
+router.get('/crear', (req, res) => {
+  res.render('pacientes/form', {
+    modo: 'crear',
+    busqueda: {},
+    errores: []
+  });
+});
+
+/**
+ * @swagger
+ * /pacientes/{id}/editar:
+ *   get:
+ *     summary: Renderiza el formulario de edición para un paciente
+ *     tags:
+ *       - Pacientes (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de edición
+ *       404:
+ *         description: Paciente no encontrado
+ */
+router.get('/:id/editar', controller.formEditar);
+
+
+//GET
 /**
  * @swagger
  * /pacientes:
@@ -52,6 +91,9 @@ router.get('/', controller.listar);
  *         description: Paciente no encontrado
  */
 router.get('/:id', controller.detalle);
+
+
+// POST
 /**
  * @swagger
  * /pacientes:
@@ -76,6 +118,9 @@ router.get('/:id', controller.detalle);
  *         description: Datos inválidos para creación
  */
 router.post('/', validarPacienteCreate, controller.crear);
+
+
+// PUT
 /**
  * @swagger
  * /pacientes/{id}:
@@ -110,6 +155,8 @@ router.post('/', validarPacienteCreate, controller.crear);
  */
 router.put('/:id', validarPacienteUpdate, controller.actualizar);
 
+
+// DELETE
 /**
  * @swagger
  * /pacientes/{id}:

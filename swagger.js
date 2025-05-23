@@ -1,8 +1,7 @@
 // Aca tambien pedi ayuda a la IA para configurar el archivo de swagger
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const { CATEGORIAS_PRODUCTO } = require('./utils/constants.js');
-const { ROLES } = require('./utils/constants.js');
+const { CATEGORIAS_PRODUCTO, TIPOS_BUSQUEDA, ANIMALES_VALIDOS, ROLES } = require('./utils/constants.js');
 
 
 const options = {
@@ -19,12 +18,32 @@ const options = {
         description: 'Operaciones relacionadas con productos del petshop',
       },
       {
+        name: 'Productos (Vistas)',
+        description: 'Vistas HTML para formularios de productos',
+      },
+      {
         name: 'Pacientes',
         description: 'Operaciones relacionadas con pacientes (mascotas)',
       },
       {
-        name: 'Usuarios',
-        description: 'Operaciones relacionadas con usuarios',
+        name: 'Pacientes (Vistas)',
+        description: 'Vistas HTML para formularios de pacientes',
+      },
+      {
+        name: 'Turnos',
+        description: 'Operaciones relacionadas con turnos',
+      },
+      {
+        name: 'Turnos (Vistas)',
+        description: 'Vistas HTML para formularios de turnos',
+      },
+      {
+        name: 'Búsquedas',
+        description: 'Operaciones relacionadas con búsquedas',
+      },
+      {
+        name: 'Búsquedas (Vistas)',
+        description: 'Vistas HTML para formularios de búsquedas',
       },
     ],
     components: {
@@ -204,6 +223,73 @@ const options = {
             hora: '15:30',
           },
         },
+        Busqueda: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer' },
+            tipo: {
+              type: 'string',
+              enum: TIPOS_BUSQUEDA,
+            },
+            zona: { type: 'string' },
+            fecha: { type: 'string', format: 'date' },
+            descripcion: { type: 'string' },
+            contacto: { type: 'string' },
+            imagen: { type: 'string' },
+            animal: {
+              type: 'string',
+              enum: ANIMALES_VALIDOS,
+            },
+            color: { type: 'string' },
+            activa: { type: 'boolean' },
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' },
+          },
+        },
+        BusquedaInput: {
+          type: 'object',
+          required: ['tipo', 'zona', 'fecha', 'contacto', 'activa'],
+          properties: {
+            tipo: {
+              type: 'string',
+              enum: TIPOS_BUSQUEDA,
+            },
+            zona: { type: 'string' },
+            fecha: { type: 'string', format: 'date' },
+            descripcion: { type: 'string' },
+            contacto: { type: 'string' },
+            imagen: { type: 'string' },
+            animal: {
+              type: 'string',
+              enum: ANIMALES_VALIDOS,
+            },
+            color: { type: 'string' },
+            activa: { type: 'boolean' },
+          },
+        },
+        BusquedaUpdateInput: {
+          type: 'object',
+          properties: {
+            tipo: {
+              type: 'string',
+              enum: TIPOS_BUSQUEDA,
+            },
+            zona: { type: 'string' },
+            fecha: { type: 'string', format: 'date' },
+            descripcion: { type: 'string' },
+            contacto: { type: 'string' },
+            imagen: { type: 'string' },
+            animal: {
+              type: 'string',
+              enum: ANIMALES_VALIDOS,
+            },
+            color: { type: 'string' },
+            activa: { type: 'boolean' },
+          },
+          example: {
+            activa: false,
+          },
+        },
         Usuario: {
           type: 'object',
           properties: {
@@ -221,7 +307,14 @@ const options = {
         },
         UsuarioInput: {
           type: 'object',
-          required: ['nombre', 'apellido', 'password', 'correo', 'rol', 'telefono'],
+          required: [
+            'nombre',
+            'apellido',
+            'password',
+            'correo',
+            'rol',
+            'telefono',
+          ],
           properties: {
             nombre: { type: 'string' },
             apellido: { type: 'string' },
@@ -229,9 +322,7 @@ const options = {
             telefono: { type: 'string' },
             direccion: { type: 'string' },
             correo: { type: 'string', format: 'email' },
-            rol: { type: 'string',
-              enum: ROLES
-            },
+            rol: { type: 'string', enum: ROLES },
           },
         },
         UsuarioUpdateInput: {
@@ -243,9 +334,7 @@ const options = {
             telefono: { type: 'string' },
             direccion: { type: 'string' },
             correo: { type: 'string', format: 'email' },
-            rol: { type: 'string',
-              enum: ROLES
-            },
+            rol: { type: 'string', enum: ROLES },
           },
         },
       },

@@ -6,6 +6,42 @@ const { validarTurnoCreate, validarTurnoUpdate } = require('../middlewares/valid
 
 //router.use(autorizarRol('admin', 'recepcionista', 'recepcionista_peluqueria', 'veterinaria_gerencia'));
 
+// GET VISTAS
+/**
+ * @swagger
+ * /turnos/crear:
+ *   get:
+ *     summary: Renderiza el formulario de registro de turnos
+ *     tags:
+ *       - Turnos (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de creación
+ */
+router.get('/crear', (req, res) => {
+  res.render('turnos/form', {
+    modo: 'crear',
+    busqueda: {},
+    errores: []
+  });
+});
+
+/**
+ * @swagger
+ * /turnos/{id}/editar:
+ *   get:
+ *     summary: Renderiza el formulario de edición para un turno
+ *     tags:
+ *       - Turnos (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de edición
+ *       404:
+ *         description: Turno no encontrado
+ */
+router.get('/:id/editar', controller.formEditar);
+
+// GET
 /**
  * @swagger
  * /turnos:
@@ -53,6 +89,8 @@ router.get('/', (req, res) => {
  */
 router.get('/:id', controller.detalle);
 
+
+// POST
 /**
  * @swagger
  * /turnos:
@@ -78,6 +116,7 @@ router.get('/:id', controller.detalle);
  */
 router.post('/', validarTurnoCreate, controller.crear);
 
+// PUT
 /**
  * @swagger
  * /turnos/{id}:
@@ -112,6 +151,8 @@ router.post('/', validarTurnoCreate, controller.crear);
  */
 router.put('/:id', validarTurnoUpdate, controller.actualizar);
 
+
+// DELETE
 /**
  * @swagger
  * /turnos/{id}:

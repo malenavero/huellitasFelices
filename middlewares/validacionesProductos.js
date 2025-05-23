@@ -115,7 +115,16 @@ const validarProductoUpdate = [
   manejoErrores,
 ];
 
+// Validar stock
+const validarCantidad = [
+  body('cantidad')
+    .exists({ checkFalsy: true }).withMessage('Cantidad es obligatoria')
+    .isInt({ min: 1 }).withMessage('Cantidad debe ser un entero positivo'),
+  manejoErrores
+];
+
 module.exports = {
   validarProductoCreate,
   validarProductoUpdate,
+  validarCantidad
 };

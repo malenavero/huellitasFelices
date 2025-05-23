@@ -117,7 +117,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "  {\n    \"nombre\": \"Pluma Colores\",\n    \"categoria\": \"otros\", // ['farmacia', 'comida', 'otros'];\n    \"precio\": 2345,\n    \"stock\": 6,\n    \"fechaVencimiento\": \"2026-09-12\", //aaaa-mm-dd\n    \"descripcion\": \"Mayor a 2 años\"\n  }"
+							"raw": "  {\n    \"nombre\": \"Pluma 2\",\n    \"categoria\": \"otros\", // ['farmacia', 'comida', 'otros'];\n    \"precio\": 2345,\n    \"stock\": 6,\n    \"fechaVencimiento\": \"2026-09-12\", //aaaa-mm-dd\n    \"descripcion\": \"Mayor a 2 años\"\n  }"
 						},
 						"url": {
 							"raw": "http://localhost:3000/productos",
@@ -181,7 +181,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/productos/6",
+							"raw": "http://localhost:3000/productos/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -189,7 +189,7 @@
 							"port": "3000",
 							"path": [
 								"productos",
-								"6"
+								"10"
 							]
 						}
 					},
@@ -273,7 +273,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Gala\",\n  \"especie\": \"gato\",\n  \"raza\": \"gris\",\n  \"fechaNacimiento\": \"2015-09-16\",\n  \"responsable\": {\n    \"nombre\": \"Elena Morley\",\n    \"telefono\": \"1123456789\",\n    \"email\": \"elena@mail.com\",\n    \"direccion\": \"Bulnes 123\"\n  }\n}\n"
+							"raw": "{\n  \"nombre\": \"Gala4\",\n  \"especie\": \"gato\",\n  \"raza\": \"gris\",\n  \"fechaNacimiento\": \"2015-09-16\",\n  \"responsable\": {\n    \"nombre\": \"Elena Morley\",\n    \"telefono\": \"1123456789\",\n    \"email\": \"elena@mail.com\",\n    \"direccion\": \"Bulnes 123\"\n  }\n}\n"
 						},
 						"url": {
 							"raw": "http://localhost:3000/pacientes",
@@ -461,7 +461,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"pacienteId\": 3\n \n}"
+							"raw": "{\n  \"fecha\": \"2025-07-11\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/turnos/1",
@@ -493,7 +493,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/turnos/1",
+							"raw": "http://localhost:3000/turnos/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -501,7 +501,7 @@
 							"port": "3000",
 							"path": [
 								"turnos",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -510,10 +510,10 @@
 			]
 		},
 		{
-			"name": "Perdidos",
+			"name": "Búsquedas",
 			"item": [
 				{
-					"name": "Buscar mascotas perdidas",
+					"name": "Listar busquedas",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -527,27 +527,50 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/mascotas-buscadas?zona=centro",
+							"raw": "http://localhost:3000/busquedas",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"mascotas-buscadas"
-							],
-							"query": [
-								{
-									"key": "zona",
-									"value": "centro"
-								}
+								"busquedas"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Registrar mascota perdida/encontrada",
+					"name": "Ver busqueda por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/busquedas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"busquedas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Busqueda",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -562,17 +585,79 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Milo\",\n  \"zona\": \"centro\",\n  \"estado\": \"perdido\"\n}"
+							"raw": "{\n  \"tipo\": \"perdida\",\n  \"nombre\": \"Kimchi\",\n  \"zona\": \"Almagro\",\n  \"fecha\": \"2025-05-20\",\n  \"descripcion\": \"Arisco\",\n  \"contacto\": \"gato@busqueda.com\",\n  \"animal\": \"gato\",\n  \"color\": \"Naranja\"\n}\n"
 						},
 						"url": {
-							"raw": "http://localhost:3000/mascotas-buscadas",
+							"raw": "http://localhost:3000/busquedas",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"mascotas-buscadas"
+								"busquedas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar busqueda",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"activa\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/busquedas/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"busquedas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar busqueda",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/busqueda/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"busqueda",
+								"4"
 							]
 						}
 					},

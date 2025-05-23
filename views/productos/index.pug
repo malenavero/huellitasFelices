@@ -1,22 +1,40 @@
-doctype html
-html
-  head
-    title Productos
-  body
-    h1 Productos disponibles
+extends ../layout
 
-    // Filtro de categorías
-    form(method="GET")
-      select(name="categoria")
-        option(value="") Todas las categorías
-        each categoria in categorias
-          option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
-      button(type="submit") Filtrar
+block content
+  h1 Productos disponibles
 
-    ul
-      each producto in productos
-        li
-          h3= producto.nombre
-          p Precio: $#{producto.precio}
-          p Stock: #{producto.stock}
-          a(href=`/productos/${producto.id}`) Más →
+  // Filtrado por categoría
+  form(method="GET", class="form-box form-flex")
+    select(name="categoria")
+      option(value="") Todas las categorías
+      each categoria in categorias
+        option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
+    button(type="submit") Filtrar
+
+  // Botón para nuevo producto
+  a(href="/productos/crear", class="button-primary") ➕ Nuevo Producto
+
+  // Lista de productos
+  ul
+    each producto in productos
+      li
+        h3= producto.nombre
+        p
+          span.detail-label Precio:
+          | $#{producto.precio}
+        p
+          span.detail-label Stock:
+          | #{producto.stock}
+        
+        //  Acciones principales
+        div(class="acciones")
+          a(href=`/productos/${producto.id}`) 👁️ Ver
+          a(href=`/productos/${producto.id}/editar`) ✏️ Editar
+          form(method="POST", action=`/productos/${producto.id}?_method=DELETE`)
+            button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')") 🗑️ Eliminar
+
+        //  Formulario para vender
+        form(method="POST", action=`/productos/${producto.id}/vender`, class="form-flex venta-form")
+          label(for=`cantidad-${producto.id}`) Cantidad:
+          input(type="number", id=`cantidad-${producto.id}`, name="cantidad", min="1", max=producto.stock, value="1", required)
+          button(type="submit") Vender

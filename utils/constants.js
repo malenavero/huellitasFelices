@@ -13,9 +13,14 @@ const ROLES = [
   'recepcion_peluqueria',
   'recepcion_ventas',
 ];
+const TIPOS_BUSQUEDA = ['perdida', 'encontrada'];
+const ANIMALES_VALIDOS = ['gato', 'perro', 'otro'];
+
 
 module.exports = {
   SERVICIOS,
   CATEGORIAS_PRODUCTO,
-  ROLES
+  ROLES,
+  TIPOS_BUSQUEDA,
+  ANIMALES_VALIDOS
 };

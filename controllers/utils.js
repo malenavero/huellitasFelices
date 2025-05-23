@@ -10,6 +10,7 @@ function returnJSON(req) {
     );
   }
 
+
 function hashPassword(password) {
   // Encripta la contraseña en texto plano del usuario
   return new Promise((resolve, reject) => {
@@ -37,9 +38,26 @@ function comparePassword(password, hash) {
 }
 
 
+function handleError(req, res, status, message = '') {
+  if (returnJSON(req)) {
+    return res.status(status).json({ error: message });
+  } else {
+    return res.status(status).render(`errors/${status}`, { mensaje: message });
+  }
+}
+
+const urls = {
+  productosUrl: '/productos',
+  pacientesUrl: '/pacientes',
+  turnosUrl: '/turnos',
+  busquedasUrl: '/busquedas',
+  documentacionUrl: '/documentacion'
+}
 
 module.exports = {
     returnJSON,
     hashPassword,
-    comparePassword
+    comparePassword,
+    handleError,
+    urls
 }

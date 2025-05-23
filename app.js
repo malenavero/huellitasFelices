@@ -5,10 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { setupSwagger } = require('./swagger.js');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const productosRouter = require('./routes/productos.routes');
 const pacientesRouter = require('./routes/pacientes.routes');
 const turnosRouter = require('./routes/turnos.routes');
+const usuariosRouter = require('./routes/usuarios.routes');
 
 const app = express();
 setupSwagger(app);
@@ -24,10 +24,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/productos', productosRouter);
 app.use('/pacientes', pacientesRouter);
 app.use('/turnos', turnosRouter);
+app.use('/usuarios', usuariosRouter);
+
 
 
 // catch 404

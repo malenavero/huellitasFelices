@@ -2,7 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/productosController');
+const autorizarRol = require('../middlewares/autorizarRol');
 const { validarProductoCreate, validarProductoUpdate } = require('../middlewares/validacionesProductos');
+
+//router.use(autorizarRol('admin','gerente', 'ventas', 'recepcionista_ventas', 'veterinaria_gerencia'));
 
 /**
  * @swagger

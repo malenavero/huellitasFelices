@@ -2,209 +2,257 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const { CATEGORIAS_PRODUCTO } = require('./utils/constants.js');
+const { ROLES } = require('./utils/constants.js');
 
 
 const options = {
-    definition: {
-      openapi: '3.0.0',
-      info: {
-        title: 'Huellitas Felices API',
-        version: '1.0.0',
-        description: 'Documentación API para Huellitas Felices',
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Huellitas Felices API',
+      version: '1.0.0',
+      description: 'Documentación API para Huellitas Felices',
+    },
+    tags: [
+      {
+        name: 'Productos',
+        description: 'Operaciones relacionadas con productos del petshop',
       },
-      tags: [
-        {
-          name: 'Productos',
-          description: 'Operaciones relacionadas con productos del petshop',
+      {
+        name: 'Pacientes',
+        description: 'Operaciones relacionadas con pacientes (mascotas)',
+      },
+      {
+        name: 'Usuarios',
+        description: 'Operaciones relacionadas con usuarios',
+      },
+    ],
+    components: {
+      schemas: {
+        Producto: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer' },
+            nombre: { type: 'string' },
+            categoria: { type: 'string' },
+            precio: { type: 'number' },
+            stock: { type: 'integer' },
+            descripcion: { type: 'string' },
+            fechaVencimiento: {
+              type: 'string',
+              format: 'date',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+          },
         },
-        {
-          name: 'Pacientes',
-          description: 'Operaciones relacionadas con pacientes (mascotas)',
-        }
-      ],
-      components: {
-        schemas: {
-            Producto: {
-                type: 'object',
-                properties: {
-                id: { type: 'integer' },
+        ProductoInput: {
+          type: 'object',
+          required: ['nombre', 'categoria', 'precio'],
+          properties: {
+            nombre: { type: 'string' },
+            categoria: {
+              type: 'string',
+              enum: CATEGORIAS_PRODUCTO,
+            },
+            precio: { type: 'number' },
+            stock: { type: 'integer', default: 0 },
+            descripcion: { type: 'string' },
+            fechaVencimiento: {
+              type: 'string',
+              format: 'date',
+            },
+          },
+        },
+        ProductoUpdateInput: {
+          type: 'object',
+          properties: {
+            nombre: { type: 'string' },
+            categoria: {
+              type: 'string',
+              enum: CATEGORIAS_PRODUCTO,
+            },
+            precio: { type: 'number' },
+            stock: { type: 'integer', default: 0 },
+            descripcion: { type: 'string' },
+            fechaVencimiento: {
+              type: 'string',
+              format: 'date',
+            },
+          },
+          example: {
+            precio: 18999,
+          },
+        },
+        Paciente: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer' },
+            nombre: { type: 'string' },
+            especie: { type: 'string' },
+            raza: { type: 'string' },
+            fechaNacimiento: {
+              type: 'string',
+              format: 'date',
+              description: 'Fecha en formato AAAA-MM-DD',
+            },
+            responsable: {
+              type: 'object',
+              properties: {
                 nombre: { type: 'string' },
-                categoria: { type: 'string' },
-                precio: { type: 'number' },
-                stock: { type: 'integer' },
-                descripcion: { type: 'string' },
-                fechaVencimiento: {
-                    type: 'string',
-                    format: 'date',
-                },
-                createdAt: {
-                    type: 'string',
-                    format: 'date-time',
-                },
-                updatedAt: {
-                    type: 'string',
-                    format: 'date-time',
-                },
-                },
+                telefono: { type: 'string' },
+                email: { type: 'string', format: 'email' },
+                direccion: { type: 'string' },
+              },
             },
-            ProductoInput: {
-                type: 'object',
-                required: ['nombre', 'categoria', 'precio'],
-                properties: {
-                nombre: { type: 'string' },
-                categoria: { 
-                    type: 'string',
-                    enum: CATEGORIAS_PRODUCTO
-                },
-                precio: { type: 'number' },
-                stock: { type: 'integer', default: 0 },
-                descripcion: { type: 'string' },
-                fechaVencimiento: {
-                    type: 'string',
-                    format: 'date',
-                },
-                },
-            },
-            ProductoUpdateInput: {
-								type: 'object',
-								properties: {
-									nombre: { type: 'string' },
-									categoria: { 
-											type: 'string',
-											enum: CATEGORIAS_PRODUCTO
-									},
-									precio: { type: 'number' },
-									stock: { type: 'integer', default: 0 },
-									descripcion: { type: 'string' },
-									fechaVencimiento: {
-											type: 'string',
-											format: 'date',
-									},
-								},
-								example: {
-                	precio: 18999
-                }
-            },
-            Paciente: {
+            fichaMedica: {
+              type: 'array',
+              items: {
                 type: 'object',
                 properties: {
-                id: { type: 'integer' },
-                nombre: { type: 'string' },
-                especie: { type: 'string' },
-                raza: { type: 'string' },
-                fechaNacimiento: { 
-                    type: 'string',
-                    format: 'date',
-                    description: 'Fecha en formato AAAA-MM-DD'
-                },
-                responsable: {
-                    type: 'object',
-                    properties: {
-                    nombre: { type: 'string' },
-                    telefono: { type: 'string' },
-                    email: { type: 'string', format: 'email' },
-                    direccion: { type: 'string' }
-                    },
-                },
-                fichaMedica: {
-                    type: 'array',
-                    items: {
-                    type: 'object',
-                    properties: {
-                        fecha: { type: 'string', format: 'date' },
-                        detalle: { type: 'string' }
-                    }
-                    }
-                },
-                createdAt: { type: 'string', format: 'date-time' },
-                updatedAt: { type: 'string', format: 'date-time' },
-                edad: { type: 'integer', description: 'Edad calculada en años' }
-                },
-            },
-            PacienteInput: {
-                type: 'object',
-                required: ['nombre', 'especie', 'fechaNacimiento', 'responsable'],
-                properties: {
-                nombre: { type: 'string' },
-                especie: { type: 'string' },
-                raza: { type: 'string' },
-                fechaNacimiento: { type: 'string', format: 'date' },
-                responsable: {
-                    type: 'object',
-                    properties: {
-                    nombre: { type: 'string' },
-                    telefono: { type: 'string' },
-                    email: { type: 'string', format: 'email' },
-                    direccion: { type: 'string' }
-                    },
-                    required: ['nombre', 'telefono', 'email', 'direccion']
-                }
-                }
-            },   
-            PacienteUpdateInput: {
-                type: 'object',
-                properties: {
-									nombre: { type: 'string' },
-									especie: { type: 'string' },
-									raza: { type: 'string' },
-									fechaNacimiento: { type: 'string', format: 'date' },
-									responsable: {
-										type: 'object',
-										properties: {
-										nombre: { type: 'string' },
-										telefono: { type: 'string' },
-										email: { type: 'string', format: 'email' },
-										direccion: { type: 'string' }
-										}
-									}
-								},
-								example: {
-                	nombre: 'Susana'
-                }
-            },
-            Turno: {
-                type: 'object',
-                properties: {
-                  id: { type: 'string' },
                   fecha: { type: 'string', format: 'date' },
-                  hora: { type: 'string' },
-                  pacienteId: { type: 'integer' },
-                  servicio: { type: 'string' },
-                  precio: { type: 'number' },
-                  createdAt: { type: 'string', format: 'date-time' },
-                  updatedAt: { type: 'string', format: 'date-time' }
+                  detalle: { type: 'string' },
                 },
               },
-              TurnoInput: {
-                type: 'object',
-                required: ['fecha', 'hora', 'pacienteId', 'servicio'],
-                properties: {
-                  fecha: { type: 'string', format: 'date' },
-                  hora: { type: 'string' },
-                  pacienteId: { type: 'integer' },
-                  servicio: { type: 'string' },
-                  precio: { type: 'number' }
-                }
+            },
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' },
+            edad: { type: 'integer', description: 'Edad calculada en años' },
+          },
+        },
+        PacienteInput: {
+          type: 'object',
+          required: ['nombre', 'especie', 'fechaNacimiento', 'responsable'],
+          properties: {
+            nombre: { type: 'string' },
+            especie: { type: 'string' },
+            raza: { type: 'string' },
+            fechaNacimiento: { type: 'string', format: 'date' },
+            responsable: {
+              type: 'object',
+              properties: {
+                nombre: { type: 'string' },
+                telefono: { type: 'string' },
+                email: { type: 'string', format: 'email' },
+                direccion: { type: 'string' },
               },
-              TurnoUpdateInput: {
-                type: 'object',
-                properties: {
-                  fecha: { type: 'string', format: 'date' },
-                  hora: { type: 'string' },
-                  pacienteId: { type: 'integer' },
-                  servicio: { type: 'string' },
-                  precio: { type: 'number' }
-                },
-                example: {
-                	hora: '15:30'
-                }
-              }
-                         
+              required: ['nombre', 'telefono', 'email', 'direccion'],
+            },
+          },
+        },
+        PacienteUpdateInput: {
+          type: 'object',
+          properties: {
+            nombre: { type: 'string' },
+            especie: { type: 'string' },
+            raza: { type: 'string' },
+            fechaNacimiento: { type: 'string', format: 'date' },
+            responsable: {
+              type: 'object',
+              properties: {
+                nombre: { type: 'string' },
+                telefono: { type: 'string' },
+                email: { type: 'string', format: 'email' },
+                direccion: { type: 'string' },
+              },
+            },
+          },
+          example: {
+            nombre: 'Susana',
+          },
+        },
+        Turno: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+            fecha: { type: 'string', format: 'date' },
+            hora: { type: 'string' },
+            pacienteId: { type: 'integer' },
+            servicio: { type: 'string' },
+            precio: { type: 'number' },
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' },
+          },
+        },
+        TurnoInput: {
+          type: 'object',
+          required: ['fecha', 'hora', 'pacienteId', 'servicio'],
+          properties: {
+            fecha: { type: 'string', format: 'date' },
+            hora: { type: 'string' },
+            pacienteId: { type: 'integer' },
+            servicio: { type: 'string' },
+            precio: { type: 'number' },
+          },
+        },
+        TurnoUpdateInput: {
+          type: 'object',
+          properties: {
+            fecha: { type: 'string', format: 'date' },
+            hora: { type: 'string' },
+            pacienteId: { type: 'integer' },
+            servicio: { type: 'string' },
+            precio: { type: 'number' },
+          },
+          example: {
+            hora: '15:30',
+          },
+        },
+        Usuario: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer' },
+            nombre: { type: 'string' },
+            apellido: { type: 'string' },
+            password: { type: 'string' },
+            telefono: { type: 'string' },
+            direccion: { type: 'string' },
+            correo: { type: 'string', format: 'email' },
+            rol: { type: 'string' },
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' },
+          },
+        },
+        UsuarioInput: {
+          type: 'object',
+          required: ['nombre', 'apellido', 'password', 'correo', 'rol', 'telefono'],
+          properties: {
+            nombre: { type: 'string' },
+            apellido: { type: 'string' },
+            password: { type: 'string', format: 'password' },
+            telefono: { type: 'string' },
+            direccion: { type: 'string' },
+            correo: { type: 'string', format: 'email' },
+            rol: { type: 'string',
+              enum: ROLES
+            },
+          },
+        },
+        UsuarioUpdateInput: {
+          type: 'object',
+          properties: {
+            nombre: { type: 'string' },
+            apellido: { type: 'string' },
+            password: { type: 'string', format: 'password' },
+            telefono: { type: 'string' },
+            direccion: { type: 'string' },
+            correo: { type: 'string', format: 'email' },
+            rol: { type: 'string',
+              enum: ROLES
+            },
+          },
         },
       },
     },
-    apis: ['./routes/*.js'],
-  };
+  },
+  apis: ['./routes/*.js'],
+};
   
 
 const swaggerSpec = swaggerJsdoc(options);

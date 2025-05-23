@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/pacientesController');
+const autorizarRol = require('../middlewares/autorizarRol');
 const {
   validarPacienteCreate,
   validarPacienteUpdate
 } = require('../middlewares/validacionesPacientes');
+
+//router.use(autorizarRol('admin', 'veterinaria_gerencia', 'veterinaria', 'gerencia'));
 
 /**
  * @swagger

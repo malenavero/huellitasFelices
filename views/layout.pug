@@ -1,7 +1,11 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title Huellitas Felices
+    link(rel="stylesheet", href="/css/style.css")
   body
+    nav.nav-links
+      a(href=productosUrl) Productos
+      a(href=pacientesUrl) Pacientes
+      a(href=turnosUrl) Turnos
     block content

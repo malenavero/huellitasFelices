@@ -1,7 +1,29 @@
-doctype html
-html
-  head
-    title Producto CRear
-  
+extends ../layout
 
-    a(href="/productos/index") ← Volver al listado
+block content
+  a(href="/productos") ← Volver al listado
+
+  h1= modo === 'editar' ? 'Editar Producto' : 'Nuevo Producto'
+
+  form(method="POST", action=modo === 'editar' ? `/productos/${producto.id}?_method=PUT` : '/productos')
+    label(for="nombre") Nombre:
+    input(type="text", name="nombre", id="nombre", value=(producto && producto.nombre) || '', placeholder="Nombre del producto", required)
+
+    label(for="categoria") Categoría:
+    select(name="categoria", id="categoria", required)
+      each cat in categorias
+        option(value=cat selected=(producto && producto.categoria === cat))= cat
+
+    label(for="precio") Precio:
+    input(type="number", step="0.01", name="precio", id="precio", value=(producto && producto.precio) || '', placeholder="Precio en $", required)
+
+    label(for="stock") Stock:
+    input(type="number", name="stock", id="stock", value=(producto && producto.stock) || 0, placeholder="Cantidad en stock")
+
+    label(for="fechaVencimiento") Fecha de vencimiento:
+    input(type="date", name="fechaVencimiento", id="fechaVencimiento", value=(producto && producto.fechaVencimiento) || '')
+
+    label(for="descripcion") Descripción:
+    textarea(name="descripcion", id="descripcion", placeholder="Descripción opcional")= (producto && producto.descripcion) || ''
+
+    button(type="submit")= modo === 'editar' ? 'Actualizar' : 'Crear'

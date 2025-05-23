@@ -1,22 +1,34 @@
-doctype html
-html
-  head
-    title Productos
-  body
-    h1 Productos disponibles
+extends ../layout
 
-    // Filtro de categorías
-    form(method="GET")
-      select(name="categoria")
-        option(value="") Todas las categorías
-        each categoria in categorias
-          option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
-      button(type="submit") Filtrar
+block content
+  h1 Productos disponibles
 
-    ul
-      each producto in productos
-        li
-          h3= producto.nombre
-          p Precio: $#{producto.precio}
-          p Stock: #{producto.stock}
-          a(href=`/productos/${producto.id}`) Más →
+  //Filtrado por categoría
+  form(method="GET", style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;")
+    select(name="categoria")
+      option(value="") Todas las categorías
+      each categoria in categorias
+        option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
+    button(type="submit") Filtrar
+
+  // Botón para nuevo producto
+  a(href="/productos/crear", class="button-primary") ➕ Nuevo Producto
+
+  // Lista de productos
+  ul
+    each producto in productos
+      li
+        h3= producto.nombre
+        p
+          span.detail-label Precio:
+          | $#{producto.precio}
+        p
+          span.detail-label Stock:
+          | #{producto.stock}
+        
+        // 🔹 Acciones
+        div(style="margin-top: 10px;")
+          a(href=`/productos/${producto.id}`, style="margin-right: 10px;") 👁️ Ver
+          a(href=`/productos/${producto.id}/editar`, style="margin-right: 10px;") ✏️ Editar
+          form(method="POST", action=`/productos/${producto.id}?_method=DELETE`, style="display:inline")
+            button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')") 🗑️ Eliminar

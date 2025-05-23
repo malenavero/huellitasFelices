@@ -6,15 +6,16 @@ const logger = require('morgan');
 const { setupSwagger } = require('./swagger.js');
 const ensureDataFilesExist = require('./initDataFiles');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const productosRouter = require('./routes/productos.routes');
 const pacientesRouter = require('./routes/pacientes.routes');
 const turnosRouter = require('./routes/turnos.routes');
+const usuariosRouter = require('./routes/usuarios.routes');
 const busquedasRouter = require('./routes/busquedas.routes');
 const documentacionRouter = require('./routes/documentacion.routes');
 
 
 const methodOverride = require('method-override');
+
 
 const app = express();
 setupSwagger(app);
@@ -46,12 +47,13 @@ app.use((req, res, next) => {
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/productos', productosRouter);
 app.use('/pacientes', pacientesRouter);
 app.use('/turnos', turnosRouter);
+app.use('/usuarios', usuariosRouter);
 app.use('/busquedas', busquedasRouter);
 app.use('/documentacion', documentacionRouter);
+
 
 
 app.use((err, req, res, next) => {

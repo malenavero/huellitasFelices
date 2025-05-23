@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/productosController');
+const autorizarRol = require('../middlewares/autorizarRol');
 const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require('../middlewares/validacionesProductos');
 const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
 
@@ -39,6 +40,9 @@ router.get('/crear', (req, res) => {
  *         description: Producto no encontrado
  */
 router.get('/:id/editar', controller.formEditar);
+
+
+//router.use(autorizarRol('admin','gerente', 'ventas', 'recepcionista_ventas', 'veterinaria_gerencia'));
 
 /**
  * @swagger

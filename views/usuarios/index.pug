@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Usuarios
+  body
+    h1 Usuarios activos
+
+    
+    ul
+      each usuario in usuarios
+        li
+          h3= usuario.nombre usuario.apellido
+          p Telefono: #{usuario.telefono}
+          p Direccion: #{usuario.direccion}
+          p Correo: #{usuario.correo}
+          p Rol: #{usuario.rol}
+          a(href=`/usuarios/${usuario.id}`) Más →

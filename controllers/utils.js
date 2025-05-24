@@ -51,6 +51,7 @@ const urls = {
   pacientesUrl: '/pacientes',
   turnosUrl: '/turnos',
   busquedasUrl: '/busquedas',
+  usuariosUrl: '/usuarios',
   documentacionUrl: '/documentacion'
 }
 

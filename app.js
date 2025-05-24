@@ -39,6 +39,7 @@ app.use((req, res, next) => {
   res.locals.pacientesUrl = '/pacientes';
   res.locals.turnosUrl = '/turnos';
   res.locals.busquedasUrl = '/busquedas';
+  res.locals.usuariosUrl = '/usuarios';
   res.locals.documentacionUrl = '/documentacion';
   next();
 });

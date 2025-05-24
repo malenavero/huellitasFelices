@@ -45,6 +45,14 @@ const options = {
         name: 'Búsquedas (Vistas)',
         description: 'Vistas HTML para formularios de búsquedas',
       },
+      {
+        name: 'Usuarios',
+        description: 'Operaciones relacionadas con usuarios',
+      },
+      {
+        name: 'Usuarios (Vistas)',
+        description: 'Vistas HTML para formularios de usuarios',
+      },
     ],
     components: {
       schemas: {

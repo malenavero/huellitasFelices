@@ -188,6 +188,10 @@ button[type="submit"]:disabled {
   background-color: #005999;
 }
 
+a.button-primary {
+  color: white;
+}
+
 button.delete {
   background: none;
   border: none;

@@ -1,7 +1,31 @@
-doctype html
-html
-  head
-    title Producto Detalle
-  
+extends ../layout
 
-    a(href="/usuarios/index") ← Volver al listado
+block content
+  h1 #{usuario.nombre} #{usuario.apellido}
+
+  div.card
+    p
+      span.detail-label Teléfono:
+      |  #{usuario.telefono}
+
+    p
+      span.detail-label Dirección:
+      |  #{usuario.direccion}
+
+    p
+      span.detail-label Correo:
+      |  #{usuario.correo}
+
+    p
+      span.detail-label Rol:
+      |  #{usuario.rol}
+
+    p
+      span.detail-label Fecha de creación:
+      |  #{new Date(usuario.createdAt).toLocaleString()}
+
+    p
+      span.detail-label Última actualización:
+      |  #{new Date(usuario.updatedAt).toLocaleString()}
+
+  a(href="/usuarios", class="button-primary") ← Volver al listado

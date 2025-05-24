@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/usuariosController');
 const autorizarRol  = require('../middlewares/autorizarRol');
+const { ROLES } = require('../utils/constants.js');
 const {
   validarUsuarioCreate,
   validarUsuarioUpdate,
@@ -9,6 +10,41 @@ const {
 } = require('../middlewares/validacionesUsuarios');
 
 
+
+/**
+ * @swagger
+ * /usuarios/crear:
+ *   get:
+ *     summary: Renderiza el formulario de creación de usuarios
+ *     tags:
+ *       - Usuarios (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de creación
+ */
+router.get('/crear', (req, res) => {
+  res.render('usuarios/form', {
+    modo: 'crear',
+    producto: {},
+    roles: ROLES,
+    errores: []
+  });
+});
+
+/**
+ * @swagger
+ * /usuarios/{id}/editar:
+ *   get:
+ *     summary: Renderiza el formulario de edición para un usuario
+ *     tags:
+ *       - Usuarios (Vistas)
+ *     responses:
+ *       200:
+ *         description: Formulario HTML de edición
+ *       404:
+ *         description: Usuario no encontrado
+ */
+router.get('/:id/editar', controller.formEditar);
 
 /**
  * @swagger
@@ -165,7 +201,7 @@ router.post('/', validarUsuarioCreate, controller.crear);
  *       404:
  *         description: Usuario no encontrado
  */
-router.put('/:id', validarUsuarioCreate, controller.actualizar);
+router.put('/:id', validarUsuarioUpdate, controller.actualizar);
 
 /**
  * @swagger

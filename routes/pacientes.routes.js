@@ -81,6 +81,9 @@ router.get("/:id", controller.detalle);
  *       400:
  *         description: Datos inválidos para creación
  */
+
+router.get("/:id/editar", controller.formEditar);
+
 router.post("/", validarPacienteCreate, controller.crear);
 /**
  * @swagger

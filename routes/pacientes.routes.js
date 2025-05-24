@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/pacientesController');
+const controller = require("../controllers/pacientesController");
 const {
   validarPacienteCreate,
-  validarPacienteUpdate
-} = require('../middlewares/validacionesPacientes');
+  validarPacienteUpdate,
+} = require("../middlewares/validacionesPacientes");
 
 /**
  * @swagger
@@ -23,7 +23,7 @@ const {
  *               items:
  *                 $ref: '#/components/schemas/Paciente'
  */
-router.get('/', controller.listar);
+router.get("/", controller.listar);
 /**
  * @swagger
  * /pacientes/{id}:
@@ -48,7 +48,16 @@ router.get('/', controller.listar);
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/:id', controller.detalle);
+
+router.get("/crear", (req, res) => {
+  res.render("pacientes/form", {
+    modo: "crear",
+    paciente: { responsable: {} },
+    errores: [],
+  });
+});
+
+router.get("/:id", controller.detalle);
 /**
  * @swagger
  * /pacientes:
@@ -72,7 +81,7 @@ router.get('/:id', controller.detalle);
  *       400:
  *         description: Datos inválidos para creación
  */
-router.post('/', validarPacienteCreate, controller.crear);
+router.post("/", validarPacienteCreate, controller.crear);
 /**
  * @swagger
  * /pacientes/{id}:
@@ -105,7 +114,7 @@ router.post('/', validarPacienteCreate, controller.crear);
  *       404:
  *         description: Paciente no encontrado
  */
-router.put('/:id', validarPacienteUpdate, controller.actualizar);
+router.put("/:id", validarPacienteUpdate, controller.actualizar);
 
 /**
  * @swagger
@@ -135,6 +144,6 @@ router.put('/:id', validarPacienteUpdate, controller.actualizar);
  *       404:
  *         description: Paciente no encontrado
  */
-router.delete('/:id', controller.eliminar);
+router.delete("/:id", controller.eliminar);
 
 module.exports = router;

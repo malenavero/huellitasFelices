@@ -1,23 +1,7 @@
 [
   {
-    "id": 1,
-    "nombre": "firulais",
-    "especie": "perro",
-    "raza": "galgo",
-    "fechaNacimiento": "2018-06-15",
-    "responsable": {
-      "nombre": "Tomás Pérez",
-      "telefono": "1123456789",
-      "email": "juan@mail.com",
-      "direccion": "Calle Falsa 123"
-    },
-    "fichaMedica": [],
-    "createdAt": "2025-05-17T23:59:06.838Z",
-    "updatedAt": "2025-05-17T23:59:06.838Z"
-  },
-  {
     "id": 3,
-    "nombre": "kimchi",
+    "nombre": "Kimchi",
     "especie": "gato",
     "raza": "naranja",
     "fechaNacimiento": "2015-09-15",
@@ -33,7 +17,7 @@
   },
   {
     "id": 4,
-    "nombre": "gala4",
+    "nombre": "Gala",
     "especie": "gato",
     "raza": "gris",
     "fechaNacimiento": "2015-09-16",
@@ -46,5 +30,21 @@
     "fichaMedica": [],
     "createdAt": "2025-05-23T14:49:03.217Z",
     "updatedAt": "2025-05-23T14:49:03.217Z"
+  },
+  {
+    "id": 5,
+    "nombre": "Tiana",
+    "especie": "perro",
+    "raza": "mestizo",
+    "fechaNacimiento": "2020-01-01",
+    "responsable": {
+      "nombre": "Josefina",
+      "telefono": "234567890",
+      "email": "josefinacicchini@gmail.com",
+      "direccion": "Ciudad de La Paz 1900"
+    },
+    "fichaMedica": [],
+    "createdAt": "2025-05-24T00:54:00.997Z",
+    "updatedAt": "2025-05-24T00:54:00.997Z"
   }
 ]

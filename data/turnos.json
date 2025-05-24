@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "fecha": "2028-07-11",
+    "hora": "11:30",
+    "pacienteId": 1,
+    "servicio": "veterinaria",
+    "precio": 2500,
+    "createdAt": "2025-05-24T14:14:45.179Z",
+    "updatedAt": "2025-05-24T14:18:16.155Z"
+  }
+]

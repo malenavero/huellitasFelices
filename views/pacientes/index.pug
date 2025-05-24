@@ -1,4 +1,36 @@
 extends ../layout
 
 block content
-  h1 Pacientes disponibles
+  h1 Lista de Pacientes
+
+  a(href="/pacientes/crear").button ➕ Nuevo Paciente
+
+  // lista de pacientes
+  if pacientes.length
+    table(style="margin: 40px auto; width: 100%; max-width: 900px; border-collapse: collapse;")
+      thead
+        tr
+          th Nombre
+          th Especie
+          th Raza
+          th Edad
+          th Dueño
+          th(style="text-align: right")
+      tbody
+        each paciente in pacientes
+          tr
+            td(style="text-align: center")= paciente.nombre
+            td(style="text-align: center")= paciente.especie
+            td(style="text-align: center")= paciente.raza
+            td(style="text-align: center")= paciente.edad
+            td(style="text-align: center")= paciente.responsable.nombre
+            td(styyle="text-align: right")
+                a(href=`/pacientes/${paciente.id}`, style="margin-right: 10px;") 👁️ Ver
+                a(href=`/pacientes/${paciente.id}/editar`, style="margin-right: 10px;") ✏️ Editar
+                form(method="POST", action=`/pacientes/${paciente.id}?_method=DELETE`, style="display:inline; padding: 0; margin: 0;")
+                  button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')") 🗑️ Eliminar
+
+
+            
+  else
+    p No hay pacientes registrados.

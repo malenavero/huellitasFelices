@@ -1,4 +1,37 @@
 extends ../layout
 
 block content
-  h1 Pacientes Detalle
+  h1 Detalle de Paciente
+
+  p
+    span.detail-label Id:
+    | #{paciente.id}
+  p
+    span.detail-label Nombre:
+    | #{paciente.nombre}
+  p
+    span.detail-label Especie:
+    | #{paciente.especie}
+  p
+    span.detail-label Raza:
+    | #{paciente.raza}
+  p
+    span.detail-label Fecha de Nacimiento:
+    | #{paciente.fechaNacimiento}
+  p
+    span.detail-label Edad:
+    | #{paciente.edad}
+  p
+    span.detail-label Responsable:
+    | #{paciente.responsable.nombre}
+  p
+    span.detail-label Teléfono:
+    | #{paciente.responsable.telefono}
+  p
+    span.detail-label Email:
+    | #{paciente.responsable.email}
+  p
+    span.detail-label Dirección:
+    | #{paciente.responsable.direccion}
+
+  a(href="/pacientes", style="display:inline-block; margin-top: 20px;") ← Volver al listado

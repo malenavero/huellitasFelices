@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "nombre": "pluma verde",
+    "categoria": "otros",
+    "precio": "3000",
+    "stock": 0,
+    "descripcion": "Mayor a 2 años",
+    "fechaVencimiento": "2026-09-12",
+    "createdAt": "2025-05-23T22:54:19.846Z",
+    "updatedAt": "2025-05-24T14:04:06.050Z"
+  },
+  {
+    "id": 3,
+    "nombre": "ibuprofeno 200",
+    "categoria": "farmacia",
+    "precio": "9000",
+    "stock": 20,
+    "descripcion": "Mayor a 2 años",
+    "fechaVencimiento": "2026-09-12",
+    "createdAt": "2025-05-24T13:58:10.633Z",
+    "updatedAt": "2025-05-24T14:01:03.117Z"
+  },
+  {
+    "id": 4,
+    "nombre": "nutrique gato adulto",
+    "categoria": "comida",
+    "precio": 5689,
+    "stock": 10,
+    "descripcion": "Mayor a 2 años",
+    "fechaVencimiento": "2026-10-12",
+    "createdAt": "2025-05-24T14:01:58.397Z",
+    "updatedAt": "2025-05-24T14:01:58.397Z"
+  }
+]

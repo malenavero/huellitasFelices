@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "nombre": "gala",
+    "especie": "gato",
+    "raza": "gris",
+    "fechaNacimiento": "2015-09-16",
+    "responsable": {
+      "nombre": "Elena Morley",
+      "telefono": "1123456789",
+      "email": "otroResponsabe@mail.com",
+      "direccion": "Bulnes 123"
+    },
+    "fichaMedica": [],
+    "consultas": [],
+    "createdAt": "2025-05-23T22:56:56.038Z",
+    "updatedAt": "2025-05-24T14:10:19.254Z"
+  },
+  {
+    "id": 2,
+    "nombre": "kimchi",
+    "especie": "gato",
+    "raza": "",
+    "fechaNacimiento": "2015-09-16",
+    "responsable": {
+      "nombre": "Elena Morley",
+      "telefono": "1123456789",
+      "email": "elena@mail.com",
+      "direccion": "Bulnes 123"
+    },
+    "fichaMedica": [],
+    "consultas": [],
+    "createdAt": "2025-05-24T14:05:39.530Z",
+    "updatedAt": "2025-05-24T14:05:39.530Z"
+  }
+]

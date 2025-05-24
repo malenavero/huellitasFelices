@@ -1,4 +1,38 @@
 extends ../layout
 
 block content
-  h1 Pacientes Form
+  a(href="/pacientes") ← Volver al listado
+
+  h1= modo === 'editar' ? 'Editar Paciente' : 'Nuevo Paciente'
+
+  form(method="POST", action=modo === 'editar' ? `/pacientes/${paciente.id}?_method=PUT` : '/pacientes')
+
+    h2 Datos del paciente
+
+    label(for="nombre") Nombre:
+    input(type="text", name="nombre", id="nombre", value=paciente.nombre || '', placeholder="Nombre del paciente", required)
+
+    label(for="especie") Especie:
+    input(type="text", name="especie", id="especie", value=paciente.especie || '', placeholder="Ej: Perro, Gato", required)
+
+    label(for="raza") Raza:
+    input(type="text", name="raza", id="raza", value=paciente.raza || '', placeholder="Raza del animal", required)
+
+    label(for="fechaNacimiento") Fecha de nacimiento:
+    input(type="date", name="fechaNacimiento", id="fechaNacimiento", value=paciente.fechaNacimiento || '', required)
+
+    h2 Datos del responsable
+
+    label(for="responsable_nombre") Nombre del responsable:
+    input(type="text", name="responsable[nombre]", id="responsable_nombre", value=(paciente.responsable && paciente.responsable.nombre) || '', placeholder="Nombre completo", required)
+
+    label(for="responsable_telefono") Teléfono:
+    input(type="text", name="responsable[telefono]", id="responsable_telefono", value=(paciente.responsable && paciente.responsable.telefono) || '', placeholder="Teléfono de contacto", required)
+
+    label(for="responsable_email") Email:
+    input(type="email", name="responsable[email]", id="responsable_email", value=(paciente.responsable && paciente.responsable.email) || '', placeholder="Email válido", required)
+
+    label(for="responsable_direccion") Dirección:
+    input(type="text", name="responsable[direccion]", id="responsable_direccion", value=(paciente.responsable && paciente.responsable.direccion) || '', placeholder="Calle, número, ciudad")
+
+    button(type="submit")= modo === 'editar' ? 'Guardar cambios' : 'Crear'

@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const controller = require('../controllers/turnosController');
 const autorizarRol = require('../middlewares/autorizarRol');
@@ -47,7 +47,7 @@ router.get('/:id/editar', controller.formEditar);
  * /turnos:
  *   get:
  *     summary: Obtiene todos los turnos
- *     tags: 
+ *     tags:
  *       - Turnos
  *     responses:
  *       200:
@@ -59,8 +59,16 @@ router.get('/:id/editar', controller.formEditar);
  *               items:
  *                 $ref: '#/components/schemas/Turno'
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   controller.listar(req, res);
+});
+
+router.get("/crear", (req, res) => {
+  res.render("turnos/form", {
+    modo: "crear",
+    turno: {},
+    errores: [],
+  });
 });
 
 /**
@@ -68,7 +76,7 @@ router.get('/', (req, res) => {
  * /turnos/{id}:
  *   get:
  *     summary: Obtiene un turno por ID
- *     tags: 
+ *     tags:
  *       - Turnos
  *     parameters:
  *       - in: path
@@ -96,7 +104,7 @@ router.get('/:id', controller.detalle);
  * /turnos:
  *   post:
  *     summary: Crea un nuevo turno
- *     tags: 
+ *     tags:
  *       - Turnos
  *     requestBody:
  *       required: true
@@ -114,7 +122,9 @@ router.get('/:id', controller.detalle);
  *       400:
  *         description: Error de validación
  */
-router.post('/', validarTurnoCreate, controller.crear);
+router.get("/:id/editar", controller.formEditar);
+
+router.post("/", validarTurnoCreate, controller.crear);
 
 // PUT
 /**
@@ -122,7 +132,7 @@ router.post('/', validarTurnoCreate, controller.crear);
  * /turnos/{id}:
  *   put:
  *     summary: Actualiza un turno por ID
- *     tags: 
+ *     tags:
  *       - Turnos
  *     parameters:
  *       - in: path
@@ -158,7 +168,7 @@ router.put('/:id', validarTurnoUpdate, controller.actualizar);
  * /turnos/{id}:
  *   delete:
  *     summary: Elimina un turno por ID
- *     tags: 
+ *     tags:
  *       - Turnos
  *     parameters:
  *       - in: path
@@ -180,6 +190,6 @@ router.put('/:id', validarTurnoUpdate, controller.actualizar);
  *       404:
  *         description: Turno no encontrado
  */
-router.delete('/:id', controller.eliminar);
+router.delete("/:id", controller.eliminar);
 
 module.exports = router;

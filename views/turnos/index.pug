@@ -1,4 +1,30 @@
-extends ../layout
+extends ../layout.pug
 
 block content
-  h1 Turnos
+  h1 Lista de Turnos
+
+  a(href="/turnos/crear").button ➕ Nuevo Turno
+
+  if turnos.length
+    table(style="margin: 40px auto; width: 100%; max-width: 900px; border-collapse: collapse;")
+      thead
+        tr
+          th Fecha
+          th Hora
+          th Paciente
+          th Servicio
+          th(style="text-align: right")
+      tbody
+        each turno in turnos
+          tr(style="text-align: center")
+            td= turno.fecha
+            td= turno.hora
+            td= turno.nombrePaciente
+            td= turno.servicio
+            td
+              a.btn.btn-sm.btn-primary(href=`/turnos/${turno.id}`, style="margin-right: 10px;") 👁️ Ver
+              a.btn.btn-sm.btn-warning(href=`/turnos/${turno.id}/editar`, style="margin-right: 10px;") ✏️Editar
+              form(method="POST", action=`/turnos/${turno.id}?_method=DELETE`, style="display:inline; padding: 0; margin: 0;")
+                button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')") 🗑️ Eliminar
+  else
+    p No hay turnos registrados.

@@ -1,4 +1,22 @@
 extends ../layout
 
 block content
-  h1 Turno Detalle
+  h1 Detalle de Turno
+
+  p
+    span.detail-label Fecha:
+    | #{turno.fecha}
+  p
+    span.detail-label Hora:
+    | #{turno.hora}
+  p
+    span.detail-label Nombre:
+    | #{turno.nombrePaciente}
+  p
+    span.detail-label Servicio:
+    | #{turno.servicio}
+  p
+    span.detail-label Motivo:
+    | #{turno.motivo}
+
+  a(href="/turnos", style="display:inline-block; margin-top: 20px;") ← Volver al listado

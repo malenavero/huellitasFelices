@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const controller = require('../controllers/pacientesController');
 const autorizarRol = require('../middlewares/autorizarRol');
@@ -65,7 +65,16 @@ router.get('/:id/editar', controller.formEditar);
  *               items:
  *                 $ref: '#/components/schemas/Paciente'
  */
-router.get('/', controller.listar);
+router.get("/", controller.listar);
+
+router.get("/crear", (req, res) => {
+  res.render("pacientes/form", {
+    modo: "crear",
+    paciente: { responsable: {} },
+    errores: [],
+  });
+});
+
 /**
  * @swagger
  * /pacientes/{id}:
@@ -185,6 +194,6 @@ router.put('/:id', validarPacienteUpdate, controller.actualizar);
  *       404:
  *         description: Paciente no encontrado
  */
-router.delete('/:id', controller.eliminar);
+router.delete("/:id", controller.eliminar);
 
 module.exports = router;

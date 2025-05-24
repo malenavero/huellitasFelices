@@ -1,6 +1,6 @@
-const Usuario = require('../models/Usuario');
-const { ROLES } = require('../utils/constants.js');
-const { returnJSON, hashPassword, comparePassword, urls, handleError } = require('./utils.js');
+const Usuario = require("../models/Usuario");
+const { ROLES } = require("../utils/constants.js");
+const { returnJSON, hashPassword, urls, handleError } = require("./utils.js");
 
 async function getListParams(query = {}) {
   const usuarios = await Usuario.findAll(query);
@@ -13,7 +13,7 @@ async function getListParams(query = {}) {
 
 async function renderListView(res, status = 200, query = {}) {
   const params = await getListParams(query);
-  return res.status(status).render('usuarios/index', params);
+  return res.status(status).render("usuarios/index", params);
 }
 
 module.exports = {
@@ -33,27 +33,27 @@ module.exports = {
       const usuario = await Usuario.findById(req.params.id);
 
       if (!usuario) {
-        handleError(req, res, 404, 'Usuario no encontrado');
+        handleError(req, res, 404, "Usuario no encontrado");
       }
 
       if (returnJSON(req)) {
         return res.status(200).json(usuario);
       }
 
-      return res.status(200).render('usuarios/detalle', { usuario });
+      return res.status(200).render("usuarios/detalle", { usuario });
     } catch (error) {
       console.error(error);
-      handleError(req, res, 500, 'Error al obtener el usuario');
+      handleError(req, res, 500, "Error al obtener el usuario");
     }
   },
 
   async formEditar(req, res) {
     const usuario = await Usuario.findById(req.params.id);
     if (!usuario) {
-      return handleError(req, res, 404, 'Usuario no encontrado');
+      return handleError(req, res, 404, "Usuario no encontrado");
     }
-    res.render('usuarios/form', {
-      modo: 'editar',
+    res.render("usuarios/form", {
+      modo: "editar",
       usuario,
       roles: ROLES,
     });
@@ -65,7 +65,7 @@ module.exports = {
       const { nombre, apellido, password, telefono, direccion, correo, rol } =
         req.body;
 
-      passEncriptada = await hashPassword(password);
+      const passEncriptada = await hashPassword(password);
 
       const nuevoUsuario = await Usuario.create({
         nombre,
@@ -84,7 +84,7 @@ module.exports = {
 
     } catch (error) {
       console.error(error);
-      handleError(req, res, 500, 'Error al crear el usuario');
+      handleError(req, res, 500, "Error al crear el usuario");
     }
   },
 
@@ -95,14 +95,14 @@ module.exports = {
       const datosActualizados = req.body;
 
       if (datosActualizados.password) {
-        passEncriptada = await hashPassword(datosActualizados.password);
+        const passEncriptada = await hashPassword(datosActualizados.password);
         datosActualizados.password = passEncriptada;
       }
 
       const usuarioActualizado = await Usuario.update(id, datosActualizados);
 
       if (!usuarioActualizado) {
-        handleError(req, res, 404, 'Usuario no encontrado');
+        handleError(req, res, 404, "Usuario no encontrado");
       }
 
       if (returnJSON(req)) {
@@ -112,7 +112,7 @@ module.exports = {
 
     } catch (error) {
       console.error(error);
-      handleError(req, res, 500, 'Error al actualizar el usuario');
+      handleError(req, res, 500, "Error al actualizar el usuario");
     }
   },
   // DELETE - Eliminar un usuario
@@ -120,22 +120,22 @@ module.exports = {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
-        return res.status(400).json({ error: 'ID inválido' });
+        return res.status(400).json({ error: "ID inválido" });
       }
       const eliminado = await Usuario.delete(id);
 
       if (!eliminado) {
-        handleError(req, res, 404, 'Usuario no encontrado');
+        handleError(req, res, 404, "Usuario no encontrado");
       }
 
       if (returnJSON(req)) {
-        return res.status(200).json({ message: 'Usuario eliminado' });
+        return res.status(200).json({ message: "Usuario eliminado" });
       }
       return renderListView(res, 201, req.query);
 
     } catch (error) {
       console.error(error);
-      handleError(req, res, 500, 'Error al eliminar el usuario');
+      handleError(req, res, 500, "Error al eliminar el usuario");
     }
   }
 };

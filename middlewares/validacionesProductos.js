@@ -1,85 +1,85 @@
 // middlewares/validacionesProductos.js
-const { body } = require('express-validator');
-const Producto = require('../models/Producto.js');
-const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
+const { body } = require("express-validator");
+const Producto = require("../models/Producto.js");
+const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 
-const { validarFecha, normalizarCamposTexto, asignarDefaults, manejoErrores, validarDuplicado, validarTexto } = require('./utils.js');
+const { validarFecha, normalizarCamposTexto, asignarDefaults, manejoErrores, validarDuplicado, validarTexto } = require("./utils.js");
 
 // Validadores generales sin .exists ni .optional porque eso depende de si es create o update
-const validarNombre = validarTexto('nombre', 100);
+const validarNombre = validarTexto("nombre", 100);
 
 const validarCategoria = [
-  body('categoria')
-    .if(body('categoria').exists({ checkFalsy: true }))
+  body("categoria")
+    .if(body("categoria").exists({ checkFalsy: true }))
     .custom(value => {
       if (!CATEGORIAS_PRODUCTO.includes(value)) {
-        throw new Error(`Categoría inválida. Las válidas son: ${CATEGORIAS_PRODUCTO.join(', ')}`);
+        throw new Error(`Categoría inválida. Las válidas son: ${CATEGORIAS_PRODUCTO.join(", ")}`);
       }
       return true;
     }),
 ];
 
 const validarPrecio = [
-  body('precio')
-    .if(body('precio').exists({ checkFalsy: true }))
+  body("precio")
+    .if(body("precio").exists({ checkFalsy: true }))
     .isFloat({ min: 0.01 })
-    .withMessage('Precio debe ser un número positivo'),
+    .withMessage("Precio debe ser un número positivo"),
 ];
 
 const validarStock = [
-  body('stock')
-    .if(body('stock').exists({ checkFalsy: true }))
+  body("stock")
+    .if(body("stock").exists({ checkFalsy: true }))
     .isInt({ min: 0 })
-    .withMessage('Stock debe ser un entero positivo'),
+    .withMessage("Stock debe ser un entero positivo"),
 ];
 
 const validarFechaVencimiento = [
-  body('fechaVencimiento')
-    .if(body('fechaVencimiento').exists({ checkFalsy: true }))
+  body("fechaVencimiento")
+    .if(body("fechaVencimiento").exists({ checkFalsy: true }))
     .custom(validarFecha)
 ];
 
-const validarDescripcion = validarTexto('descripcion', 255);
+const validarDescripcion = validarTexto("descripcion", 255);
 
 // Validación CREATE 
 const validarProductoCreate = [
-  normalizarCamposTexto(['nombre', 'categoria']),
+  normalizarCamposTexto(["nombre", "categoria"]),
   asignarDefaults({
     descripcion: "",
     fechaVencimiento: "",
     stock: 0
   }),
 
-  body('nombre')
+  body("nombre")
     .exists({ checkFalsy: true })
-    .withMessage('Nombre obligatorio'),
+    .withMessage("Nombre obligatorio"),
   validarDuplicado(Producto, ["nombre"]),
   ...validarNombre,
 
-  body('categoria')
+  body("categoria")
     .exists({ checkFalsy: true })
-    .withMessage('Categoría obligatoria'),
+    .withMessage("Categoría obligatoria"),
   ...validarCategoria,
 
-  body('precio')
+  body("precio")
     .exists({ checkFalsy: true })
-    .withMessage('Precio obligatorio'),
+    .withMessage("Precio obligatorio"),
   ...validarPrecio,
 
   // stock es opcional
-  body('stock').optional(),
+  body("stock").optional(),
   ...validarStock,
 
   // descripcion opcional
-  body('descripcion').optional(),
+  body("descripcion").optional(),
   ...validarDescripcion,
 
   // fechaVencimiento obligatorio para farmacia/comida
-  body('fechaVencimiento')
+  body("fechaVencimiento")
     .custom((value, { req }) => {
       const cat = req.body.categoria;
-      if ((cat === 'farmacia' || cat === 'comida') && !value) {
-        throw new Error('Fecha de vencimiento es obligatoria para farmacia y comida');
+      if ((cat === "farmacia" || cat === "comida") && !value) {
+        throw new Error("Fecha de vencimiento es obligatoria para farmacia y comida");
       }
       return true;
     }),
@@ -91,25 +91,25 @@ const validarProductoCreate = [
 
 // Validación UPDATE: todos opcionales, validar solo si están
 const validarProductoUpdate = [
-  normalizarCamposTexto(['nombre', 'categoria']),
+  normalizarCamposTexto(["nombre", "categoria"]),
 
-  body('nombre').optional(),
+  body("nombre").optional(),
   validarDuplicado(Producto, ["nombre"]),
   ...validarNombre,
 
-  body('categoria').optional(),
+  body("categoria").optional(),
   ...validarCategoria,
 
-  body('precio').optional(),
+  body("precio").optional(),
   ...validarPrecio,
 
-  body('stock').optional(),
+  body("stock").optional(),
   ...validarStock,
 
-  body('descripcion').optional(),
+  body("descripcion").optional(),
   ...validarDescripcion,
 
-  body('fechaVencimiento').optional(),
+  body("fechaVencimiento").optional(),
   ...validarFechaVencimiento,
 
   manejoErrores,
@@ -117,9 +117,9 @@ const validarProductoUpdate = [
 
 // Validar stock
 const validarCantidad = [
-  body('cantidad')
-    .exists({ checkFalsy: true }).withMessage('Cantidad es obligatoria')
-    .isInt({ min: 1 }).withMessage('Cantidad debe ser un entero positivo'),
+  body("cantidad")
+    .exists({ checkFalsy: true }).withMessage("Cantidad es obligatoria")
+    .isInt({ min: 1 }).withMessage("Cantidad debe ser un entero positivo"),
   manejoErrores
 ];
 

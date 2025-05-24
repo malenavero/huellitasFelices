@@ -1,6 +1,6 @@
-const DBHandler = require('./DBHandler');
-const db = new DBHandler('pacientes.json');
-const { getNewId } = require('./utils.js');
+const DBHandler = require("./DBHandler");
+const db = new DBHandler("pacientes.json");
+const { getNewId } = require("./utils.js");
 
 class Paciente {
   constructor({

@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/pacientesController');
-const autorizarRol = require('../middlewares/autorizarRol');
+const controller = require("../controllers/pacientesController");
+// const autorizarRol = require('../middlewares/autorizarRol');
 const {
   validarPacienteCreate,
   validarPacienteUpdate
-} = require('../middlewares/validacionesPacientes');
+} = require("../middlewares/validacionesPacientes");
 
 
 //router.use(autorizarRol('admin', 'veterinaria_gerencia', 'veterinaria', 'gerencia'));
@@ -23,10 +23,10 @@ const {
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get('/crear', (req, res) => {
+router.get("/crear", (req, res) => {
   
-  res.render('pacientes/form', {
-    modo: 'crear',
+  res.render("pacientes/form", {
+    modo: "crear",
     busqueda: {},
     paciente: {},
     responsable: {},
@@ -47,7 +47,7 @@ router.get('/crear', (req, res) => {
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/:id/editar', controller.formEditar);
+router.get("/:id/editar", controller.formEditar);
 
 
 //GET
@@ -102,7 +102,7 @@ router.get("/crear", (req, res) => {
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/:id', controller.detalle);
+router.get("/:id", controller.detalle);
 
 
 // POST
@@ -129,7 +129,7 @@ router.get('/:id', controller.detalle);
  *       400:
  *         description: Datos inválidos para creación
  */
-router.post('/', validarPacienteCreate, controller.crear);
+router.post("/", validarPacienteCreate, controller.crear);
 
 
 // PUT
@@ -165,7 +165,7 @@ router.post('/', validarPacienteCreate, controller.crear);
  *       404:
  *         description: Paciente no encontrado
  */
-router.put('/:id', validarPacienteUpdate, controller.actualizar);
+router.put("/:id", validarPacienteUpdate, controller.actualizar);
 
 
 // DELETE

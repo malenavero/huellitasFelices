@@ -1,21 +1,21 @@
 // controllers/productoController.js
-const Producto = require('../models/Producto');
-const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
-const { returnJSON, handleError, urls } = require('./utils.js');
+const Producto = require("../models/Producto");
+const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
+const { returnJSON, handleError, urls } = require("./utils.js");
 
 async function getListParams(query = {}) {
   const productos = await Producto.findAll(query);
   return {
     productos,
     categorias: CATEGORIAS_PRODUCTO,
-    categoriaSeleccionada: query.categoria || '',
+    categoriaSeleccionada: query.categoria || "",
     ...urls
   };
 }
 
 async function renderListView(res, status = 200, query = {}) {
   const params = await getListParams(query);
-  return res.status(status).render('productos/index', params);
+  return res.status(status).render("productos/index", params);
 }
 
 module.exports = {
@@ -31,23 +31,23 @@ module.exports = {
   async detalle(req, res) {
     const producto = await Producto.findById(req.params.id);
     if (!producto) {
-      return handleError(req, res, 404, 'Producto no encontrado');
+      return handleError(req, res, 404, "Producto no encontrado");
     }
 
     if (returnJSON(req)) {
       return res.status(200).json(producto);
     }
 
-    return res.status(200).render('productos/detalle', { producto });
+    return res.status(200).render("productos/detalle", { producto });
   },
 
   async formEditar(req, res) {
     const producto = await Producto.findById(req.params.id);
     if (!producto) {
-      return handleError(req, res, 404, 'Producto no encontrado');
+      return handleError(req, res, 404, "Producto no encontrado");
     }
-    res.render('productos/form', {
-      modo: 'editar',
+    res.render("productos/form", {
+      modo: "editar",
       producto,
       categorias: CATEGORIAS_PRODUCTO
     });
@@ -63,7 +63,7 @@ module.exports = {
         categoria,
         precio: parseFloat(precio),
         stock: stock ? parseInt(stock) : 0,
-        descripcion: descripcion || '',
+        descripcion: descripcion || "",
         fechaVencimiento: fechaVencimiento || null
       });
 
@@ -73,7 +73,8 @@ module.exports = {
 
       return renderListView(res, 201, req.query);
     } catch (error) {
-      handleError(req, res, 500, 'Error al crear producto');
+      console.log("Error: ", error);
+      handleError(req, res, 500, "Error al crear producto");
     }
   },
 
@@ -86,7 +87,7 @@ module.exports = {
       const productoActualizado = await Producto.update(id, datosActualizados);
 
       if (!productoActualizado) {
-        return handleError(req, res, 404, 'Producto no encontrado');
+        return handleError(req, res, 404, "Producto no encontrado");
       }
 
       if (returnJSON(req)) {
@@ -94,7 +95,8 @@ module.exports = {
       }
       return renderListView(res, 201, req.query);
     } catch (error) {
-      return handleError(req, res, 500, 'Error al actualizar producto');
+      console.log("Error: ", error);
+      return handleError(req, res, 500, "Error al actualizar producto");
     }
   },
 
@@ -104,7 +106,7 @@ module.exports = {
       const id = parseInt(req.params.id);
       const idEliminado = await Producto.delete(id);
       if (!idEliminado) {
-        return handleError(req, res, 404, 'Producto no encontrado');
+        return handleError(req, res, 404, "Producto no encontrado");
       }
 
       if (returnJSON(req)) {
@@ -113,7 +115,8 @@ module.exports = {
 
       return renderListView(res, 200, req.query);
     } catch (error) {
-      return handleError(req, res, 500, 'Error al eliminar producto');
+      console.log("Error: ", error);
+      return handleError(req, res, 500, "Error al eliminar producto");
     }
   },
 
@@ -123,7 +126,7 @@ module.exports = {
       const cantidad = req.body.cantidad ? parseInt(req.body.cantidad) : 1;
 
       if (cantidad <= 0) {
-        return handleError(req, res, 400, 'Cantidad debe ser un número positivo');
+        return handleError(req, res, 400, "Cantidad debe ser un número positivo");
       }
 
       const productoVendido = await Producto.vender(id, cantidad);
@@ -134,12 +137,12 @@ module.exports = {
 
       return renderListView(res, 200, req.query);
     } catch (error) {
-      if (error.message === 'Producto no encontrado') {
+      if (error.message === "Producto no encontrado") {
         return handleError(req, res, 404, error.message);
-      } else if (error.message === 'Stock insuficiente') {
+      } else if (error.message === "Stock insuficiente") {
         return handleError(req, res, 400, error.message);
       }
-      return handleError(req, res, 500, 'Error al vender producto');
+      return handleError(req, res, 500, "Error al vender producto");
     }
   }
 };

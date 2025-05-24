@@ -1,13 +1,13 @@
 // initDataFiles.js
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const dataFiles = [
-  'data/busquedas.json',
-  'data/pacientes.json',
-  'data/turnos.json',
-  'data/productos.json',
-  'data/usuarios.json',
+  "data/busquedas.json",
+  "data/pacientes.json",
+  "data/turnos.json",
+  "data/productos.json",
+  "data/usuarios.json",
 ];
 
 function ensureDataFilesExist() {
@@ -20,7 +20,7 @@ function ensureDataFilesExist() {
     }
 
     if (!fs.existsSync(fullPath)) {
-      fs.writeFileSync(fullPath, '[]', 'utf8');
+      fs.writeFileSync(fullPath, "[]", "utf8");
       console.log(`Archivo creado: ${fullPath}`);
     }
   });

@@ -7,7 +7,7 @@ async function getListParams(query = {}) {
   const turnos = await Turno.findAll(query);
   const pacientes = await Paciente.findAll();
 
-  const hoy = new Date().toISOString().split('T')[0]; // formato YYYY-MM-DD
+  const hoy = new Date().toISOString().split("T")[0]; // formato YYYY-MM-DD
 
   // Mapa de ID → nombre de paciente
   const mapaPacientes = {};
@@ -52,14 +52,15 @@ module.exports = {
       }
       return renderListView(res, 200, req.query);
     } catch (error) {
-      return handleError(req, res, 500, 'Error al listar turnos');
+      console.log("Error: ", error);
+      return handleError(req, res, 500, "Error al listar turnos");
     }
   },
 
   async detalle(req, res) {
     const turno = await Turno.findById(req.params.id);
     if (!turno) {
-      return handleError(req, res, 404, (message = "Turno no encontrado"));
+      return handleError(req, res, 404, "Turno no encontrado");
     }
 
     // Buscamos el paciente asociado al turno y agregamos su nombre
@@ -76,7 +77,7 @@ module.exports = {
   async formEditar(req, res) {
     const turno = await Turno.findById(req.params.id);
     if (!turno) {
-      return handleError(req, res, 404, (message = "Turno no encontrado"));
+      return handleError(req, res, 404, "Turno no encontrado");
     }
     const pacientes = await Paciente.findAll();
     res.render("turnos/form", {
@@ -91,7 +92,7 @@ module.exports = {
     const pacientes = await Paciente.findAll();
 
     res.render("turnos/form", {
-      modo: 'crear',
+      modo: "crear",
       turno: {},
       errores: [],
       pacientes,
@@ -121,7 +122,8 @@ module.exports = {
 
       return renderListView(res, 201, req.query);
     } catch (error) {
-      handleError(req, res, 500, (message = "Error al crear turno"));
+      console.log("Error: ", error);
+      handleError(req, res, 500, "Error al crear turno");
     }
   },
 
@@ -133,7 +135,7 @@ module.exports = {
       const turnoActualizado = await Turno.update(id, req.body);
 
       if (!turnoActualizado) {
-        return handleError(req, res, 404, (message = "Turno no encontrado"));
+        return handleError(req, res, 404, "Turno no encontrado");
       }
 
       if (returnJSON(req)) {
@@ -142,11 +144,12 @@ module.exports = {
 
       return renderListView(res, 200, req.query);
     } catch (error) {
+      console.log("Error: ", error);
       return handleError(
         req,
         res,
         500,
-        (message = "Error al actualizar turno")
+        "Error al actualizar turno"
       );
     }
   },
@@ -157,7 +160,7 @@ module.exports = {
       const id = parseInt(req.params.id);
       const idEliminado = await Turno.delete(id);
       if (!idEliminado) {
-        return handleError(req, res, 404, (message = "Turno no encontrado"));
+        return handleError(req, res, 404, "Turno no encontrado");
       }
 
       if (returnJSON(req)) {
@@ -168,7 +171,8 @@ module.exports = {
 
       return renderListView(res, 200, req.query);
     } catch (error) {
-      return handleError(req, res, 500, (message = "Error al eliminar turno"));
+      console.log("Error: ", error);
+      return handleError(req, res, 500, "Error al eliminar turno");
     }
   },
 };

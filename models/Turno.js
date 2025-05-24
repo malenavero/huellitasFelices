@@ -1,7 +1,7 @@
-const DBHandler = require('./DBHandler');
-const Paciente = require('./Paciente');
-const db = new DBHandler('turnos.json');
-const { getNewId } = require('./utils.js');
+const DBHandler = require("./DBHandler");
+const Paciente = require("./Paciente");
+const db = new DBHandler("turnos.json");
+const { getNewId } = require("./utils.js");
 
 class Turno {
   constructor({
@@ -65,7 +65,7 @@ class Turno {
     // Validar existencia paciente antes de crear turno
     const pacienteData = await Paciente.findById(pacienteId);
     if (!pacienteData) {
-      throw new Error('Paciente no existe. No se puede crear turno.');
+      throw new Error("Paciente no existe. No se puede crear turno.");
     }
 
     const turnos = await db.readData();
@@ -94,7 +94,7 @@ class Turno {
     if (updatedFields.pacienteId) {
       const pacienteData = await Paciente.findById(updatedFields.pacienteId);
       if (!pacienteData) {
-        throw new Error('Paciente no existe. No se puede actualizar turno.');
+        throw new Error("Paciente no existe. No se puede actualizar turno.");
       }
     }
 

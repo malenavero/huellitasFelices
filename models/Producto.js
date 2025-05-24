@@ -1,6 +1,6 @@
-const DBHandler = require('./DBHandler');
-const db = new DBHandler('productos.json');
-const { getNewId } = require('./utils.js');
+const DBHandler = require("./DBHandler");
+const db = new DBHandler("productos.json");
+const { getNewId } = require("./utils.js");
 
 class Producto {
   static async findAll(query = {}) {
@@ -28,7 +28,7 @@ class Producto {
       categoria,
       precio: parseFloat(precio),
       stock: stock !== undefined ? parseInt(stock) : 0,
-      descripcion: descripcion || '',
+      descripcion: descripcion || "",
       fechaVencimiento: fechaVencimiento || null,
       createdAt: now,
       updatedAt: now
@@ -72,11 +72,11 @@ class Producto {
     const productId = parseInt(id);
     const index = productos.findIndex(p => parseInt(p.id) === productId);
     if (index === -1) {
-      throw new Error('Producto no encontrado');
+      throw new Error("Producto no encontrado");
     }
 
     if (productos[index].stock < cantidad) {
-      throw new Error('Stock insuficiente');
+      throw new Error("Stock insuficiente");
     }
 
     productos[index].stock -= cantidad;

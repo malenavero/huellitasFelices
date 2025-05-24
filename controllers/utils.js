@@ -1,12 +1,12 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 function returnJSON(req) {
-    const accept = req.headers.accept || '';
+    const accept = req.headers.accept || "";
     return (
       !accept ||
-      accept === '*/*' ||
-      accept.includes('application/json') ||
-      req.query.format === 'json'
+      accept === "*/*" ||
+      accept.includes("application/json") ||
+      req.query.format === "json"
     );
   }
 
@@ -38,7 +38,7 @@ function comparePassword(password, hash) {
 }
 
 
-function handleError(req, res, status, message = '') {
+function handleError(req, res, status, message = "") {
   if (returnJSON(req)) {
     return res.status(status).json({ error: message });
   } else {
@@ -47,12 +47,12 @@ function handleError(req, res, status, message = '') {
 }
 
 const urls = {
-  productosUrl: '/productos',
-  pacientesUrl: '/pacientes',
-  turnosUrl: '/turnos',
-  busquedasUrl: '/busquedas',
-  usuariosUrl: '/usuarios',
-  documentacionUrl: '/documentacion'
+  productosUrl: "/productos",
+  pacientesUrl: "/pacientes",
+  turnosUrl: "/turnos",
+  busquedasUrl: "/busquedas",
+  usuariosUrl: "/usuarios",
+  documentacionUrl: "/documentacion"
 }
 
 module.exports = {

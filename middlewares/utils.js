@@ -1,6 +1,6 @@
 // middlewares/utils.js
 
-const { validationResult, body } = require('express-validator');
+const { validationResult, body } = require("express-validator");
 
 
 function validarFecha(value) {
@@ -9,11 +9,11 @@ function validarFecha(value) {
     // Regex para formato aaaa-mm-dd
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     if (!regex.test(value)) {
-      throw new Error('Formato de fecha inválido. Use aaaa-mm-dd');
+      throw new Error("Formato de fecha inválido. Use aaaa-mm-dd");
     }
   
     // Validar que sea fecha real
-    const [year, month, day] = value.split('-').map(Number);
+    const [year, month, day] = value.split("-").map(Number);
   
     const fecha = new Date(year, month - 1, day);// getMonth() va de 0 a 11 por eso restamos un mes
     if (
@@ -21,7 +21,7 @@ function validarFecha(value) {
       fecha.getMonth() + 1 !== month ||
       fecha.getDate() !== day
     ) {
-      throw new Error('Fecha inválida');
+      throw new Error("Fecha inválida");
     }
   
     return true;
@@ -31,7 +31,7 @@ function validarFecha(value) {
 function normalizarCamposTexto(campos = []) {
     return (req, res, next) => {
       campos.forEach(campo => {
-        if (typeof req.body[campo] === 'string') {
+        if (typeof req.body[campo] === "string") {
           req.body[campo] = req.body[campo].trim().toLowerCase();
         }
       });
@@ -41,12 +41,12 @@ function normalizarCamposTexto(campos = []) {
 
 function asignarDefaults(defaults = {}) {
   return (req, res, next) => {
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
       for (const campo in defaults) {
         if (
           req.body[campo] === undefined || 
           req.body[campo] === null || 
-          req.body[campo] === ''
+          req.body[campo] === ""
         ) {
           req.body[campo] = defaults[campo];
         }
@@ -97,10 +97,10 @@ function validarDuplicado(Modelo, campos = []) {
   
           return campos.every(campo => {
             // campo puede ser anidado, ej: 'responsable.email'
-            const valorReq = campo.split('.').reduce((acc, key) => acc && acc[key], req.body);
-            const valorRegistro = campo.split('.').reduce((acc, key) => acc && acc[key], r);
+            const valorReq = campo.split(".").reduce((acc, key) => acc && acc[key], req.body);
+            const valorRegistro = campo.split(".").reduce((acc, key) => acc && acc[key], r);
   
-            if (typeof valorReq === 'string' && typeof valorRegistro === 'string') {
+            if (typeof valorReq === "string" && typeof valorRegistro === "string") {
               return valorReq.toLowerCase() === valorRegistro.toLowerCase();
             }
             return valorReq === valorRegistro;
@@ -108,7 +108,7 @@ function validarDuplicado(Modelo, campos = []) {
         });
   
         if (existeDuplicado) {
-          throw new Error(`Ya existe un ${Modelo.name.toLowerCase()} con esa combinación de ${campos.join(', ')}`);
+          throw new Error(`Ya existe un ${Modelo.name.toLowerCase()} con esa combinación de ${campos.join(", ")}`);
         }
   
         return true;

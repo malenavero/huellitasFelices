@@ -1,13 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/usuariosController');
-const autorizarRol  = require('../middlewares/autorizarRol');
-const { ROLES } = require('../utils/constants.js');
+const controller = require("../controllers/usuariosController");
+// const autorizarRol  = require('../middlewares/autorizarRol');
+const { ROLES } = require("../utils/constants.js");
 const {
   validarUsuarioCreate,
-  validarUsuarioUpdate,
-  validarLogin
-} = require('../middlewares/validacionesUsuarios');
+  validarUsuarioUpdate
+} = require("../middlewares/validacionesUsuarios");
 
 
 
@@ -22,9 +21,9 @@ const {
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get('/crear', (req, res) => {
-  res.render('usuarios/form', {
-    modo: 'crear',
+router.get("/crear", (req, res) => {
+  res.render("usuarios/form", {
+    modo: "crear",
     producto: {},
     roles: ROLES,
     errores: []
@@ -44,7 +43,7 @@ router.get('/crear', (req, res) => {
  *       404:
  *         description: Usuario no encontrado
  */
-router.get('/:id/editar', controller.formEditar);
+router.get("/:id/editar", controller.formEditar);
 
 //router.use(autorizarRol('admin'));
 /**
@@ -64,7 +63,7 @@ router.get('/:id/editar', controller.formEditar);
  *               items:
  *                 $ref: '#/components/schemas/Usuario'
  */
-router.get('/', controller.listar);
+router.get("/", controller.listar);
 
 /**
  * @swagger
@@ -88,7 +87,7 @@ router.get('/', controller.listar);
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
  */
-router.get('/:id', controller.detalle);
+router.get("/:id", controller.detalle);
 
 /**
  * @swagger
@@ -131,7 +130,7 @@ router.get('/:id', controller.detalle);
  *                   type: string
  *                   example: Error al crear el usuario
  */
-router.post('/', validarUsuarioCreate, controller.crear);
+router.post("/", validarUsuarioCreate, controller.crear);
 
 /**
  * @swagger
@@ -163,7 +162,7 @@ router.post('/', validarUsuarioCreate, controller.crear);
  *       404:
  *         description: Usuario no encontrado
  */
-router.put('/:id', validarUsuarioUpdate, controller.actualizar);
+router.put("/:id", validarUsuarioUpdate, controller.actualizar);
 
 /**
  * @swagger
@@ -185,7 +184,7 @@ router.put('/:id', validarUsuarioUpdate, controller.actualizar);
  *       404:
  *         description: Usuario no encontrado
  */
-router.delete('/:id', controller.eliminar);
+router.delete("/:id", controller.eliminar);
 
 
 

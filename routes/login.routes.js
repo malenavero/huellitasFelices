@@ -1,10 +1,10 @@
 //routes/login
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const controller = require('../controllers/loginController');
-const { validarLogin } = require('../middlewares/validacionesUsuarios');
+const controller = require("../controllers/loginController");
+const { validarLogin } = require("../middlewares/validacionesUsuarios");
 
 /**
  * @swagger
@@ -17,8 +17,8 @@ const { validarLogin } = require('../middlewares/validacionesUsuarios');
  *       200:
  *         description: Formulario HTML de login
  */
-router.get('/', (req, res) => {
-  res.render('login');
+router.get("/", (req, res) => {
+  res.render("login");
 });
 
 /**
@@ -50,6 +50,6 @@ router.get('/', (req, res) => {
  *       401:
  *         description: Credenciales inválidas
  */
-router.post('/', validarLogin, controller.login);
+router.post("/", validarLogin, controller.login);
 
 module.exports = router;

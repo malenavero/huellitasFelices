@@ -1,10 +1,10 @@
 // routes/productos.routes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/productosController');
-const autorizarRol = require('../middlewares/autorizarRol');
-const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require('../middlewares/validacionesProductos');
-const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
+const controller = require("../controllers/productosController");
+// const autorizarRol = require('../middlewares/autorizarRol');
+const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require("../middlewares/validacionesProductos");
+const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 
 /**
  * @swagger
@@ -17,9 +17,9 @@ const { CATEGORIAS_PRODUCTO } = require('../utils/constants.js');
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get('/crear', (req, res) => {
-  res.render('productos/form', {
-    modo: 'crear',
+router.get("/crear", (req, res) => {
+  res.render("productos/form", {
+    modo: "crear",
     producto: {},
     categorias: CATEGORIAS_PRODUCTO,
     errores: []
@@ -39,7 +39,7 @@ router.get('/crear', (req, res) => {
  *       404:
  *         description: Producto no encontrado
  */
-router.get('/:id/editar', controller.formEditar);
+router.get("/:id/editar", controller.formEditar);
 
 
 //router.use(autorizarRol('admin','gerente', 'ventas', 'recepcionista_ventas', 'veterinaria_gerencia'));
@@ -67,7 +67,7 @@ router.get('/:id/editar', controller.formEditar);
  *               items:
  *                 $ref: '#/components/schemas/Producto'
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   controller.listar(req, res);
 });
 
@@ -95,7 +95,7 @@ router.get('/', (req, res) => {
  *       404:
  *         description: Producto no encontrado
  */
-router.get('/:id', controller.detalle);
+router.get("/:id", controller.detalle);
 
 /**
  * @swagger
@@ -120,7 +120,7 @@ router.get('/:id', controller.detalle);
  *       400:
  *         description: Error de validación
  */
-router.post('/', validarProductoCreate, controller.crear);
+router.post("/", validarProductoCreate, controller.crear);
 
 /**
  * @swagger
@@ -161,7 +161,7 @@ router.post('/', validarProductoCreate, controller.crear);
  *       404:
  *         description: Producto no encontrado
  */
-router.post('/:id/vender', validarCantidad, controller.vender);
+router.post("/:id/vender", validarCantidad, controller.vender);
 
 /**
  * @swagger
@@ -195,7 +195,7 @@ router.post('/:id/vender', validarCantidad, controller.vender);
  *       404:
  *         description: Producto no encontrado
  */
-router.put('/:id', validarProductoUpdate, controller.actualizar);
+router.put("/:id", validarProductoUpdate, controller.actualizar);
 
 /**
  * @swagger
@@ -217,7 +217,7 @@ router.put('/:id', validarProductoUpdate, controller.actualizar);
  *       404:
  *         description: Producto no encontrado
  */
-router.delete('/:id', controller.eliminar);
+router.delete("/:id", controller.eliminar);
 
 
 

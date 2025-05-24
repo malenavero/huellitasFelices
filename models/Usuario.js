@@ -1,5 +1,5 @@
-const DBHandler = require('./DBHandler');
-const db = new DBHandler('usuarios.json');
+const DBHandler = require("./DBHandler");
+const db = new DBHandler("usuarios.json");
 
 class Usuario {
   constructor({ id, nombre, apellido, password, telefono, direccion, correo, rol, createdAt, updatedAt }) {

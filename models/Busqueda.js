@@ -1,6 +1,6 @@
-const DBHandler = require('./DBHandler');
-const db = new DBHandler('busquedas.json');
-const { getNewId, parseBoolean } = require('./utils.js');
+const DBHandler = require("./DBHandler");
+const db = new DBHandler("busquedas.json");
+const { getNewId, parseBoolean } = require("./utils.js");
 
 class Busqueda {
   constructor(data) {
@@ -9,12 +9,12 @@ class Busqueda {
     this.nombre = data.nombre || null;
     this.zona = data.zona;
     this.fecha = data.fecha || new Date().toISOString().slice(0, 10);
-    this.descripcion = data.descripcion || '';
+    this.descripcion = data.descripcion || "";
     this.contacto = data.contacto;
     this.imagen = data.imagen || null;
     this.animal = data.animal;
     this.color = data.color || null;
-    this.activa = typeof data.activa === 'boolean' ? data.activa : true;
+    this.activa = typeof data.activa === "boolean" ? data.activa : true;
     this.createdAt = data.createdAt || new Date().toISOString();
     this.updatedAt = data.updatedAt || new Date().toISOString();
   }
@@ -57,12 +57,12 @@ class Busqueda {
       nombre: fields.nombre || null,
       zona: fields.zona,
       fecha: fields.fecha || new Date().toISOString().slice(0, 10),
-      descripcion: fields.descripcion || '',
+      descripcion: fields.descripcion || "",
       contacto: fields.contacto,
       imagen: fields.imagen || null,
       animal: fields.animal,
       color: fields.color || null,
-      activa: typeof fields.activa === 'boolean' ? fields.activa : true,
+      activa: typeof fields.activa === "boolean" ? fields.activa : true,
       createdAt: now,
       updatedAt: now
     };

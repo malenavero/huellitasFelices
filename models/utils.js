@@ -3,10 +3,10 @@
   }
 
   function parseBoolean(value) {
-    if (typeof value === 'boolean') return value;
-    if (typeof value === 'string') {
-        if (value.toLowerCase() === 'true') return true;
-        if (value.toLowerCase() === 'false') return false;
+    if (typeof value === "boolean") return value;
+    if (typeof value === "string") {
+        if (value.toLowerCase() === "true") return true;
+        if (value.toLowerCase() === "false") return false;
     }
     return null;
 }

@@ -1,5 +1,5 @@
-const Paciente = require('../models/Paciente');
-const { returnJSON, handleError, urls } = require('./utils.js');
+const Paciente = require("../models/Paciente");
+const { returnJSON, handleError, urls } = require("./utils.js");
 
 async function getListParams(query = {}) {
   const pacientes = await Paciente.findAll(query);
@@ -11,7 +11,7 @@ async function getListParams(query = {}) {
 
 async function renderListView(res, status = 200, query = {}) {
   const params = await getListParams(query)
-  return res.status(status).render('pacientes/index', params);
+  return res.status(status).render("pacientes/index", params);
 }
 
 module.exports = {
@@ -27,14 +27,14 @@ module.exports = {
   async detalle(req, res) {
     const paciente = await Paciente.findById(req.params.id);
     if (!paciente) {
-      return handleError(req, res, 404, 'Paciente no encontrado')
+      return handleError(req, res, 404, "Paciente no encontrado")
     }
 
     if (returnJSON(req)) {
       return res.status(200).json(paciente);
     }
 
-    return res.status(200).render('pacientes/detalle', { 
+    return res.status(200).render("pacientes/detalle", { 
       paciente,
       responsable: paciente.responsable || {}
     });
@@ -43,10 +43,10 @@ module.exports = {
   async formEditar(req, res) {
     const paciente = await Paciente.findById(req.params.id);
     if (!paciente) {
-      return handleError(req, res, 404, 'Paciente no encontrado')
+      return handleError(req, res, 404, "Paciente no encontrado")
     }
-    res.render('pacientes/form', {
-      modo: 'editar',
+    res.render("pacientes/form", {
+      modo: "editar",
       paciente,
       responsable: paciente.responsable || {}
     });
@@ -64,7 +64,8 @@ module.exports = {
 
       return renderListView(res, 201, req.query);
     } catch (error) {
-      return handleError(req, res, 500, 'Error al crear paciente');
+      console.log("Error: ", error);
+      return handleError(req, res, 500, "Error al crear paciente");
     }
   },
 
@@ -75,7 +76,7 @@ module.exports = {
       const paciente = await Paciente.findById(id);
 
       if (!paciente) {
-        return handleError(req, res, 404, 'Paciente no encontrado');
+        return handleError(req, res, 404, "Paciente no encontrado");
       }
 
       Object.assign(paciente, req.body);
@@ -87,7 +88,8 @@ module.exports = {
 
       return renderListView(res, 200, req.query);
     } catch (error) {
-      return handleError(req, res, 500, 'Error al actualizar paciente');
+      console.log("Error: ", error);
+      return handleError(req, res, 500, "Error al actualizar paciente");
     }
   },
 
@@ -97,7 +99,7 @@ module.exports = {
       const id = parseInt(req.params.id);
       const idEliminado = await Paciente.delete(id);
       if (!idEliminado) {
-        return handleError(req, res, 404, 'Paciente no encontrado')
+        return handleError(req, res, 404, "Paciente no encontrado")
       }
 
       if (returnJSON(req)) {
@@ -107,7 +109,8 @@ module.exports = {
       return renderListView(res, 200, req.query);
 
     } catch (error) {
-      return handleError(req, res, 500, 'Error al eliminar paciente');
+      console.log("Error: ", error);
+      return handleError(req, res, 500, "Error al eliminar paciente");
     }
   }
 };

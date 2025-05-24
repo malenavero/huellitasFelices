@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/busquedasController');
-const { validarBusquedaCreate, validarBusquedaUpdate } = require('../middlewares/validacionesBusquedas');
-const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require('../utils/constants.js');
+const controller = require("../controllers/busquedasController");
+const { validarBusquedaCreate, validarBusquedaUpdate } = require("../middlewares/validacionesBusquedas");
+const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require("../utils/constants.js");
 
 // GET VISTAS
 /**
@@ -16,9 +16,9 @@ const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require('../utils/constants.js');
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get('/crear', (req, res) => {
-  res.render('busquedas/form', {
-    modo: 'crear',
+router.get("/crear", (req, res) => {
+  res.render("busquedas/form", {
+    modo: "crear",
     busqueda: {},
     errores: [],
     ANIMALES_VALIDOS,
@@ -39,7 +39,7 @@ router.get('/crear', (req, res) => {
  *       404:
  *         description: Busqueda no encontrada
  */
-router.get('/:id/editar', controller.formEditar);
+router.get("/:id/editar", controller.formEditar);
 
 
 // GET 
@@ -67,7 +67,7 @@ router.get('/:id/editar', controller.formEditar);
  *               items:
  *                 $ref: '#/components/schemas/Busqueda'
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   controller.listar(req, res);
 });
 
@@ -95,7 +95,7 @@ router.get('/', (req, res) => {
  *       404:
  *         description: Busqueda no encontrada
  */
-router.get('/:id', controller.detalle);
+router.get("/:id", controller.detalle);
 
 
 // POST
@@ -123,7 +123,7 @@ router.get('/:id', controller.detalle);
  *       400:
  *         description: Error de validación
  */
-router.post('/', validarBusquedaCreate, controller.crear);
+router.post("/", validarBusquedaCreate, controller.crear);
 
 
 // PUT
@@ -159,7 +159,7 @@ router.post('/', validarBusquedaCreate, controller.crear);
  *       404:
  *         description: Busqueda no encontrada
  */
-router.put('/:id', validarBusquedaUpdate, controller.actualizar);
+router.put("/:id", validarBusquedaUpdate, controller.actualizar);
 
 
 // DELETE
@@ -184,6 +184,6 @@ router.put('/:id', validarBusquedaUpdate, controller.actualizar);
  *       404:
  *         description: Busqueda no encontrada
  */
-router.delete('/:id', controller.eliminar);
+router.delete("/:id", controller.eliminar);
 
 module.exports = router;

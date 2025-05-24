@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/turnosController');
-const autorizarRol = require('../middlewares/autorizarRol');
-const { validarTurnoCreate, validarTurnoUpdate } = require('../middlewares/validacionesTurnos');
+const controller = require("../controllers/turnosController");
+// const autorizarRol = require('../middlewares/autorizarRol');
+const { validarTurnoCreate, validarTurnoUpdate } = require("../middlewares/validacionesTurnos");
 
 //router.use(autorizarRol('admin', 'recepcionista', 'recepcionista_peluqueria', 'veterinaria_gerencia'));
 
@@ -18,7 +18,7 @@ const { validarTurnoCreate, validarTurnoUpdate } = require('../middlewares/valid
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get('/crear', controller.formCrear);
+router.get("/crear", controller.formCrear);
 
 /**
  * @swagger
@@ -33,7 +33,7 @@ router.get('/crear', controller.formCrear);
  *       404:
  *         description: Turno no encontrado
  */
-router.get('/:id/editar', controller.formEditar);
+router.get("/:id/editar", controller.formEditar);
 
 // GET
 /**
@@ -82,7 +82,7 @@ router.get("/", (req, res) => {
  *       404:
  *         description: Turno no encontrado
  */
-router.get('/:id', controller.detalle);
+router.get("/:id", controller.detalle);
 
 
 // POST
@@ -145,7 +145,7 @@ router.post("/", validarTurnoCreate, controller.crear);
  *       404:
  *         description: Turno no encontrado
  */
-router.put('/:id', validarTurnoUpdate, controller.actualizar);
+router.put("/:id", validarTurnoUpdate, controller.actualizar);
 
 
 // DELETE

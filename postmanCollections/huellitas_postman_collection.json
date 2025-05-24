@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "06a30c35-1fe2-4d70-a6c6-1336da9f4389",
+		"_postman_id": "2b25cbe6-43c6-4daf-b866-74c883b636d9",
 		"name": "Huellitas Felices - Endpoints Básicos",
 		"description": "Colección de endpoints básicos para productos, pacientes, turnos y mascotas perdidas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -39,7 +39,7 @@
 					"response": []
 				},
 				{
-					"name": "Listar productos x categoria",
+					"name": "Listar productos Filtros",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -87,7 +87,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/productos/8",
+							"raw": "http://localhost:3000/productos/8?categoria=farmacia",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -96,6 +96,12 @@
 							"path": [
 								"productos",
 								"8"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "farmacia"
+								}
 							]
 						}
 					},
@@ -117,7 +123,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "  {\n    \"nombre\": \"Pluma 2\",\n    \"categoria\": \"otros\", // ['farmacia', 'comida', 'otros'];\n    \"precio\": 2345,\n    \"stock\": 6,\n    \"fechaVencimiento\": \"2026-09-12\", //aaaa-mm-dd\n    \"descripcion\": \"Mayor a 2 años\"\n  }"
+							"raw": "  {\n    \"nombre\": \"Pluma Colores\",\n    \"categoria\": \"otros\", // ['farmacia', 'comida', 'otros'];\n    \"precio\": 2345,\n    \"stock\": 60,\n    \"fechaVencimiento\": \"2026-09-12\", //aaaa-mm-dd\n    \"descripcion\": \"Mayor a 2 años\"\n  }"
 						},
 						"url": {
 							"raw": "http://localhost:3000/productos",
@@ -149,10 +155,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"precio\": 9800\n}"
+							"raw": "{\n  \"nombre\": \"Pluma Verde\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/productos/8",
+							"raw": "http://localhost:3000/productos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -160,7 +166,7 @@
 							"port": "3000",
 							"path": [
 								"productos",
-								"8"
+								"1"
 							]
 						}
 					},
@@ -190,6 +196,36 @@
 							"path": [
 								"productos",
 								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vender Producto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
 							]
 						}
 					},
@@ -229,6 +265,40 @@
 					"response": []
 				},
 				{
+					"name": "Listar pacientes Filtros",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/pacientes?nombre=Gala",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pacientes"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "Gala"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Ver paciente por ID",
 					"request": {
 						"method": "GET",
@@ -243,7 +313,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/pacientes/1",
+							"raw": "http://localhost:3000/pacientes/1?nombre=Gala",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -252,6 +322,12 @@
 							"path": [
 								"pacientes",
 								"1"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "Gala"
+								}
 							]
 						}
 					},
@@ -385,6 +461,48 @@
 					"response": []
 				},
 				{
+					"name": "Listar turnos Filtros",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/turnos?servicio=veterinaria&fecha=2025-07-01&pacienteId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"turnos"
+							],
+							"query": [
+								{
+									"key": "servicio",
+									"value": "veterinaria"
+								},
+								{
+									"key": "fecha",
+									"value": "2025-07-01"
+								},
+								{
+									"key": "pacienteId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Ver turno por ID",
 					"request": {
 						"method": "GET",
@@ -399,7 +517,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/turnos/1",
+							"raw": "http://localhost:3000/turnos/1?servicio=veterinaria&fecha=2025-07-01&pacienteId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -408,6 +526,20 @@
 							"path": [
 								"turnos",
 								"1"
+							],
+							"query": [
+								{
+									"key": "servicio",
+									"value": "veterinaria"
+								},
+								{
+									"key": "fecha",
+									"value": "2025-07-01"
+								},
+								{
+									"key": "pacienteId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -535,6 +667,56 @@
 							"port": "3000",
 							"path": [
 								"busquedas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar busquedas Filtros",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/busquedas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"busquedas"
+							],
+							"query": [
+								{
+									"key": "tipo",
+									"value": "perdida",
+									"disabled": true
+								},
+								{
+									"key": "animal",
+									"value": "gato",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "kimchi",
+									"disabled": true
+								},
+								{
+									"key": "activa",
+									"value": "true",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -674,22 +856,27 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"nombre\": \"Nicolás\",\n  \"apellido\": \"Pereyra\",\n  \"telefono\": \"1155337799\",\n  \"direccion\": \"Av. Salud Animal 100\",\n  \"correo\": \"nicolas@ejemplo.com\",\n  \"password\": \"12345\",\n  \"rol\": \"gerente\"\n}",
-						"options": {
-							"raw": {
-							"language": "json"
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Nicolás\",\n  \"apellido\": \"Pereyra\",\n  \"telefono\": \"1155337799\",\n  \"direccion\": \"Av. Salud Animal 100\",\n  \"correo\": \"nicolas@ejemplo.com\",\n  \"password\": \"12345\",\n  \"rol\": \"gerente\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						}
 						},
 						"url": {
-						"raw": "http://localhost:3000/usuarios",
-						"protocol": "http",
-						"host": ["localhost"],
-						"port": "3000",
-						"path": ["usuarios"]
+							"raw": "http://localhost:3000/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
 						}
-					}
+					},
+					"response": []
 				},
 				{
 					"name": "Obtener usuario por ID",
@@ -697,50 +884,68 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "http://localhost:3000/usuarios/11",
-						"protocol": "http",
-						"host": ["localhost"],
-						"port": "3000",
-						"path": ["usuarios", "11"]
+							"raw": "http://localhost:3000/usuarios/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"11"
+							]
 						}
-					}
-				},
-				{
-				"name": "Actualizar un usuario por ID",
-				"request": {
-					"method": "PUT",
-					"header": [],
-					"body": {
-					"mode": "raw",
-					"raw": "{\n  \"nombre\": \"daniel\",\n  \"apellido\": \"pugliese\",\n  \"password\": \"hola123\",\n  \"telefono\": \"011568417854\",\n  \"direccion\": \"Av. de mayo 1112\",\n  \"correo\": \"dani@test.com\",\n  \"rol\": \"recepcion\"\n}",
-					"options": {
-						"raw": {
-						"language": "json"
-						}
-					}
 					},
-					"url": {
-					"raw": "http://localhost:3000/usuarios/11",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "3000",
-					"path": ["usuarios", "11"]
-					}
-				}
+					"response": []
 				},
 				{
-				"name": "Eliminar un usuario por ID",
-				"request": {
-					"method": "DELETE",
-					"header": [],
-					"url": {
-					"raw": "http://localhost:3000/usuarios/11",
-					"protocol": "http",
-					"host": ["localhost"],
-					"port": "3000",
-					"path": ["usuarios", "11"]
-					}
-				}
+					"name": "Actualizar un usuario por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"daniel\",\n  \"apellido\": \"pugliese\",\n  \"password\": \"hola123\",\n  \"telefono\": \"011568417854\",\n  \"direccion\": \"Av. de mayo 1112\",\n  \"correo\": \"dani@test.com\",\n  \"rol\": \"recepcion\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/usuarios/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un usuario por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/usuarios/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"11"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "Login de usuario",
@@ -748,22 +953,28 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"correo\":\"nicolas@ejemplo.com\",\n  \"password\":\"12345\"\n}",
-						"options": {
-							"raw": {
-							"language": "json"
+							"mode": "raw",
+							"raw": "{\n  \"correo\":\"nicolas@ejemplo.com\",\n  \"password\":\"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						}
 						},
 						"url": {
-						"raw": "http://localhost:3000/usuarios/login",
-						"protocol": "http",
-						"host": ["localhost"],
-						"port": "3000",
-						"path": ["usuarios", "login"]
+							"raw": "http://localhost:3000/usuarios/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"login"
+							]
 						}
-					}
+					},
+					"response": []
 				},
 				{
 					"name": "Listar usuarios",
@@ -771,15 +982,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "http://localhost:3000/usuarios",
-						"protocol": "http",
-						"host": ["localhost"],
-						"port": "3000",
-						"path": ["usuarios"]
+							"raw": "http://localhost:3000/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
 						}
-					}
+					},
+					"response": []
 				}
-				]
+			]
 		}
 	]
 }

@@ -1,26 +1,41 @@
 const Turno = require("../models/Turno");
 const Paciente = require("../models/Paciente");
 const { returnJSON, handleError, urls } = require("./utils.js");
+const { SERVICIOS } = require("../utils/constants.js");
 
 async function getListParams(query = {}) {
   const turnos = await Turno.findAll(query);
   const pacientes = await Paciente.findAll();
 
-  // Creamos un mapa de ID → nombre
-  const mapaPacientes = {};
-  pacientes.forEach((p) => (mapaPacientes[p.id] = p.nombre));
+  const hoy = new Date().toISOString().split('T')[0]; // formato YYYY-MM-DD
 
-  // Agregamos nombrePaciente a cada turno
-  const turnosConNombre = turnos.map((turno) => ({
-    ...turno,
-    nombrePaciente: mapaPacientes[turno.pacienteId] || "Paciente desconocido",
-  }));
+  // Mapa de ID → nombre de paciente
+  const mapaPacientes = {};
+  pacientes.forEach((p) => {
+    const nombre = p.nombre;
+    const nombreCapitalizado = nombre.charAt(0).toUpperCase() + nombre.slice(1);
+    mapaPacientes[p.id] = nombreCapitalizado;
+  });
+
+  const turnosFiltradosYOrdenados = turnos
+    .filter(t => t.fecha >= hoy)
+    .sort((a, b) => {
+      if (a.fecha === b.fecha) {
+        return a.hora.localeCompare(b.hora);
+      }
+      return a.fecha.localeCompare(b.fecha);
+    })
+    .map((turno) => ({
+      ...turno,
+      nombrePaciente: mapaPacientes[turno.pacienteId] || "Paciente desconocido",
+    }));
 
   return {
-    turnos: turnosConNombre,
+    turnos: turnosFiltradosYOrdenados,
     ...urls,
   };
 }
+
 
 async function renderListView(res, status = 200, query = {}) {
   const params = await getListParams(query);
@@ -39,11 +54,6 @@ module.exports = {
     } catch (error) {
       return handleError(req, res, 500, 'Error al listar turnos');
     }
-    if (returnJSON(req)) {
-      const turnos = await Turno.findAll(req.query);
-      return res.status(200).json(turnos);
-    }
-    return renderListView(res, 200, req.query);
   },
 
   async detalle(req, res) {
@@ -68,19 +78,33 @@ module.exports = {
     if (!turno) {
       return handleError(req, res, 404, (message = "Turno no encontrado"));
     }
-
+    const pacientes = await Paciente.findAll();
     res.render("turnos/form", {
       modo: "editar",
       turno,
+      pacientes,
+      servicios: SERVICIOS
     });
   },
+
+  async formCrear(req, res) {
+    const pacientes = await Paciente.findAll();
+
+    res.render("turnos/form", {
+      modo: 'crear',
+      turno: {},
+      errores: [],
+      pacientes,
+      servicios: SERVICIOS
+    });
+  },
+
 
   // POST (crear)
   async crear(req, res) {
     try {
       // El middleware ya validó req.body y pacienteId existe
 
-      const nuevoTurno = await Turno.create(req.body);
       const { fecha, hora, pacienteId, motivo, precio, servicio } = req.body;
       const nuevoTurno = await Turno.create({
         fecha,

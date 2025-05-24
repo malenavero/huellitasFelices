@@ -8,13 +8,13 @@
     "responsable": {
       "nombre": "Elena Morley",
       "telefono": "1123456789",
-      "email": "otroResponsabe@mail.com",
+      "email": "otroResponsable@mail.com",
       "direccion": "Bulnes 123"
     },
     "fichaMedica": [],
     "consultas": [],
     "createdAt": "2025-05-23T22:56:56.038Z",
-    "updatedAt": "2025-05-24T14:10:19.254Z"
+    "updatedAt": "2025-05-24T23:12:24.875Z"
   },
   {
     "id": 2,
@@ -32,5 +32,22 @@
     "consultas": [],
     "createdAt": "2025-05-24T14:05:39.530Z",
     "updatedAt": "2025-05-24T14:05:39.530Z"
+  },
+  {
+    "id": 3,
+    "nombre": "pichu",
+    "especie": "perro",
+    "raza": "",
+    "fechaNacimiento": "2024-04-23",
+    "responsable": {
+      "nombre": "Juan",
+      "telefono": "989878",
+      "email": "juan@mail.com",
+      "direccion": "Calles falsa 123"
+    },
+    "fichaMedica": [],
+    "consultas": [],
+    "createdAt": "2025-05-24T23:12:16.553Z",
+    "updatedAt": "2025-05-24T23:12:16.553Z"
   }
 ]

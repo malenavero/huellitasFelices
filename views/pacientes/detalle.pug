@@ -5,33 +5,34 @@ block content
 
   p
     span.detail-label Id:
-    | #{paciente.id}
+    | #{paciente.id || '-'}
   p
     span.detail-label Nombre:
-    | #{paciente.nombre}
+    | #{paciente.nombre || '-'}
   p
     span.detail-label Especie:
-    | #{paciente.especie}
+    | #{paciente.especie || '-'}
   p
     span.detail-label Raza:
-    | #{paciente.raza}
+    | #{paciente.raza || '-'}
   p
     span.detail-label Fecha de Nacimiento:
-    | #{paciente.fechaNacimiento}
+    | #{paciente.fechaNacimiento || '-'}
   p
     span.detail-label Edad:
-    | #{paciente.edad}
+    | #{paciente.edad != null ? paciente.edad : '-'}
   p
     span.detail-label Responsable:
-    | #{paciente.responsable.nombre}
+    | #{responsable && responsable.nombre ? responsable.nombre : '-'}
   p
     span.detail-label Teléfono:
-    | #{paciente.responsable.telefono}
+    | #{responsable && responsable.telefono ? responsable.telefono : '-'}
   p
     span.detail-label Email:
-    | #{paciente.responsable.email}
+    | #{responsable && responsable.email ? responsable.email : '-'}
   p
     span.detail-label Dirección:
-    | #{paciente.responsable.direccion}
+    | #{responsable && responsable.direccion ? responsable.direccion : '-'}
 
-  a(href="/pacientes", style="display:inline-block; margin-top: 20px;") ← Volver al listado
+  a(href="/pacientes")
+    | ← Volver al listado

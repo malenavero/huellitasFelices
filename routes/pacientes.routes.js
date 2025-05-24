@@ -24,9 +24,12 @@ const {
  *         description: Formulario HTML de creación
  */
 router.get('/crear', (req, res) => {
+  
   res.render('pacientes/form', {
     modo: 'crear',
     busqueda: {},
+    paciente: {},
+    responsable: {},
     errores: []
   });
 });

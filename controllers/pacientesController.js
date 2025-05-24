@@ -34,7 +34,10 @@ module.exports = {
       return res.status(200).json(paciente);
     }
 
-    return res.status(200).render('pacientes/detalle', { paciente });
+    return res.status(200).render('pacientes/detalle', { 
+      paciente,
+      responsable: paciente.responsable || {}
+    });
   },
 
   async formEditar(req, res) {
@@ -44,7 +47,8 @@ module.exports = {
     }
     res.render('pacientes/form', {
       modo: 'editar',
-      paciente
+      paciente,
+      responsable: paciente.responsable || {}
     });
   },
 

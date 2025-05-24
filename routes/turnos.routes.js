@@ -18,13 +18,7 @@ const { validarTurnoCreate, validarTurnoUpdate } = require('../middlewares/valid
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get('/crear', (req, res) => {
-  res.render('turnos/form', {
-    modo: 'crear',
-    busqueda: {},
-    errores: []
-  });
-});
+router.get('/crear', controller.formCrear);
 
 /**
  * @swagger
@@ -63,13 +57,6 @@ router.get("/", (req, res) => {
   controller.listar(req, res);
 });
 
-router.get("/crear", (req, res) => {
-  res.render("turnos/form", {
-    modo: "crear",
-    turno: {},
-    errores: [],
-  });
-});
 
 /**
  * @swagger
@@ -122,7 +109,6 @@ router.get('/:id', controller.detalle);
  *       400:
  *         description: Error de validación
  */
-router.get("/:id/editar", controller.formEditar);
 
 router.post("/", validarTurnoCreate, controller.crear);
 

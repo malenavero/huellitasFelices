@@ -8,7 +8,8 @@ router.get('/', (req, res) => {
     productosUrl: '/productos',
     pacientesUrl: '/pacientes',
     turnosUrl: '/turnos',
-    busquedasUrl: '/busquedas'
+    busquedasUrl: '/busquedas',
+    usuariosUrl: '/usuarios',
   });
 });
 

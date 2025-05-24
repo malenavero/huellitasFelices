@@ -7,6 +7,7 @@ const dataFiles = [
   'data/pacientes.json',
   'data/turnos.json',
   'data/productos.json',
+  'data/usuarios.json',
 ];
 
 function ensureDataFilesExist() {

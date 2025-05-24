@@ -1,7 +1,36 @@
-doctype html
-html
-  head
-    title Usuario Registrar
-  
+extends ../layout
 
-    a(href="/usuarios/index") ← Volver al listado
+block content
+  a(href="/usuarios", class="button-primary") ← Volver al listado
+
+  h1= modo === 'editar' ? 'Editar Usuario' : 'Nuevo Usuario'
+
+
+  // Formulario para crear/editar usuario
+  form(method="POST", action=modo === 'editar' ? `/usuarios/${usuario.id}?_method=PUT` : '/usuarios')
+
+    label(for="nombre") Nombre:
+    input(type="text", name="nombre", id="nombre", value=(usuario && usuario.nombre) || '', placeholder="Nombre del usuario" required)
+
+    label(for="apellido") Apellido:
+    input(type="text", name="apellido", id="apellido", value=(usuario && usuario.apellido) || '', placeholder="Apellido del usuario" required)
+
+    label(for="password") Contraseña:
+    input(type="passwod", name="password", id="password", value=(usuario && usuario.password) || '', placeholder="Contraseña del usuario" required)
+
+    label(for="telefono") Teléfono:
+    input(type="text", name="telefono", id="telefono", maxlength="20", value=(usuario && usuario.telefono) || '', placeholder="Teléfono del usuario" required)
+
+    label(for="direccion") Dirección:
+    input(type="text", name="direccion", id="direccion", value=(usuario && usuario.direccion) || '', placeholder="Dirección del usuario opcional")
+
+    label(for="correo") Correo electrónico:
+    input(type="email", name="correo", id="correo", value=(usuario && usuario.correo) || '', placeholder="Correo electrónico del usuario" required)
+
+    label(for="rol") Rol:
+    select(name="rol", id="rol")
+      - const roles = ['admin', 'gerente', 'veterinaria_gerencia', 'veterinaria', 'recepcion', 'ventas', 'peluqueria', 'recepcion_peluqueria', 'recepcion_ventas']
+      each r in roles
+        option(value=r selected=(usuario && usuario.rol === r))= r
+
+    button(type="submit")= modo === 'editar' ? 'Actualizar' : 'Crear'

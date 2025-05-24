@@ -1,15 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/turnosController');
-const { validarTurnoCreate, validarTurnoUpdate } = require('../middlewares/validacionesTurnos');
-
+const controller = require("../controllers/turnosController");
+const {
+  validarTurnoCreate,
+  validarTurnoUpdate,
+} = require("../middlewares/validacionesTurnos");
 
 /**
  * @swagger
  * /turnos:
  *   get:
  *     summary: Obtiene todos los turnos
- *     tags: 
+ *     tags:
  *       - Turnos
  *     responses:
  *       200:
@@ -21,8 +23,16 @@ const { validarTurnoCreate, validarTurnoUpdate } = require('../middlewares/valid
  *               items:
  *                 $ref: '#/components/schemas/Turno'
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   controller.listar(req, res);
+});
+
+router.get("/crear", (req, res) => {
+  res.render("turnos/form", {
+    modo: "crear",
+    turno: {},
+    errores: [],
+  });
 });
 
 /**
@@ -30,7 +40,7 @@ router.get('/', (req, res) => {
  * /turnos/{id}:
  *   get:
  *     summary: Obtiene un turno por ID
- *     tags: 
+ *     tags:
  *       - Turnos
  *     parameters:
  *       - in: path
@@ -49,14 +59,15 @@ router.get('/', (req, res) => {
  *       404:
  *         description: Turno no encontrado
  */
-router.get('/:id', controller.detalle);
+
+router.get("/:id", controller.detalle);
 
 /**
  * @swagger
  * /turnos:
  *   post:
  *     summary: Crea un nuevo turno
- *     tags: 
+ *     tags:
  *       - Turnos
  *     requestBody:
  *       required: true
@@ -74,14 +85,16 @@ router.get('/:id', controller.detalle);
  *       400:
  *         description: Error de validación
  */
-router.post('/', validarTurnoCreate, controller.crear);
+router.get("/:id/editar", controller.formEditar);
+
+router.post("/", validarTurnoCreate, controller.crear);
 
 /**
  * @swagger
  * /turnos/{id}:
  *   put:
  *     summary: Actualiza un turno por ID
- *     tags: 
+ *     tags:
  *       - Turnos
  *     parameters:
  *       - in: path
@@ -108,14 +121,14 @@ router.post('/', validarTurnoCreate, controller.crear);
  *       404:
  *         description: Turno no encontrado
  */
-router.put('/:id', validarTurnoUpdate, controller.actualizar);
+router.put("/:id", validarTurnoUpdate, controller.actualizar);
 
 /**
  * @swagger
  * /turnos/{id}:
  *   delete:
  *     summary: Elimina un turno por ID
- *     tags: 
+ *     tags:
  *       - Turnos
  *     parameters:
  *       - in: path
@@ -137,6 +150,6 @@ router.put('/:id', validarTurnoUpdate, controller.actualizar);
  *       404:
  *         description: Turno no encontrado
  */
-router.delete('/:id', controller.eliminar);
+router.delete("/:id", controller.eliminar);
 
 module.exports = router;

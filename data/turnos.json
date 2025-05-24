@@ -9,19 +9,10 @@
     "updatedAt": "2025-05-18T23:37:30.982Z"
   },
   {
-    "id": 2,
-    "fecha": "2025-06-01",
-    "hora": "11:30",
-    "pacienteId": 1,
-    "servicio": "veterinaria",
-    "createdAt": "2025-05-18T22:29:03.468Z",
-    "updatedAt": "2025-05-18T22:29:03.468Z"
-  },
-  {
     "id": 3,
     "fecha": "2025-06-01",
     "hora": "11:30",
-    "pacienteId": 1,
+    "pacienteId": 3,
     "servicio": "peluqueria",
     "createdAt": "2025-05-18T23:34:54.177Z",
     "updatedAt": "2025-05-18T23:34:54.178Z"
@@ -30,9 +21,18 @@
     "id": 4,
     "fecha": "2025-07-01",
     "hora": "11:30",
-    "pacienteId": 1,
+    "pacienteId": 3,
     "servicio": "veterinaria",
     "createdAt": "2025-05-18T23:36:47.746Z",
     "updatedAt": "2025-05-18T23:36:47.746Z"
+  },
+  {
+    "id": 6,
+    "fecha": "2025-05-31",
+    "hora": "13:57",
+    "pacienteId": "4",
+    "servicio": "peluqueria",
+    "createdAt": "2025-05-24T16:57:18.731Z",
+    "updatedAt": "2025-05-24T16:57:18.731Z"
   }
 ]

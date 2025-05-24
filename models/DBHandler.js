@@ -50,7 +50,7 @@ class DBHandler {
   async deleteData(id) {
     const data = await this.readData();
     const initialLength = data.length;
-    const newData = data.filter((item) => item.id !== id);
+    const newData = data.filter((item) => parseInt(item.id) !== parseInt(id));
 
     if (newData.length === initialLength) {
       return null;

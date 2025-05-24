@@ -1,4 +1,28 @@
 extends ../layout
 
 block content
-  h1 Turno Form
+  a(href="/turnos") ← Volver al listado
+
+  h1= modo === 'editar' ? 'Editar Turno' : 'Nuevo Turno'
+
+  form(method="POST", action=modo === 'editar' ? `/turnos/${turno.id}?_method=PUT` : '/turnos')
+    label(for="fecha") Fecha:
+    input(type="date", name="fecha", id="fecha", value=(turno && turno.fecha) || '', required)
+
+    label(for="hora") Hora:
+    input(type="time", name="hora", id="hora", value=(turno && turno.hora) || '', required)
+
+    label(for="pacienteId") ID del Paciente:
+    input(type="text", name="pacienteId", id="pacienteId", value=(turno && turno.pacienteId) || '', required)
+
+    label(for="servicio") Servicio:
+    input(type="text", name="servicio", id="servicio", value=(turno && turno.servicio) || '', placeholder="Ej: Consulta general", required)
+
+    label(for="motivo") Motivo:
+    input(type="text", name="motivo", id="motivo", value=(turno && turno.motivo) || '', placeholder="Ej: Control", required)
+    
+    label(for="precio") Precio:
+    input(type="text", name="precio", id="precio", value=(turno && turno.precio) || '', required)
+
+    button(type="submit")= modo === 'editar' ? 'Actualizar' : 'Crear'
+

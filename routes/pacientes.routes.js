@@ -24,6 +24,15 @@ const {
  *                 $ref: '#/components/schemas/Paciente'
  */
 router.get("/", controller.listar);
+
+router.get("/crear", (req, res) => {
+  res.render("pacientes/form", {
+    modo: "crear",
+    paciente: { responsable: {} },
+    errores: [],
+  });
+});
+
 /**
  * @swagger
  * /pacientes/{id}:
@@ -48,16 +57,8 @@ router.get("/", controller.listar);
  *       404:
  *         description: Paciente no encontrado
  */
-
-router.get("/crear", (req, res) => {
-  res.render("pacientes/form", {
-    modo: "crear",
-    paciente: { responsable: {} },
-    errores: [],
-  });
-});
-
 router.get("/:id", controller.detalle);
+
 /**
  * @swagger
  * /pacientes:

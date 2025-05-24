@@ -33,18 +33,18 @@
   },
   {
     "id": 5,
-    "nombre": "Tiana",
+    "nombre": "tiana",
     "especie": "perro",
     "raza": "mestizo",
-    "fechaNacimiento": "2020-01-01",
+    "fechaNacimiento": "2020-07-09",
     "responsable": {
       "nombre": "Josefina",
-      "telefono": "234567890",
-      "email": "josefinacicchini@gmail.com",
-      "direccion": "Ciudad de La Paz 1900"
+      "telefono": "23456778",
+      "email": "jose@gmail.com",
+      "direccion": "La pampa 2222, caba"
     },
     "fichaMedica": [],
-    "createdAt": "2025-05-24T00:54:00.997Z",
-    "updatedAt": "2025-05-24T00:54:00.997Z"
+    "createdAt": "2025-05-24T18:08:15.074Z",
+    "updatedAt": "2025-05-24T18:08:15.074Z"
   }
 ]

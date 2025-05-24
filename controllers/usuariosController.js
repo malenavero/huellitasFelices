@@ -137,32 +137,5 @@ module.exports = {
       console.error(error);
       handleError(req, res, 500, 'Error al eliminar el usuario');
     }
-  },
-
-  // POST - Login de un usuario
-  async login(req, res) {
-    try {
-      const { correo, password } = req.body;
-      const usuario = await Usuario.findByEmail(correo);
-
-      if (!usuario) {
-        handleError(req, res, 401, 'Credenciales inválidas');
-      }
-
-      const passwordValido = await comparePassword(password, usuario.password);
-
-      if (!passwordValido) {
-        handleError(req, res, 401, 'Credenciales inválidas');
-      }
-
-      if (returnJSON(req)) {
-        return res.status(200).json(usuario);
-      }
-      return res.status(200).redirect('/index');
-      
-    } catch (error) {
-      console.error(error);
-      handleError(req, res, 500, 'Error al iniciar sesión');
-    }
-  },
+  }
 };

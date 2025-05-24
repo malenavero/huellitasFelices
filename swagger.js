@@ -53,6 +53,10 @@ const options = {
         name: 'Usuarios (Vistas)',
         description: 'Vistas HTML para formularios de usuarios',
       },
+      { 
+        name: 'Login',
+        description: 'Formulario e inicio de sesión de usuarios' 
+      }
     ],
     components: {
       schemas: {

@@ -6,7 +6,7 @@
     "telefono": "1122334455",
     "direccion": "Calle Ficticia 123",
     "correo": "emanuel@huellitasfelices.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "veterinaria_gerencia",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -18,7 +18,7 @@
     "telefono": "1166778899",
     "direccion": "Av. Mascotas 456",
     "correo": "gonzalo@huellitasfelices.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "recepcion_ventas",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -30,7 +30,7 @@
     "telefono": "1133445566",
     "direccion": "Calle Canina 789",
     "correo": "susana@huellitasfelices.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "recepcion_peluqueria",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -42,7 +42,7 @@
     "telefono": "1177889900",
     "direccion": "Paseo de los Patitas 101",
     "correo": "cristian@huellitasfelices.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "peluqueria",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -54,7 +54,7 @@
     "telefono": "1199887766",
     "direccion": "Ruta 3 Km 25",
     "correo": "laura@ejemplo.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "admin",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -66,7 +66,7 @@
     "telefono": "1155443322",
     "direccion": "Av. Felina 33",
     "correo": "diego@ejemplo.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "admin",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -78,7 +78,7 @@
     "telefono": "1122113344",
     "direccion": "Barrio Mascotero 18",
     "correo": "paula@ejemplo.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "veterinaria",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -90,7 +90,7 @@
     "telefono": "1177332211",
     "direccion": "Calle del Gato 777",
     "correo": "hugo@ejemplo.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "ventas",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -102,7 +102,7 @@
     "telefono": "1133992277",
     "direccion": "Esquina Perruna 9",
     "correo": "valeria@ejemplo.com",
-    "password": "12345",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "rol": "recepcion",
     "createdAt": "2025-05-18T02:59:06.838Z",
     "updatedAt": "2025-05-18T02:59:06.838Z"
@@ -111,7 +111,7 @@
     "id": 10,
     "nombre": "nicolás",
     "apellido": "pereyra",
-    "password": "$2b$10$jOSJfx0SyJW91g9GwTMFK.iEwl1OQsrKHv58/p0EFKJVMM.Puxm52",
+    "password": "$2b$10$7Z406ZlN1VaHBmhMe1ZFKO.pBHbisEimshsaty4t27jltRlRUZ8qu",
     "telefono": "1155337799",
     "direccion": "av. salud animal 100",
     "correo": "nicolas@ejemplo.com",

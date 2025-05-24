@@ -6,6 +6,8 @@ const logger = require('morgan');
 const { setupSwagger } = require('./swagger.js');
 const ensureDataFilesExist = require('./initDataFiles');
 const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login.routes.js');
+const homeRouter = require('./routes/home');
 const productosRouter = require('./routes/productos.routes');
 const pacientesRouter = require('./routes/pacientes.routes');
 const turnosRouter = require('./routes/turnos.routes');
@@ -41,6 +43,7 @@ app.use((req, res, next) => {
   res.locals.busquedasUrl = '/busquedas';
   res.locals.usuariosUrl = '/usuarios';
   res.locals.documentacionUrl = '/documentacion';
+  res.locals.loginUrl = '/login';
   next();
 });
 
@@ -48,6 +51,8 @@ app.use((req, res, next) => {
 
 
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
+app.use('/home', homeRouter);
 app.use('/productos', productosRouter);
 app.use('/pacientes', pacientesRouter);
 app.use('/turnos', turnosRouter);

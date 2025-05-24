@@ -1,0 +1,23 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Iniciar sesión | Huellitas Felices
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+      h1 Iniciar sesión
+
+
+  
+  form(method="POST", action="/login", class="form-box")
+        div
+          label(for="correo") Correo electrónico:
+          input(type="email", name="correo", id="correo", required)
+
+        div
+          label(for="password") Contraseña:
+          input(type="password", name="password", id="password", required)
+
+        button(type="submit") Ingresar

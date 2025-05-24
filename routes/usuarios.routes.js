@@ -46,43 +46,6 @@ router.get('/crear', (req, res) => {
  */
 router.get('/:id/editar', controller.formEditar);
 
-/**
- * @swagger
- * /login:
- *   post:
- *     summary: Inicia sesión con credenciales de usuario
- *     tags:
- *       - Usuarios
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - correo
- *               - password
- *             properties:
- *               correo:
- *                 type: string
- *                 format: email
- *                 example: usuario@huellitas.com
- *               password:
- *                 type: string
- *                 format: password
- *                 example: 12345
- *     responses:
- *       200:
- *         description: Usuario autenticado correctamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Usuario'
- *       401:
- *         description: Credenciales inválidas
- */
-router.post('/login', validarLogin, controller.login);
-
 //router.use(autorizarRol('admin'));
 /**
  * @swagger
@@ -126,7 +89,6 @@ router.get('/', controller.listar);
  *               $ref: '#/components/schemas/Usuario'
  */
 router.get('/:id', controller.detalle);
-
 
 /**
  * @swagger

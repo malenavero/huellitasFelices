@@ -21,7 +21,6 @@ Aplicación web para la gestión integral de una veterinaria y peluquería canin
 - **Express.js:** - Framework para la creacion de servidores HTTP y manejo de rutas.
 - **Pug:** - Motor de plantillas para renderizar vistas dinamicas en HTML.
 - **JSON:** - Utilizado como base de datos local para persistencia de informacion.
-- **Middleware personalizado:** - Implementado para el manejo de errores y validaciones en rutas.
 - **Postman:** - Herramienta para el testeo de los endpoints de la API.
 - **Nodemon:** - Utilidad para reiniciar automáticamente el servidor durante el desarrollo.
 
@@ -83,24 +82,23 @@ Esto le permitira explorar los endpoints disponibles y enviar peticiones de prue
 ## Estructura del Proyecto 📦
 
 huellitasFelices
-├─ **bin/** (Scripts para iniciar la aplicación)
-├─ **controllers/** (Lógica de negocio y controladores que gestionan las peticiones)
-├─ **data/** (Archivos JSON usados como base de datos local)
-├─ **middlewares/** (Middlewares personalizados para validaciones y manejo de errores)
-├─ **models/** (Definicion de la estructura de los datos de la aplicacion)
-├─ **node_modules/** (Dependencias instaladas automáticamente por NPM)
-├─ **postmanCollections/** (Colección Postman de las pruebas de los endpoints de la API)
-├─ **public/** (Imagenes, y otros archivos CSS y JS)
-├─ **routes/** (Rutas de la API y vista)
-├─ **utils/** (Funciones utilitarias y helpers)
-├─ **views/** (Plantillas Pug para renderizar vistas en HTML)
-├─ **.gitignore** (Archivos y carpetas ignorados por Git)
-├─ **app.js** (Archivo Principal de la API)
-├─ **initDataFiles.js** (Script para inicializar los archivos de datos)
-├─ **package-lock.json** (Archivo generado automáticamente)
-├─ **package.json** (Configuración del proyecto y dependencias)
-├─ **swagger.js** (Configuración de Swagger para documentar la API)
-└─ **TODO.md** (Lista de tareas pendientes para el desarrollo)
+-├─ **bin/** (Scripts para iniciar la aplicación)
+-├─ **controllers/** (Lógica de negocio y controladores que gestionan las peticiones)
+-├─ **data/** (Archivos JSON usados como base de datos local)
+-├─ **middlewares/** (Middlewares personalizados para validaciones y manejo de errores)
+-├─ **models/** (Definicion de la estructura de los datos de la aplicacion)
+-├─ **node_modules/** (Dependencias instaladas automáticamente por NPM)
+-├─ **postmanCollections/** (Colección Postman de las pruebas de los endpoints de la API)
+-├─ **public/** (Imagenes, y otros archivos CSS y JS)
+-├─ **routes/** (Rutas de la API y vista)
+-├─ **utils/** (Funciones utilitarias y helpers)
+-├─ **views/** (Plantillas Pug para renderizar vistas en HTML)
+-├─ **.gitignore** (Archivos y carpetas ignorados por Git)
+-├─ **app.js** (Archivo Principal de la API)
+-├─ **initDataFiles.js** (Script para inicializar los archivos de datos)
+-├─ **package-lock.json** (Archivo generado automáticamente)
+-├─ **package.json** (Configuración del proyecto y dependencias)
+-└─ **swagger.js** (Configuración de Swagger para documentar la API)
 
 ## Autores ✒️
 

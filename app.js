@@ -3,6 +3,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const { setupSwagger } = require("./swagger.js");
+const methodOverride = require("method-override");
 const ensureDataFilesExist = require("./initDataFiles");
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login.routes.js");
@@ -15,9 +16,6 @@ const busquedasRouter = require("./routes/busquedas.routes");
 const documentacionRouter = require("./routes/documentacion.routes");
 
 
-const methodOverride = require("method-override");
-
-
 const app = express();
 setupSwagger(app);
 
@@ -25,8 +23,6 @@ setupSwagger(app);
 ensureDataFilesExist();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 

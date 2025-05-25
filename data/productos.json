@@ -3,12 +3,12 @@
     "id": 1,
     "nombre": "pluma verde",
     "categoria": "otros",
-    "precio": "3000",
-    "stock": 0,
+    "precio": "100",
+    "stock": 90,
     "descripcion": "Mayor a 2 años",
     "fechaVencimiento": "2026-09-12",
     "createdAt": "2025-05-23T22:54:19.846Z",
-    "updatedAt": "2025-05-24T14:04:06.050Z"
+    "updatedAt": "2025-05-25T16:10:50.101Z"
   },
   {
     "id": 3,
@@ -31,5 +31,16 @@
     "fechaVencimiento": "2026-10-12",
     "createdAt": "2025-05-24T14:01:58.397Z",
     "updatedAt": "2025-05-24T14:01:58.397Z"
+  },
+  {
+    "id": 5,
+    "nombre": "nutrique perro adulto",
+    "categoria": "comida",
+    "precio": 5689,
+    "stock": 10,
+    "descripcion": "Mayor a 2 años",
+    "fechaVencimiento": "2026-10-12",
+    "createdAt": "2025-05-25T16:09:55.206Z",
+    "updatedAt": "2025-05-25T16:09:55.206Z"
   }
 ]

@@ -24,9 +24,6 @@ block content
       option(value="", disabled selected) -- Seleccione un servicio --
       each servicio in servicios
         option(value=servicio selected=(turno && turno.servicio == servicio) ? true : false)= servicio.charAt(0).toUpperCase() + servicio.slice(1)
-
-    label(for="motivo") Motivo:
-    input(type="text", name="motivo", id="motivo", value=(turno && turno.motivo) || '', placeholder="Ej: Control")
     
     label(for="precio") Precio:
     input(type="text", name="precio", id="precio", value=(turno && turno.precio) || '', required)

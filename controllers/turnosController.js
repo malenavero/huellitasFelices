@@ -110,12 +110,11 @@ module.exports = {
     try {
       // El middleware ya validó req.body y pacienteId existe
 
-      const { fecha, hora, pacienteId, motivo, precio, servicio } = req.body;
+      const { fecha, hora, pacienteId, precio, servicio } = req.body;
       const nuevoTurno = await Turno.create({
         fecha,
         hora,
         pacienteId,
-        motivo,
         precio,
         servicio,
       });

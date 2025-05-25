@@ -32,11 +32,6 @@ Estas instrucciones te permitirán lanzar el proyecto en tu navegador web.
 
 - Tener instalado Node.js. Puede descargarlo desde:
 [https://nodejs.org/](https://nodejs.org/)
-
-Opcional: Desde Bash (Git) ejecute:
-```bash
-    npm install -g nodemon
-```
     
 ### Instalación 🔧
 - Clonar el repositorio usando Bash (Git):

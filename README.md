@@ -66,6 +66,9 @@ Utilizando Bash (Git) desde la ruta del proyecto levantamos la aplicacion de dos
 
 En el navegador coloque la URL --> [http://localhost:3000](http://localhost:3000)
 
+Usuario de prueba: emanuel@huellitasfelices.com
+Contraseña: 12345
+
 ## Documentación
 
 Una vez levantada la aplicacion podra acceder a la documentacion interactiva generada con Swagger, para ello debera utilizar:

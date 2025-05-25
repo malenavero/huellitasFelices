@@ -24,7 +24,7 @@ const {
 router.get("/crear", (req, res) => {
   res.render("usuarios/form", {
     modo: "crear",
-    producto: {},
+    usuario: {},
     roles: ROLES,
     errores: []
   });

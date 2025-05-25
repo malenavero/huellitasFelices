@@ -48,7 +48,10 @@ class Paciente {
     let pacientesFiltrados = pacientes;
 
     if (query.nombre) {
-      pacientesFiltrados = pacientesFiltrados.filter(p => p.nombre === query.nombre);
+      const nombreBuscado = query.nombre.toLowerCase();
+      pacientesFiltrados = pacientesFiltrados.filter(p =>
+        p.nombre.toLowerCase().includes(nombreBuscado)
+      );
     }
 
     return pacientesFiltrados.map(p => new Paciente(p));

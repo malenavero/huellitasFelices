@@ -2,6 +2,10 @@ extends ../layout
 
 block content
   h1 Lista de Pacientes
+  // Filtrado por nombre
+  form(method="GET", class="form-box form-flex", style="margin-bottom: 20px; gap: 10px;")
+    input(type="text", name="nombre", placeholder="Buscar por nombre", value=nombreBuscado || '')
+    button(type="submit") Buscar
 
   a(href="/pacientes/crear").button ➕ Nuevo Paciente
 

@@ -83,7 +83,6 @@ class Paciente {
   }
 
   static async update(id, updatedFields) {
-    // Opcional: podés dejar este helper o eliminarlo si preferís solo save()
     const paciente = await Paciente.findById(id);
     if (!paciente) return null;
 

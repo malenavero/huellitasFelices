@@ -1,4 +1,5 @@
 const Paciente = require("../models/Paciente");
+const { ANIMALES_VALIDOS } = require("../utils/constants.js");
 const { returnJSON, handleError, urls } = require("./utils.js");
 
 async function getListParams(query = {}) {
@@ -48,7 +49,8 @@ module.exports = {
     res.render("pacientes/form", {
       modo: "editar",
       paciente,
-      responsable: paciente.responsable || {}
+      responsable: paciente.responsable || {},
+      animales_validos: ANIMALES_VALIDOS
     });
   },
 

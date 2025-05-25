@@ -3,7 +3,7 @@
     "id": 1,
     "nombre": "gala",
     "especie": "gato",
-    "raza": "gris",
+    "raza": "siames",
     "fechaNacimiento": "2015-09-16",
     "responsable": {
       "nombre": "Elena Morley",
@@ -14,7 +14,7 @@
     "fichaMedica": [],
     "consultas": [],
     "createdAt": "2025-05-23T22:56:56.038Z",
-    "updatedAt": "2025-05-24T23:12:24.875Z"
+    "updatedAt": "2025-05-25T13:13:13.982Z"
   },
   {
     "id": 2,

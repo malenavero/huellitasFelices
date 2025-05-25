@@ -13,7 +13,10 @@ block content
     input(type="text", name="nombre", id="nombre", value=paciente.nombre || '', placeholder="Nombre del paciente", required)
 
     label(for="especie") Especie:
-    input(type="text", name="especie", id="especie", value=paciente.especie || '', placeholder="Ej: Perro, Gato", required)
+    select(name="especie", id="especie", required)
+      option(value="") Seleccioná una especie
+      each especie in animales_validos
+        option(value=especie selected=(paciente.especie === especie))= especie
 
     label(for="raza") Raza:
     input(type="text", name="raza", id="raza", value=paciente.raza || '', placeholder="Raza del animal")

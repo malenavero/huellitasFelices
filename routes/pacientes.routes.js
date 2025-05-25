@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/pacientesController");
+const { ANIMALES_VALIDOS } = require("../utils/constants.js");
+
 // const autorizarRol = require('../middlewares/autorizarRol');
 const {
   validarPacienteCreate,
@@ -23,14 +25,14 @@ const {
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get("/crear", (req, res) => {
-  
+router.get("/crear", (req, res) => { 
   res.render("pacientes/form", {
     modo: "crear",
     busqueda: {},
     paciente: {},
     responsable: {},
-    errores: []
+    errores: [],
+    animales_validos: ANIMALES_VALIDOS
   });
 });
 
@@ -70,13 +72,6 @@ router.get("/:id/editar", controller.formEditar);
  */
 router.get("/", controller.listar);
 
-router.get("/crear", (req, res) => {
-  res.render("pacientes/form", {
-    modo: "crear",
-    paciente: { responsable: {} },
-    errores: [],
-  });
-});
 
 /**
  * @swagger

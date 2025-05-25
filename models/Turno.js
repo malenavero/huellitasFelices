@@ -48,7 +48,7 @@ class Turno {
       filteredData = filteredData.filter(p => p.fecha === query.fecha);
     }
     if (query.pacienteId) {
-      filteredData = filteredData.filter(p => p.pacienteId === query.pacienteId);
+      filteredData = filteredData.filter(p => String(p.pacienteId) === String(query.pacienteId));
     }
 
     return filteredData.map(item => new Turno(item));

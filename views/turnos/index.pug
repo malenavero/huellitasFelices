@@ -2,7 +2,21 @@ extends ../layout.pug
 
 block content
   h1 Lista de Turnos
+  // Formulario de filtros
+  form(method="GET", class="form-box form-flex", style="margin-bottom: 20px; gap: 10px; flex-wrap: wrap;")
+    select(name="servicio")
+      option(value="") Todos los servicios
+      each s in servicios
+        option(value=s selected=(s === query.servicio))= s
 
+    input(type="date", name="fecha", value=query.fecha || '')
+
+    select(name="pacienteId")
+      option(value="") Todos los pacientes
+      each paciente in pacientes
+        option(value=paciente.id selected=(paciente.id == query.pacienteId))= paciente.nombre
+
+    button(type="submit") Filtrar
   a(href="/turnos/crear").button ➕ Nuevo Turno
 
   if turnos.length

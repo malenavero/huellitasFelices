@@ -6,6 +6,7 @@ const { SERVICIOS } = require("../utils/constants.js");
 async function getListParams(query = {}) {
   const turnos = await Turno.findAll(query);
   const pacientes = await Paciente.findAll();
+  const servicios = SERVICIOS;
 
   const hoy = new Date().toISOString().split("T")[0]; // formato YYYY-MM-DD
 
@@ -32,6 +33,9 @@ async function getListParams(query = {}) {
 
   return {
     turnos: turnosFiltradosYOrdenados,
+    servicios,
+    pacientes,
+    query,
     ...urls,
   };
 }

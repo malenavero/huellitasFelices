@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/turnosController");
+const controller = require("../controllers/turnos_controller");
 // const autorizarRol = require('../middlewares/autorizarRol');
-const { validarTurnoCreate, validarTurnoUpdate } = require("../middlewares/validacionesTurnos");
+const { validarTurnoCreate, validarTurnoUpdate } = require("../middlewares/validaciones_turnos");
 
 //router.use(autorizarRol('admin', 'recepcionista', 'recepcionista_peluqueria', 'veterinaria_gerencia'));
 

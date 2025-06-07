@@ -56,7 +56,7 @@ function asignarDefaults(defaults = {}) {
 }
 
 function generarManejoErrores({ vista, obtenerDatos }) {
-  return function manejoErrores(req, res, next) {
+  return async function manejoErrores(req, res, next) {
     const errores = validationResult(req);
     if (errores.isEmpty()) return next();
 
@@ -71,7 +71,10 @@ function generarManejoErrores({ vista, obtenerDatos }) {
 
     const modo = req.method === "PUT" ? "editar" : "crear";
 
-    const datosExtra = obtenerDatos ? obtenerDatos(req) : {};
+    let datosExtra = {};
+    if (obtenerDatos) {
+      datosExtra = await obtenerDatos(req);
+    }
 
     return res.status(400).render(vista, {
       modo,
@@ -80,6 +83,7 @@ function generarManejoErrores({ vista, obtenerDatos }) {
     });
   };
 }
+
 
 
 

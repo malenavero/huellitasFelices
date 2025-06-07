@@ -14,7 +14,7 @@ block content
     select(name="pacienteId")
       option(value="") Todos los pacientes
       each paciente in pacientes
-        option(value=paciente.id selected=(paciente.id == query.pacienteId))= paciente.nombre
+        option(value=paciente._id selected=(paciente._id == query.pacienteId))= paciente.nombre
 
     button(type="submit") Filtrar
   a(href="/turnos/crear").button ➕ Nuevo Turno
@@ -33,12 +33,12 @@ block content
           tr(style="text-align: center")
             td= turno.fecha
             td= turno.hora
-            td= turno.nombrePaciente
+            td= turno.paciente.nombre || "Desconocido"
             td= turno.servicio
             td
-              a.btn.btn-sm.btn-primary(href=`/turnos/${turno.id}`, style="margin-right: 10px;") 👁️ Ver
-              a.btn.btn-sm.btn-warning(href=`/turnos/${turno.id}/editar`, style="margin-right: 10px;") ✏️Editar
-              form(method="POST", action=`/turnos/${turno.id}?_method=DELETE`, style="display:inline; padding: 0; margin: 0;")
+              a.btn.btn-sm.btn-primary(href=`/turnos/${turno._id}`, style="margin-right: 10px;") 👁️ Ver
+              a.btn.btn-sm.btn-warning(href=`/turnos/${turno._id}/editar`, style="margin-right: 10px;") ✏️Editar
+              form(method="POST", action=`/turnos/${turno._id}?_method=DELETE`, style="display:inline; padding: 0; margin: 0;")
                 button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')") 🗑️ Eliminar
   else
     p No hay turnos registrados.

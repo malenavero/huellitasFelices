@@ -5,27 +5,46 @@ block content
 
   h1= modo === 'editar' ? 'Editar Turno' : 'Nuevo Turno'
 
-  form(method="POST", action=modo === 'editar' ? `/turnos/${turno.id}?_method=PUT` : '/turnos')
+  form(method="POST", action=modo === 'editar' ? `/turnos/${turno._id}?_method=PUT` : '/turnos')
 
     label(for="fecha") Fecha:
     input(type="date", name="fecha", id="fecha", value=(turno && turno.fecha) || '', required)
+    if errores
+      each e in errores
+        if e.campo === 'fecha'
+          span.error= e.mensaje
 
     label(for="hora") Hora:
     input(type="time", name="hora", id="hora", value=(turno && turno.hora) || '', required)
+    if errores
+      each e in errores
+        if e.campo === 'hora'
+          span.error= e.mensaje
 
     label(for="pacienteId") Paciente:
-    select(name="pacienteId", id="pacienteId", required)
-      option(value="", disabled selected) -- Seleccione un paciente --
+    select(name="pacienteId", id="pacienteId")
+      option(value="") -- Seleccione un paciente --
       each paciente in pacientes
-        option(value=paciente.id selected=(turno && turno.pacienteId == paciente.id) ? true : false)= paciente.nombre
+        option(
+          value=paciente._id
+          selected=(paciente._id == pacienteId)
+        )= paciente.nombre
+
 
     label(for="servicio") Servicio:
-    select(name="servicio", id="servicio", required)
-      option(value="", disabled selected) -- Seleccione un servicio --
+    select(name="servicio", id="servicio")
+      option(value="") -- Seleccione un servicio --
       each servicio in servicios
-        option(value=servicio selected=(turno && turno.servicio == servicio) ? true : false)= servicio.charAt(0).toUpperCase() + servicio.slice(1)
-    
+        option(value=servicio , required, selected=(turno && turno.servicio == servicio))= servicio.charAt(0).toUpperCase() + servicio.slice(1)
+    if errores
+      each e in errores
+        if e.campo === 'servicio'
+          span.error= e.mensaje
+
     label(for="precio") Precio:
     input(type="text", name="precio", id="precio", value=(turno && turno.precio) || '', required)
-
+    if errores
+      each e in errores
+        if e.campo === 'precio'
+          span.error= e.mensaje
     button(type="submit")= modo === 'editar' ? 'Actualizar' : 'Crear'

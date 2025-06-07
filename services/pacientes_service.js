@@ -9,8 +9,11 @@ module.exports = {
     if (query.nombre) {
       filtro.nombre = { $regex: query.nombre, $options: "i" };
     }
-    return await Paciente.find(filtro).lean();
+
+    const pacientes = await Paciente.find(filtro).lean();
+    return pacientes || [];
   },
+
 
   /**
    * Busca un paciente por su ObjectId.

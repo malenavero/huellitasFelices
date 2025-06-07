@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  h1 Detalle de Turno
+  h2 Detalle de Turno
 
   p
     span.detail-label Fecha:
@@ -10,11 +10,24 @@ block content
     span.detail-label Hora:
     | #{turno.hora}
   p
-    span.detail-label Nombre:
-    | #{turno.nombrePaciente}
+    span.detail-label Paciente:
+    | #{turno.paciente.nombre || "Desconocido"}
   p
     span.detail-label Servicio:
     | #{turno.servicio}
+
+  - const responsable = turno.paciente && turno.paciente.responsable || {};
   
+  h3(style="margin-top: 20px;") Contacto del responsable
+
+  p
+    span.detail-label Nombre:
+    | #{responsable.nombre || "No disponible"}
+  p
+    span.detail-label Email:
+    | #{responsable.email || "No disponible"}
+  p
+    span.detail-label Teléfono:
+    | #{responsable.telefono || "No disponible"}
 
   a(href="/turnos", style="display:inline-block; margin-top: 20px;") ← Volver al listado

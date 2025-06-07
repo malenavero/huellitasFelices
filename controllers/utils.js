@@ -46,6 +46,25 @@ function handleError(req, res, status, message = "") {
   }
 }
 
+async function handleDuplicados({ campos, req, res, modo, vista, datos = {}, campoFallback = "fecha" }) {
+    const mensaje = `Ya existe un registro con ${campos.join(" y ")}`;
+
+    if (returnJSON(req)) {
+      return res.status(400).json({
+        errores: [{ campo: campoFallback, mensaje }]
+      });
+    }
+
+    // Renderiza la vista de formulario con el error
+    return res.status(400).render(vista, {
+      ...datos,
+      modo,
+      errores: [{ campo: campoFallback, mensaje }]
+    }); 
+
+}
+
+
 const urls = {
   productosUrl: "/productos",
   pacientesUrl: "/pacientes",
@@ -60,5 +79,6 @@ module.exports = {
     hashPassword,
     comparePassword,
     handleError,
+    handleDuplicados,
     urls
 }

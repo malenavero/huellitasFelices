@@ -245,7 +245,7 @@ const options = {
             id: { type: "string" },
             fecha: { type: "string", format: "date" },
             hora: { type: "string" },
-            pacienteId: { type: "integer" },
+            paciente: { type: "Paciente" },
             servicio: { type: "string" },
             precio: { type: "number" },
             createdAt: { type: "string", format: "date-time" },
@@ -254,7 +254,7 @@ const options = {
         },
         TurnoInput: {
           type: "object",
-          required: ["fecha", "hora", "pacienteId", "servicio"],
+          required: ["fecha", "hora", "paciente", "servicio"],
           properties: {
             fecha: { type: "string", format: "date" },
             hora: { type: "string" },

@@ -28,10 +28,10 @@ block content
             td(style="text-align: center")= paciente.raza
             td(style="text-align: center")= paciente.edad
             td(style="text-align: center")= paciente.responsable.nombre
-            td(styyle="text-align: right")
-                a(href=`/pacientes/${paciente.id}`, style="margin-right: 10px;") 👁️ Ver
-                a(href=`/pacientes/${paciente.id}/editar`, style="margin-right: 10px;") ✏️ Editar
-                form(method="POST", action=`/pacientes/${paciente.id}?_method=DELETE`, style="display:inline; padding: 0; margin: 0;")
+            td(style="text-align: right")
+                a(href=`/pacientes/${paciente._id}`, style="margin-right: 10px;") 👁️ Ver
+                a(href=`/pacientes/${paciente._id}/editar`, style="margin-right: 10px;") ✏️ Editar
+                form(method="POST", action=`/pacientes/${paciente._id}?_method=DELETE`, style="display:inline; padding: 0; margin: 0;")
                   button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')") 🗑️ Eliminar
 
 

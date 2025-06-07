@@ -127,12 +127,6 @@ const options = {
             id: { type: "integer" },
             nombre: { type: "string" },
             especie: { type: "string" },
-            raza: { type: "string" },
-            fechaNacimiento: {
-              type: "string",
-              format: "date",
-              description: "Fecha en formato AAAA-MM-DD",
-            },
             responsable: {
               type: "object",
               properties: {
@@ -147,8 +141,18 @@ const options = {
               items: {
                 type: "object",
                 properties: {
-                  fecha: { type: "string", format: "date" },
-                  detalle: { type: "string" },
+                  raza: { type: "string" },
+                  fechaNacimiento: {
+                    type: "string",
+                    format: "date",
+                    description: "Fecha en formato AAAA-MM-DD",
+                  },
+                  peso: { type: "number" },
+                  alergias: {
+                    type: "array",
+                    items: { type: "string" },
+                  },
+                  notas: { type: "string" },
                 },
               },
             },
@@ -159,21 +163,37 @@ const options = {
         },
         PacienteInput: {
           type: "object",
-          required: ["nombre", "especie", "fechaNacimiento", "responsable"],
+          required: ["nombre", "especie", "responsable"],
           properties: {
             nombre: { type: "string" },
             especie: { type: "string" },
             raza: { type: "string" },
-            fechaNacimiento: { type: "string", format: "date" },
             responsable: {
               type: "object",
+              required: ["nombre", "telefono", "email"],
               properties: {
                 nombre: { type: "string" },
                 telefono: { type: "string" },
                 email: { type: "string", format: "email" },
                 direccion: { type: "string" },
               },
-              required: ["nombre", "telefono", "email", "direccion"],
+            },
+            fichaMedica: {
+              type: "object",
+              properties: {
+                raza: { type: "string" },
+                fechaNacimiento: {
+                  type: "string",
+                  format: "date",
+                  description: "Fecha en formato AAAA-MM-DD",
+                },
+                peso: { type: "number" },
+                alergias: {
+                  type: "array",
+                  items: { type: "string" },
+                },
+                notas: { type: "string" },
+              },
             },
           },
         },
@@ -183,7 +203,6 @@ const options = {
             nombre: { type: "string" },
             especie: { type: "string" },
             raza: { type: "string" },
-            fechaNacimiento: { type: "string", format: "date" },
             responsable: {
               type: "object",
               properties: {
@@ -193,9 +212,31 @@ const options = {
                 direccion: { type: "string" },
               },
             },
+            fichaMedica: {
+              type: "object",
+              properties: {
+                raza: { type: "string" },
+                fechaNacimiento: {
+                  type: "string",
+                  format: "date",
+                  description: "Fecha en formato AAAA-MM-DD",
+                },
+                peso: { type: "number" },
+                alergias: {
+                  type: "array",
+                  items: { type: "string" },
+                },
+                notas: { type: "string" },
+              },
+            },
           },
           example: {
             nombre: "Susana",
+            fichaMedica: {
+              peso: 4.5,
+              alergias: ["polen"],
+              notas: "Coordinar consultas anuales fuera de primavera."
+            }
           },
         },
         Turno: {

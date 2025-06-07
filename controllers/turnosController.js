@@ -1,5 +1,5 @@
 const Turno = require("../models/Turno");
-const Paciente = require("../models/Paciente");
+const Paciente = require("../models/paciente_model.js");
 const { returnJSON, handleError, urls } = require("./utils.js");
 const { SERVICIOS } = require("../utils/constants.js");
 

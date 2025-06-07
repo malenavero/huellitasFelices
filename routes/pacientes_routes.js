@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/pacientesController");
-const { ANIMALES_VALIDOS } = require("../utils/constants.js");
+const controller = require("../controllers/pacientes_controller.js");
 
 // const autorizarRol = require('../middlewares/autorizarRol');
 const {
   validarPacienteCreate,
   validarPacienteUpdate
-} = require("../middlewares/validacionesPacientes");
+} = require("../middlewares/validaciones_pacientes.js");
 
 
 //router.use(autorizarRol('admin', 'veterinaria_gerencia', 'veterinaria', 'gerencia'));
@@ -25,16 +24,8 @@ const {
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get("/crear", (req, res) => { 
-  res.render("pacientes/form", {
-    modo: "crear",
-    busqueda: {},
-    paciente: {},
-    responsable: {},
-    errores: [],
-    animales_validos: ANIMALES_VALIDOS
-  });
-});
+router.get("/crear", controller.formCrear);
+
 
 /**
  * @swagger
@@ -84,7 +75,7 @@ router.get("/", controller.listar);
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: ID del paciente a obtener
  *     responses:
@@ -127,6 +118,47 @@ router.get("/:id", controller.detalle);
 router.post("/", validarPacienteCreate, controller.crear);
 
 
+/**
+ * @swagger
+ * /pacientes/{id}/consultas:
+ *   post:
+ *     tags:
+ *       - Pacientes
+ *     summary: Agrega una nueva consulta al historial del paciente
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del paciente
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               motivo:
+ *                 type: string
+ *                 example: "Vacunación anual"
+ *               notas:
+ *                 type: string
+ *                 example: "Sin efectos adversos"
+ *               fecha:
+ *                 type: string
+ *                 format: date
+ *                 example: "2025-06-01"
+ *     responses:
+ *       200:
+ *         description: Consulta agregada exitosamente
+ *       400:
+ *         description: Datos inválidos
+ *       404:
+ *         description: Paciente no encontrado
+ */
+router.post("/:id/consultas", controller.addConsulta);
+
 // PUT
 /**
  * @swagger
@@ -139,7 +171,7 @@ router.post("/", validarPacienteCreate, controller.crear);
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: ID del paciente a actualizar
  *     requestBody:
@@ -162,7 +194,6 @@ router.post("/", validarPacienteCreate, controller.crear);
  */
 router.put("/:id", validarPacienteUpdate, controller.actualizar);
 
-
 // DELETE
 /**
  * @swagger
@@ -175,7 +206,7 @@ router.put("/:id", validarPacienteUpdate, controller.actualizar);
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: ID del paciente a eliminar
  *     responses:

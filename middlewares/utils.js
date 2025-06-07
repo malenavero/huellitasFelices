@@ -3,7 +3,7 @@
 const { validationResult, body } = require("express-validator");
 
 function validarFecha(value) {
-    if (!value) return true; // si no viene, no valida aquí
+    if (!value) return true;
   
     // Regex para formato aaaa-mm-dd
     const regex = /^\d{4}-\d{2}-\d{2}$/;

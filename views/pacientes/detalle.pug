@@ -1,38 +1,60 @@
 extends ../layout
 
 block content
-  h1 Detalle de Paciente
+  h1 Detalle del Paciente
 
-  p
-    span.detail-label Id:
-    | #{paciente.id || '-'}
-  p
-    span.detail-label Nombre:
-    | #{paciente.nombre || '-'}
-  p
-    span.detail-label Especie:
-    | #{paciente.especie || '-'}
-  p
-    span.detail-label Raza:
-    | #{paciente.raza || '-'}
-  p
-    span.detail-label Fecha de Nacimiento:
-    | #{paciente.fechaNacimiento || '-'}
-  p
-    span.detail-label Edad:
-    | #{paciente.edad != null ? paciente.edad : '-'}
-  p
-    span.detail-label Responsable:
-    | #{responsable && responsable.nombre ? responsable.nombre : '-'}
-  p
-    span.detail-label Teléfono:
-    | #{responsable && responsable.telefono ? responsable.telefono : '-'}
-  p
-    span.detail-label Email:
-    | #{responsable && responsable.email ? responsable.email : '-'}
-  p
-    span.detail-label Dirección:
-    | #{responsable && responsable.direccion ? responsable.direccion : '-'}
+  a(href="/pacientes") ← Volver al listado
 
-  a(href="/pacientes")
-    | ← Volver al listado
+  h2 Información general
+
+  ul.paciente-detalle
+    li
+      span.detail-label Id: 
+      | #{paciente._id || '-'}
+    li
+      span.detail-label Nombre: 
+      | #{paciente.nombre || '-'}
+    li
+      span.detail-label Especie: 
+      | #{paciente.especie || '-'}
+    li
+      span.detail-label Edad: 
+      | #{paciente.edad != null ? paciente.edad + ' años' : '-'}
+
+  h2 Responsable
+
+  ul.paciente-responsable
+    li
+      span.detail-label Nombre: 
+      | #{responsable.nombre || '-'}
+    li
+      span.detail-label Teléfono: 
+      | #{responsable.telefono || '-'}
+    li
+      span.detail-label Email: 
+      | #{responsable.email || '-'}
+    li
+      span.detail-label Dirección: 
+      | #{responsable.direccion || '-'}
+
+  if paciente.fichaMedica
+    h2 Ficha Médica
+
+    ul.paciente-ficha
+      li
+        span.detail-label Raza: 
+        | #{paciente.fichaMedica.raza || '-'}
+      li
+        span.detail-label Fecha de Nacimiento: 
+        | #{paciente.fichaMedica.fechaNacimiento || '-'}
+      li
+        span.detail-label Peso: 
+        | #{paciente.fichaMedica.peso ? paciente.fichaMedica.peso + ' kg' : '-'}
+      li
+        span.detail-label Alergias: 
+        | #{paciente.fichaMedica.alergias && paciente.fichaMedica.alergias.length ? paciente.fichaMedica.alergias.join(', ') : '-'}
+      li  
+        span.detail-label Notas: 
+        | #{paciente.fichaMedica.notas || '-'}
+
+  a.btn(href=`/pacientes/${paciente._id}/editar`) Editar paciente

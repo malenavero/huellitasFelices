@@ -1,7 +1,7 @@
 // middlewares/utils.js
 
 const { validationResult, body } = require("express-validator");
-
+const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 
 function validarFecha(value) {
     if (!value) return true; // si no viene, no valida aquí
@@ -58,15 +58,28 @@ function asignarDefaults(defaults = {}) {
 
 function manejoErrores(req, res, next) {
   const errores = validationResult(req);
-  if (!errores.isEmpty()) {
-    const erroresFormateados = errores.array().map(err => ({
-      campo: err.path,
-      mensaje: err.msg,
-    }));
+  if (errores.isEmpty()) return next();
+
+  const erroresFormateados = errores.array().map(err => ({
+    campo: err.param,
+    mensaje: err.msg
+  }));
+
+  if (req.accepts(["html", "json"]) === "json") {
     return res.status(400).json({ errores: erroresFormateados });
   }
-  next();
+
+  const modo = req.method === "PUT" ? "editar" : "crear";
+
+  return res.status(400).render("productos/form", {
+    modo,
+    producto: req.body,
+    categorias: CATEGORIAS_PRODUCTO,
+    errores: erroresFormateados
+  });
 }
+
+
 
   /**
  * validarDuplicado recibe un Modelo y un array de campos a verificar como combinación única.
@@ -142,6 +155,13 @@ function validarEntero(campo) {
       .withMessage(`${campo} debe ser un número entero positivo`),
   ];
 } 
+
+function campoObligatorio(campo, mensaje = `${campo} es obligatorio`) {
+  return body(campo)
+    .exists({ checkFalsy: true })
+    .withMessage(mensaje);
+}
+
   
 
   module.exports = {
@@ -152,5 +172,6 @@ function validarEntero(campo) {
     validarDuplicado,
     validarTexto,
     validarDecimal,
-    validarEntero
+    validarEntero,
+    campoObligatorio
   };

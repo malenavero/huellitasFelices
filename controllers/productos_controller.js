@@ -1,10 +1,9 @@
-// controllers/productoController.js
-const Producto = require("../models/Producto");
+const ProductoService = require("../services/productos_service.js");
 const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 const { returnJSON, handleError, urls } = require("./utils.js");
 
 async function getListParams(query = {}) {
-  const productos = await Producto.findAll(query);
+  const productos = await ProductoService.findAll(query);
   return {
     productos,
     categorias: CATEGORIAS_PRODUCTO,
@@ -19,53 +18,37 @@ async function renderListView(res, status = 200, query = {}) {
 }
 
 module.exports = {
-  // GET
   async listar(req, res) {
+    const productos = await ProductoService.findAll(req.query);
     if (returnJSON(req)) {
-      const productos = await Producto.findAll(req.query);
       return res.status(200).json(productos);
     }
     return renderListView(res, 200, req.query);
   },
 
   async detalle(req, res) {
-    const producto = await Producto.findById(req.params.id);
-    if (!producto) {
-      return handleError(req, res, 404, "Producto no encontrado");
-    }
+    const producto = await ProductoService.findById(req.params.id);
+    if (!producto) return handleError(req, res, 404, "Producto no encontrado");
 
-    if (returnJSON(req)) {
-      return res.status(200).json(producto);
-    }
+    if (returnJSON(req)) return res.status(200).json(producto);
 
     return res.status(200).render("productos/detalle", { producto });
   },
 
   async formEditar(req, res) {
-    const producto = await Producto.findById(req.params.id);
-    if (!producto) {
-      return handleError(req, res, 404, "Producto no encontrado");
-    }
-    res.render("productos/form", {
+    const producto = await ProductoService.findById(req.params.id);
+    if (!producto) return handleError(req, res, 404, "Producto no encontrado");
+
+    return res.render("productos/form", {
       modo: "editar",
       producto,
       categorias: CATEGORIAS_PRODUCTO
     });
   },
 
-  // POST
   async crear(req, res) {
     try {
-      const { nombre, categoria, precio, stock, descripcion, fechaVencimiento } = req.body;
-
-      const nuevoProducto = await Producto.create({
-        nombre,
-        categoria,
-        precio: parseFloat(precio),
-        stock: stock ? parseInt(stock) : 0,
-        descripcion: descripcion || "",
-        fechaVencimiento: fechaVencimiento || null
-      });
+      const nuevoProducto = await ProductoService.create(req.body);
 
       if (returnJSON(req)) {
         return res.status(201).json(nuevoProducto);
@@ -73,18 +56,35 @@ module.exports = {
 
       return renderListView(res, 201, req.query);
     } catch (error) {
-      console.log("Error: ", error);
-      handleError(req, res, 500, "Error al crear producto");
+      console.log("Error:", error);
+
+      // Errores conocidos
+      if (error.message.includes("Ya existe un producto")) {
+        if (returnJSON(req)) {
+          return res.status(400).json({
+            errores: [{ campo: "nombre", mensaje: error.message }]
+          });
+        }
+
+        // Para vista HTML: volvemos al formulario con los datos actuales y mensaje
+        const params = {
+          modo: "crear",
+          producto: req.body,
+          categorias: CATEGORIAS_PRODUCTO,
+          errores: [{ campo: "nombre", mensaje: error.message }]
+        };
+        return res.status(400).render("productos/form", params);
+      }
+
+      // Error inesperado
+      return handleError(req, res, 500, "Error al crear producto");
     }
   },
 
-  // PUT
+
   async actualizar(req, res) {
     try {
-      const id = parseInt(req.params.id);
-      const datosActualizados = req.body;
-
-      const productoActualizado = await Producto.update(id, datosActualizados);
+      const productoActualizado = await ProductoService.update(req.params.id, req.body);
 
       if (!productoActualizado) {
         return handleError(req, res, 404, "Producto no encontrado");
@@ -93,18 +93,18 @@ module.exports = {
       if (returnJSON(req)) {
         return res.status(200).json(productoActualizado);
       }
-      return renderListView(res, 201, req.query);
+
+      return renderListView(res, 200, req.query);
     } catch (error) {
-      console.log("Error: ", error);
+      console.log("Error:", error);
       return handleError(req, res, 500, "Error al actualizar producto");
     }
   },
 
-  // DELETE
   async eliminar(req, res) {
     try {
-      const id = parseInt(req.params.id);
-      const idEliminado = await Producto.delete(id);
+      const idEliminado = await ProductoService.delete(req.params.id);
+
       if (!idEliminado) {
         return handleError(req, res, 404, "Producto no encontrado");
       }
@@ -115,21 +115,19 @@ module.exports = {
 
       return renderListView(res, 200, req.query);
     } catch (error) {
-      console.log("Error: ", error);
+      console.log("Error:", error);
       return handleError(req, res, 500, "Error al eliminar producto");
     }
   },
 
   async vender(req, res) {
     try {
-      const id = parseInt(req.params.id);
-      const cantidad = req.body.cantidad ? parseInt(req.body.cantidad) : 1;
-
+      const cantidad = parseInt(req.body.cantidad, 10) || 1;
       if (cantidad <= 0) {
         return handleError(req, res, 400, "Cantidad debe ser un número positivo");
       }
 
-      const productoVendido = await Producto.vender(id, cantidad);
+      const productoVendido = await ProductoService.vender(req.params.id, cantidad);
 
       if (returnJSON(req)) {
         return res.status(200).json(productoVendido);
@@ -139,9 +137,12 @@ module.exports = {
     } catch (error) {
       if (error.message === "Producto no encontrado") {
         return handleError(req, res, 404, error.message);
-      } else if (error.message === "Stock insuficiente") {
+      }
+      if (error.message === "Stock insuficiente") {
         return handleError(req, res, 400, error.message);
       }
+
+      console.log("Error:", error);
       return handleError(req, res, 500, "Error al vender producto");
     }
   }

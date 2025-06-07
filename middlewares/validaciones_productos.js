@@ -1,11 +1,14 @@
-// middlewares/validacionesProductos.js
 const { body } = require("express-validator");
-const Producto = require("../models/Producto.js");
 const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 
-const { validarFecha, normalizarCamposTexto, asignarDefaults, manejoErrores, validarDuplicado, validarTexto } = require("./utils.js");
+const {
+  validarFecha,
+  normalizarCamposTexto,
+  manejoErrores,
+  validarTexto,
+  campoObligatorio
+} = require("./utils.js");
 
-// Validadores generales sin .exists ni .optional porque eso depende de si es create o update
 const validarNombre = validarTexto("nombre", 100);
 
 const validarCategoria = [
@@ -41,40 +44,25 @@ const validarFechaVencimiento = [
 
 const validarDescripcion = validarTexto("descripcion", 255);
 
-// Validación CREATE 
+// CREATE
 const validarProductoCreate = [
   normalizarCamposTexto(["nombre", "categoria"]),
-  asignarDefaults({
-    descripcion: "",
-    fechaVencimiento: "",
-    stock: 0
-  }),
 
-  body("nombre")
-    .exists({ checkFalsy: true })
-    .withMessage("Nombre obligatorio"),
-  validarDuplicado(Producto, ["nombre"]),
+  campoObligatorio("nombre", "Nombre obligatorio"),
   ...validarNombre,
 
-  body("categoria")
-    .exists({ checkFalsy: true })
-    .withMessage("Categoría obligatoria"),
+  campoObligatorio("categoria", "Categoría obligatoria"),
   ...validarCategoria,
 
-  body("precio")
-    .exists({ checkFalsy: true })
-    .withMessage("Precio obligatorio"),
+  campoObligatorio("precio", "Precio obligatorio"),
   ...validarPrecio,
 
-  // stock es opcional
   body("stock").optional(),
   ...validarStock,
 
-  // descripcion opcional
   body("descripcion").optional(),
   ...validarDescripcion,
 
-  // fechaVencimiento obligatorio para farmacia/comida
   body("fechaVencimiento")
     .custom((value, { req }) => {
       const cat = req.body.categoria;
@@ -83,18 +71,16 @@ const validarProductoCreate = [
       }
       return true;
     }),
-
   ...validarFechaVencimiento,
 
   manejoErrores,
 ];
 
-// Validación UPDATE: todos opcionales, validar solo si están
+// UPDATE
 const validarProductoUpdate = [
   normalizarCamposTexto(["nombre", "categoria"]),
 
   body("nombre").optional(),
-  validarDuplicado(Producto, ["nombre"]),
   ...validarNombre,
 
   body("categoria").optional(),
@@ -115,11 +101,11 @@ const validarProductoUpdate = [
   manejoErrores,
 ];
 
-// Validar stock
 const validarCantidad = [
+  campoObligatorio("cantidad", "Cantidad es obligatoria"),
   body("cantidad")
-    .exists({ checkFalsy: true }).withMessage("Cantidad es obligatoria")
-    .isInt({ min: 1 }).withMessage("Cantidad debe ser un entero positivo"),
+    .isInt({ min: 1 })
+    .withMessage("Cantidad debe ser un entero positivo"),
   manejoErrores
 ];
 

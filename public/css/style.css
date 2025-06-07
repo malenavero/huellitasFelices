@@ -215,3 +215,11 @@ button.delete:hover {
   font-weight: 600;
   margin-right: 5px;
 }
+
+
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.2em;
+  display: block;
+}

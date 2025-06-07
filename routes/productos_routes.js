@@ -1,9 +1,9 @@
 // routes/productos.routes.js
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/productosController");
+const controller = require("../controllers/productos_controller.js");
 // const autorizarRol = require('../middlewares/autorizarRol');
-const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require("../middlewares/validacionesProductos");
+const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require("../middlewares/validaciones_productos.js");
 const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 
 /**

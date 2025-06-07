@@ -1,3 +1,5 @@
+const connectDB = require("./db");
+
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -8,19 +10,23 @@ const ensureDataFilesExist = require("./initDataFiles");
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login.routes.js");
 const homeRouter = require("./routes/home");
-const productosRouter = require("./routes/productos.routes");
+const productosRouter = require("./routes/productos_routes");
 const pacientesRouter = require("./routes/pacientes.routes");
 const turnosRouter = require("./routes/turnos.routes");
 const usuariosRouter = require("./routes/usuarios.routes");
 const busquedasRouter = require("./routes/busquedas.routes");
 const documentacionRouter = require("./routes/documentacion.routes");
 
+require("dotenv").config();
+connectDB();
 
 const app = express();
 setupSwagger(app);
 
 // Me aseguro de que si no existe la base de datos json la cree con arrays vacios
 ensureDataFilesExist();
+
+
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

@@ -28,13 +28,13 @@ block content
         
         //  Acciones principales
         div(class="acciones")
-          a(href=`/productos/${producto.id}`) 👁️ Ver
-          a(href=`/productos/${producto.id}/editar`) ✏️ Editar
-          form(method="POST", action=`/productos/${producto.id}?_method=DELETE`)
+          a(href=`/productos/${producto._id}`) 👁️ Ver
+          a(href=`/productos/${producto._id}/editar`) ✏️ Editar
+          form(method="POST", action=`/productos/${producto._id}?_method=DELETE`)
             button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')") 🗑️ Eliminar
 
         //  Formulario para vender
-        form(method="POST", action=`/productos/${producto.id}/vender`, class="form-flex venta-form")
-          label(for=`cantidad-${producto.id}`) Cantidad:
-          input(type="number", id=`cantidad-${producto.id}`, name="cantidad", min="1", max=producto.stock, value="1", required)
+        form(method="POST", action=`/productos/${producto._id}/vender`, class="form-flex venta-form")
+          label(for=`cantidad-${producto._id}`) Cantidad:
+          input(type="number", id=`cantidad-${producto._id}`, name="cantidad", min="1", max=producto.stock, value="1", required)
           button(type="submit") Vender

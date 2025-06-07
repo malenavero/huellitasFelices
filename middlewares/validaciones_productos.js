@@ -4,7 +4,7 @@ const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 const {
   validarFecha,
   normalizarCamposTexto,
-  manejoErrores,
+  generarManejoErrores,
   validarTexto,
   campoObligatorio
 } = require("./utils.js");
@@ -73,7 +73,13 @@ const validarProductoCreate = [
     }),
   ...validarFechaVencimiento,
 
-  manejoErrores,
+  generarManejoErrores({
+    vista: "productos/form",
+    obtenerDatos: req => ({
+      producto: req.body,
+      categorias: CATEGORIAS_PRODUCTO
+    })
+  })
 ];
 
 // UPDATE
@@ -98,7 +104,13 @@ const validarProductoUpdate = [
   body("fechaVencimiento").optional(),
   ...validarFechaVencimiento,
 
-  manejoErrores,
+  generarManejoErrores({
+    vista: "productos/form",
+    obtenerDatos: req => ({
+      producto: req.body,
+      categorias: CATEGORIAS_PRODUCTO
+    })
+  })
 ];
 
 const validarCantidad = [
@@ -106,7 +118,7 @@ const validarCantidad = [
   body("cantidad")
     .isInt({ min: 1 })
     .withMessage("Cantidad debe ser un entero positivo"),
-  manejoErrores
+  generarManejoErrores({})
 ];
 
 module.exports = {

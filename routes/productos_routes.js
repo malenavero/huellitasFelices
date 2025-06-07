@@ -4,7 +4,6 @@ const router = express.Router();
 const controller = require("../controllers/productos_controller.js");
 // const autorizarRol = require('../middlewares/autorizarRol');
 const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require("../middlewares/validaciones_productos.js");
-const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 
 /**
  * @swagger
@@ -17,14 +16,8 @@ const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
  *       200:
  *         description: Formulario HTML de creación
  */
-router.get("/crear", (req, res) => {
-  res.render("productos/form", {
-    modo: "crear",
-    producto: {},
-    categorias: CATEGORIAS_PRODUCTO,
-    errores: []
-  });
-});
+router.get("/crear", controller.formCrear);
+
 
 /**
  * @swagger

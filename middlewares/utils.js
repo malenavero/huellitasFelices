@@ -1,7 +1,6 @@
 // middlewares/utils.js
 
 const { validationResult, body } = require("express-validator");
-const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 
 function validarFecha(value) {
     if (!value) return true; // si no viene, no valida aquí
@@ -56,28 +55,32 @@ function asignarDefaults(defaults = {}) {
   };
 }
 
-function manejoErrores(req, res, next) {
-  const errores = validationResult(req);
-  if (errores.isEmpty()) return next();
+function generarManejoErrores({ vista, obtenerDatos }) {
+  return function manejoErrores(req, res, next) {
+    const errores = validationResult(req);
+    if (errores.isEmpty()) return next();
 
-  const erroresFormateados = errores.array().map(err => ({
-    campo: err.param,
-    mensaje: err.msg
-  }));
+    const erroresFormateados = errores.array().map(err => ({
+      campo: err.path,
+      mensaje: err.msg
+    }));
 
-  if (req.accepts(["html", "json"]) === "json") {
-    return res.status(400).json({ errores: erroresFormateados });
-  }
+    if (req.accepts(["html", "json"]) === "json") {
+      return res.status(400).json({ errores: erroresFormateados });
+    }
 
-  const modo = req.method === "PUT" ? "editar" : "crear";
+    const modo = req.method === "PUT" ? "editar" : "crear";
 
-  return res.status(400).render("productos/form", {
-    modo,
-    producto: req.body,
-    categorias: CATEGORIAS_PRODUCTO,
-    errores: erroresFormateados
-  });
+    const datosExtra = obtenerDatos ? obtenerDatos(req) : {};
+
+    return res.status(400).render(vista, {
+      modo,
+      errores: erroresFormateados,
+      ...datosExtra
+    });
+  };
 }
+
 
 
 
@@ -168,7 +171,7 @@ function campoObligatorio(campo, mensaje = `${campo} es obligatorio`) {
     validarFecha,
     normalizarCamposTexto,
     asignarDefaults,
-    manejoErrores,
+    generarManejoErrores,
     validarDuplicado,
     validarTexto,
     validarDecimal,

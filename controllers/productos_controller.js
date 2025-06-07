@@ -46,6 +46,15 @@ module.exports = {
     });
   },
 
+  formCrear(req, res) {
+    return res.render("productos/form", {
+      modo: "crear",
+      producto: {},
+      errores: [],
+      categorias: CATEGORIAS_PRODUCTO,
+    });
+  },
+
   async crear(req, res) {
     try {
       const nuevoProducto = await ProductoService.create(req.body);

@@ -1,6 +1,6 @@
 const ProductoService = require("../services/productos_service.js");
 const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
-const { returnJSON, handleError, urls } = require("./utils.js");
+const { returnJSON, handleError, urls, handleDuplicados } = require("./utils.js");
 
 async function getListParams(query = {}) {
   const productos = await ProductoService.findAll(query);
@@ -67,23 +67,23 @@ module.exports = {
     } catch (error) {
       console.log("Error:", error);
 
-      // Errores conocidos
-      if (error.message.includes("Ya existe un producto")) {
-        if (returnJSON(req)) {
-          return res.status(400).json({
-            errores: [{ campo: "nombre", mensaje: error.message }]
-          });
-        }
 
-        // Para vista HTML: volvemos al formulario con los datos actuales y mensaje
-        const params = {
-          modo: "crear",
-          producto: req.body,
-          categorias: CATEGORIAS_PRODUCTO,
-          errores: [{ campo: "nombre", mensaje: error.message }]
-        };
-        return res.status(400).render("productos/form", params);
-      }
+      if (error.code == 11000) {
+        const modo = "crear";
+      
+        return handleDuplicados({
+          campos: error.campos,
+          req, res, modo,
+          vista: "productos/form",
+          datos: {
+            modo,
+            producto: req.body,
+            categorias: CATEGORIAS_PRODUCTO,
+            errores: []
+          },
+          campoFallback: "nombre"
+        });       
+      };
 
       // Error inesperado
       return handleError(req, res, 500, "Error al crear producto");
@@ -106,6 +106,27 @@ module.exports = {
       return renderListView(res, 200, req.query);
     } catch (error) {
       console.log("Error:", error);
+      if (error.code == 11000) {
+        const modo = "editar";
+        const producto = {
+          ...req.body,
+          _id: req.params.id
+        }
+      
+        return handleDuplicados({
+          campos: error.campos,
+          req, res, modo,
+          vista: "productos/form",
+          datos: {
+            modo,
+            producto,
+            categorias: CATEGORIAS_PRODUCTO,
+            errores: []
+          },
+          campoFallback: "nombre"
+        });       
+      };
+
       return handleError(req, res, 500, "Error al actualizar producto");
     }
   },

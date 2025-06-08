@@ -47,7 +47,7 @@ function handleError(req, res, status, message = "") {
 }
 
 async function handleDuplicados({ campos, req, res, modo, vista, datos = {}, campoFallback = "fecha" }) {
-    const mensaje = `Ya existe un registro con ${campos.join(" y ")}`;
+    const mensaje = `Ya existe un registro con mismo/a ${campos.join(" y ")}`;
 
     if (returnJSON(req)) {
       return res.status(400).json({

@@ -1,4 +1,5 @@
 const Producto = require("../models/producto_model.js");
+const { getDuplicatedError } = require("./utils");
 
 module.exports = {
   async findAll(query = {}) {
@@ -18,8 +19,8 @@ module.exports = {
       return await nuevoProducto.save();
     } catch (err) {
       if (err.code === 11000) {
-        throw new Error("Ya existe un producto con ese nombre");
-      }
+          throw getDuplicatedError(err);
+        } 
       throw err;
     }
   },
@@ -33,8 +34,8 @@ module.exports = {
       }).lean();
     } catch (err) {
       if (err.code === 11000) {
-        throw new Error("Ya existe un producto con ese nombre");
-      }
+          throw getDuplicatedError(err);
+        }
       throw err;
     }
   },

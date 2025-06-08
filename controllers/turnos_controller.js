@@ -104,9 +104,7 @@ module.exports = {
         }
         return handleDuplicados({
           campos: error.campos,
-          req,
-          res,
-          modo,
+          req, res, modo,
           vista: "turnos/form",
           datos: await cargarFormParams({ modo, turno }),
           campoFallback: "fecha"

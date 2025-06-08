@@ -97,19 +97,8 @@ const pacienteSchema = new mongoose.Schema({
 // Índice compuesto para evitar duplicados
 pacienteSchema.index(
   { nombre: 1, "responsable.email": 1 },
-  { unique: true, partialFilterExpression: { "responsable.email": { $exists: true, $ne: null } } }
+  { unique: true, name: "nombre_responsable_email_unique" }
 );
-
-// Manejo de error de duplicado
-pacienteSchema.post("save", function (error, doc, next) {
-  if (error.name === "MongoServerError" && error.code === 11000) {
-    const campos = Object.keys(error.keyPattern);
-    const mensaje = `Ya existe un paciente con ${campos.join(" y ")}`;
-    return next(new Error(mensaje));
-  }
-  next(error);
-});
-
 
 // Virtual para edad actualizada
 pacienteSchema.virtual("edad").get(function () {

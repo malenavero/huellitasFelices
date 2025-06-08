@@ -1,6 +1,6 @@
 const PacienteService = require("../services/pacientes_service.js");
 const { ANIMALES_VALIDOS } = require("../utils/constants.js");
-const { returnJSON, handleError, urls } = require("./utils.js");
+const { returnJSON, handleError, urls, handleDuplicados } = require("./utils.js");
 
 async function getListParams(query = {}) {
   const pacientes = await PacienteService.findAll(query);
@@ -97,20 +97,18 @@ module.exports = {
       return renderListView(res, 201, req.query);
     } catch (error) {
       console.error("Error creando paciente:", error);
+      
+      if (error.code == 11000) {
+        const modo = "crear";
 
-      if (error.message.includes("nombre") && error.message.includes("responsable.email")) {
-        const errores = [{
-          campo: "nombre",
-          mensaje: "Ya existe un paciente con ese nombre y ese email de responsable"
-        }];
-
-        if (returnJSON(req)) {
-          return res.status(400).json({ errores });
-        }
-
-        const params = await getFormParams(req.body, errores, "crear");
-        return res.status(400).render("pacientes/form", params);
-      }
+        return handleDuplicados({
+          campos: error.campos,
+          req, res, modo,
+          vista: "pacientes/form",
+          datos: await getFormParams(req.body, [], modo),
+          campoFallback: "nombre"
+        });       
+      };
 
       return handleError(req, res, 500, "Error al crear paciente");
     }
@@ -133,19 +131,21 @@ module.exports = {
     } catch (error) {
       console.error("Error actualizando paciente:", error);
 
-      if (error.message.includes("nombre") && error.message.includes("responsable.email")) {
-        const errores = [{
-          campo: "nombre",
-          mensaje: "Ya existe un paciente con ese nombre y ese email de responsable"
-        }];
-
-        if (returnJSON(req)) {
-          return res.status(400).json({ errores });
+      if (error.code == 11000) {
+        const modo = "editar";
+        const paciente = {
+          ...req.body,
+          _id: req.params.id
         }
 
-        const params = await getFormParams(req.body, errores, "editar");
-        return res.status(400).render("pacientes/form", params);
-      }
+        return handleDuplicados({
+          campos: error.campos,
+          req, res, modo,
+          vista: "pacientes/form",
+          datos: await getFormParams(paciente, [], modo),
+          campoFallback: "nombre"
+        });       
+      };
 
       return handleError(req, res, 500, "Error al actualizar paciente");
     }

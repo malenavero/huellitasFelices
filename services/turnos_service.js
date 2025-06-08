@@ -1,5 +1,6 @@
 const Turno = require("../models/turno_model");
 const Paciente = require("../models/paciente_model");
+const { getDuplicatedError } = require("./utils");
 
 module.exports = {
   async findAll(query = {}) {
@@ -48,12 +49,8 @@ module.exports = {
       });
     } catch (err) {
       if (err.code === 11000) {
-        const campos = Object.keys(err.keyPattern || {});
-        const errorDuplicado = new Error();
-        errorDuplicado.code = 11000;
-        errorDuplicado.campos = campos;
-        throw errorDuplicado;
-      }
+          throw getDuplicatedError(err);
+        }
       throw err;
     }
   },
@@ -83,15 +80,10 @@ module.exports = {
 
       return updated ? { ...updated, paciente: updated.paciente || {} } : null;
     } catch (err) {
-      if (err.code === 11000) {
-        const campos = Object.keys(err.keyPattern || {});
-        const mensaje = `Ya existe un turno con ${campos.join(" y ")}`;
-        const errorDuplicado = new Error(mensaje);
-        errorDuplicado.code = 11000;
-        errorDuplicado.keyPattern = err.keyPattern;
-        throw errorDuplicado;
-      }
-      throw err;
+        if (err.code === 11000) {
+          throw getDuplicatedError(err);
+        }
+        throw err;
     }
   },
 

@@ -1,4 +1,5 @@
 const Paciente = require("../models/paciente_model.js");
+const { getDuplicatedError } = require("./utils");
 
 module.exports = {
   /**
@@ -29,12 +30,12 @@ module.exports = {
     try {
       const nuevo = new Paciente(data);
       return await nuevo.save();
-    } catch (error) {
-      if (error.code === 11000 && error.message.includes("nombre") && error.message.includes("responsable.email")) {
-        throw new Error("Ya existe un paciente con ese nombre y ese email de responsable");
-      }
-      throw error;
-    }
+    } catch (err) {
+        if (err.code === 11000) {
+          throw getDuplicatedError(err);
+        }
+        throw err;
+      }    
   },
 
   /**
@@ -48,11 +49,12 @@ module.exports = {
         { new: true, runValidators: true }
       ).lean();
 
-    } catch (error) {
-      if (error.code === 11000 && error.message.includes("nombre") && error.message.includes("responsable.email")) {
-        throw new Error("Ya existe un paciente con ese nombre y ese email de responsable");
-      }
-      throw error;
+    } catch (err) {
+      if (err.code === 11000) {
+          const errorDuplicado = getDuplicatedError(err);
+          throw errorDuplicado;
+        } 
+      throw err;
     }
   },
 

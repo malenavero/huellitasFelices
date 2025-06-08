@@ -31,6 +31,36 @@ block content
         if e.campo === 'especie'
           span.error= e.mensaje
 
+    h2 Datos del responsable
+
+    label(for="responsable_nombre") Nombre del responsable:
+    input(type="text", name="responsable[nombre]", id="responsable_nombre", value=resp.nombre || '', required)
+    if errores
+      each e in errores
+        if e.campo === 'responsable.nombre'
+          span.error= e.mensaje
+
+    label(for="responsable_telefono") Teléfono:
+    input(type="text", name="responsable[telefono]", id="responsable_telefono", value=resp.telefono || '', placeholder="Teléfono de contacto")
+    if errores
+      each e in errores
+        if e.campo === 'responsable.telefono'
+          span.error= e.mensaje
+
+    label(for="responsable_email") Email:
+    input(type="email", name="responsable[email]", id="responsable_email", value=resp.email || '', required)
+    if errores
+      each e in errores
+        if e.campo === 'responsable.email'
+          span.error= e.mensaje
+
+    label(for="responsable_direccion") Dirección:
+    input(type="text", name="responsable[direccion]", id="responsable_direccion", value=resp.direccion || '', placeholder="Calle, número, ciudad")
+    if errores
+      each e in errores
+        if e.campo === 'responsable.direccion'
+          span.error= e.mensaje
+
     h2 Ficha médica (opcional)
 
     label(for="fichaMedica.raza") Raza:
@@ -73,34 +103,6 @@ block content
         if e.campo === 'fichaMedica.notas'
           span.error= e.mensaje
 
-    h2 Datos del responsable
-
-    label(for="responsable_nombre") Nombre del responsable:
-    input(type="text", name="responsable[nombre]", id="responsable_nombre", value=resp.nombre || '', required)
-    if errores
-      each e in errores
-        if e.campo === 'responsable.nombre'
-          span.error= e.mensaje
-
-    label(for="responsable_telefono") Teléfono:
-    input(type="text", name="responsable[telefono]", id="responsable_telefono", value=resp.telefono || '', placeholder="Teléfono de contacto")
-    if errores
-      each e in errores
-        if e.campo === 'responsable.telefono'
-          span.error= e.mensaje
-
-    label(for="responsable_email") Email:
-    input(type="email", name="responsable[email]", id="responsable_email", value=resp.email || '', required)
-    if errores
-      each e in errores
-        if e.campo === 'responsable.email'
-          span.error= e.mensaje
-
-    label(for="responsable_direccion") Dirección:
-    input(type="text", name="responsable[direccion]", id="responsable_direccion", value=resp.direccion || '', placeholder="Calle, número, ciudad")
-    if errores
-      each e in errores
-        if e.campo === 'responsable.direccion'
-          span.error= e.mensaje
+   
 
     button(type="submit")= modo === 'editar' ? 'Guardar cambios' : 'Crear'

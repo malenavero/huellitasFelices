@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/usuariosController");
+const controller = require("../controllers/usuarios_controller.js");
 // const autorizarRol  = require('../middlewares/autorizarRol');
 const { ROLES } = require("../utils/constants.js");
 const {
   validarUsuarioCreate,
   validarUsuarioUpdate
-} = require("../middlewares/validacionesUsuarios");
+} = require("../middlewares/validaciones_usuarios.js");
 
 
 
@@ -78,7 +78,7 @@ router.get("/", controller.listar);
  *         required: true
  *         description: ID del usuario a obtener
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Usuario encontrado
@@ -144,7 +144,7 @@ router.post("/", validarUsuarioCreate, controller.crear);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del usuario a actualizar
  *     requestBody:
  *       required: true
@@ -176,7 +176,7 @@ router.put("/:id", validarUsuarioUpdate, controller.actualizar);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del usuario a eliminar
  *     responses:
  *       204:

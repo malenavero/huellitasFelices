@@ -2,13 +2,11 @@ const { body } = require("express-validator");
 const { ROLES } = require("../utils/constants.js");
 const {
   normalizarCamposTexto,
-  manejoErrores,
+  generarManejoErrores,
   validarTexto,
-  validarDuplicado,
   asignarDefaults,
 } = require("./utils");
 
-const Usuario = require("../models/Usuario.js");
 
 const validarUsuarioRol = [
   body("rol")
@@ -37,9 +35,7 @@ const validarUsuarioCreate = [
   body("nombre").exists({ checkFalsy: true }).withMessage("Nombre obligatorio"),
   ...validarTexto("nombre", 100),
 
-  body("apellido")
-    .exists({ checkFalsy: true })
-    .withMessage("Apellido obligatorio"),
+  body("apellido").exists({ checkFalsy: true }).withMessage("Apellido obligatorio"),
   ...validarTexto("apellido", 100),
 
   body("password")
@@ -54,22 +50,22 @@ const validarUsuarioCreate = [
     .isEmail()
     .withMessage("Correo inválido"),
 
-  body("telefono")
-    .exists({ checkFalsy: true })
-    .withMessage("Teléfono obligatorio"),
+  body("telefono").exists({ checkFalsy: true }).withMessage("Teléfono obligatorio"),
   ...validarTexto("telefono", 50),
 
   body("rol").exists({ checkFalsy: true }).withMessage("Rol obligatorio"),
   ...validarUsuarioRol,
 
-  // opcionales
   body("direccion").optional(),
   ...validarTexto("direccion", 255),
 
-  //duplicados
-  validarDuplicado(Usuario, ["correo"]),
-
-  manejoErrores,
+  generarManejoErrores({
+    vista: "usuarios/form",
+    obtenerDatos: req => ({
+      usuario: req.body,
+      roles: ROLES
+    })
+  })
 ];
 
 const validarUsuarioUpdate = [
@@ -105,9 +101,13 @@ const validarUsuarioUpdate = [
   body("direccion").optional(),
   ...validarTexto("direccion", 255),
 
-  validarDuplicado(Usuario, ["correo"]),
-
-  manejoErrores,
+  generarManejoErrores({
+    vista: "usuarios/form",
+    obtenerDatos: req => ({
+      usuario: req.body,
+      roles: ROLES
+    })
+  })
 ];
 
 const validarLogin = [
@@ -123,7 +123,12 @@ const validarLogin = [
     .exists({ checkFalsy: true })
     .withMessage("Contraseña obligatoria"),
 
-  manejoErrores,
+  generarManejoErrores({
+    vista: "login",
+    obtenerDatos: req => ({
+      correo: req.body.correo
+    })
+  })
 ];
 
 module.exports = {

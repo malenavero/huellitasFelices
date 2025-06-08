@@ -1,13 +1,16 @@
-const Usuario = require("../models/Usuario");
+const UsuariosService = require("../services/usuarios_service.js");
 const { comparePassword, returnJSON, handleError } = require("./utils.js");
 
 module.exports = {
   async login(req, res) {
     try {
-      const password = req.body.password.trim();
-      const correo = req.body.correo.trim();
+      const { correo = "", password = "" } = req.body;
 
-      const usuario = await Usuario.findByEmail(correo);
+      if (!correo.trim() || !password.trim()) {
+        return handleError(req, res, 400, "Correo y contraseña son requeridos");
+      }
+
+      const usuario = await UsuariosService.findOneByQuery({ correo: correo.trim() });
 
       if (!usuario) {
         return handleError(req, res, 401, "Credenciales inválidas");

@@ -6,25 +6,28 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const { setupSwagger } = require("./swagger.js");
 const methodOverride = require("method-override");
-const ensureDataFilesExist = require("./initDataFiles");
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login.routes.js");
 const homeRouter = require("./routes/home");
 const productosRouter = require("./routes/productos_routes");
 const pacientesRouter = require("./routes/pacientes_routes");
 const turnosRouter = require("./routes/turnos_routes");
-const usuariosRouter = require("./routes/usuarios.routes");
-const busquedasRouter = require("./routes/busquedas.routes");
+const usuariosRouter = require("./routes/usuarios_routes.js");
+const busquedasRouter = require("./routes/busquedas_routes");
 const documentacionRouter = require("./routes/documentacion.routes");
+const seedUsuarios = require("./scripts/seed_usuarios.js");
 
 require("dotenv").config();
 connectDB();
 
+
+connectDB().then(() => {
+  seedUsuarios();
+});
+
+
 const app = express();
 setupSwagger(app);
-
-// Me aseguro de que si no existe la base de datos json la cree con arrays vacios
-ensureDataFilesExist();
 
 
 

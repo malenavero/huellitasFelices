@@ -3,8 +3,8 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../controllers/loginController");
-const { validarLogin } = require("../middlewares/validacionesUsuarios");
+const controller = require("../controllers/login_controller");
+const { validarLogin } = require("../middlewares/validaciones_usuarios");
 
 /**
  * @swagger

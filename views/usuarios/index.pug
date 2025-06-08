@@ -24,7 +24,7 @@ block content
           |  #{usuario.rol}
 
         div.acciones
-          a(href=`/usuarios/${usuario.id}`) 👁️ Ver
-          a(href=`/usuarios/${usuario.id}/editar`) ✏️ Editar
-          form(method="POST", action=`/usuarios/${usuario.id}?_method=DELETE`)
+          a(href=`/usuarios/${usuario._id}`) 👁️ Ver
+          a(href=`/usuarios/${usuario._id}/editar`) ✏️ Editar
+          form(method="POST", action=`/usuarios/${usuario._id}?_method=DELETE`)
             button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este usuario?')") 🗑️ Eliminar

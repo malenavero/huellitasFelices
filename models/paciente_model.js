@@ -127,4 +127,8 @@ pacienteSchema.pre("findOneAndUpdate", function (next) {
   next();
 });
 
+
+pacienteSchema.set("toJSON", { virtuals: true });
+pacienteSchema.set("toObject", { virtuals: true });
+
 module.exports = mongoose.model("Paciente", pacienteSchema);

@@ -9,7 +9,7 @@ block content
       each s in servicios
         option(value=s selected=(s === query.servicio))= s
 
-    input(type="date", name="fecha", value=query.fecha || '')
+    input(type="date", name="fecha", value=query.fecha || '', lang="es")
 
     select(name="pacienteId")
       option(value="") Todos los pacientes
@@ -31,7 +31,7 @@ block content
       tbody
         each turno in turnos
           tr(style="text-align: center")
-            td= turno.fecha
+            td= turno.fecha ? new Date(turno.fecha).toLocaleDateString("es-AR") : '-'
             td= turno.hora
             td= turno.paciente.nombre || "Desconocido"
             td= turno.servicio

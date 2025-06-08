@@ -49,6 +49,11 @@ Estas instrucciones te permitirán lanzar el proyecto en tu navegador web.
     npm install
 ```
 
+
+- Crear archivo .env con lo siguiente 
+```bash
+    MONGO_URI=mongodb://localhost:27017/huellitas
+```
 ### Como ejecutar ⚙️
 
 Utilizando Bash (Git) desde la ruta del proyecto levantamos la aplicacion de dos formas: 

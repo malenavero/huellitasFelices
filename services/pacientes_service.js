@@ -11,7 +11,7 @@ module.exports = {
       filtro.nombre = { $regex: query.nombre, $options: "i" };
     }
 
-    const pacientes = await Paciente.find(filtro).lean();
+    const pacientes = await Paciente.find(filtro);
     return pacientes || [];
   },
 
@@ -20,7 +20,7 @@ module.exports = {
    * Busca un paciente por su ObjectId.
    */
   async findById(id) {
-    return await Paciente.findById(id).lean();
+    return await Paciente.findById(id);
   },
 
   /**

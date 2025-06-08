@@ -5,7 +5,7 @@ block content
 
   p
     span.detail-label Fecha:
-    | #{turno.fecha}
+    | #{turno.fecha.toLocaleDateString("es-AR")}
   p
     span.detail-label Hora:
     | #{turno.hora}

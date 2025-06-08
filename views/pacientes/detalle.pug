@@ -46,7 +46,7 @@ block content
         | #{paciente.fichaMedica.raza || '-'}
       li
         span.detail-label Fecha de Nacimiento: 
-        | #{paciente.fichaMedica.fechaNacimiento || '-'}
+        | #{paciente.fichaMedica.fechaNacimiento ? paciente.fichaMedica.fechaNacimiento.toLocaleDateString("es-AR") : '-'}
       li
         span.detail-label Peso: 
         | #{paciente.fichaMedica.peso ? paciente.fichaMedica.peso + ' kg' : '-'}

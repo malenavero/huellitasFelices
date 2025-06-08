@@ -16,14 +16,25 @@ const usuariosRouter = require("./routes/usuarios_routes.js");
 const busquedasRouter = require("./routes/busquedas_routes");
 const documentacionRouter = require("./routes/documentacion.routes");
 const seedUsuarios = require("./scripts/seed_usuarios.js");
+const seedProductos = require("./scripts/seed_productos.js");
+const seedPacientes = require("./scripts/seed_pacientes.js");
+const seedBusquedas = require("./scripts/seed_busquedas.js");
+const seedTurnos = require("./scripts/seed_turnos.js");
 
 require("dotenv").config();
-connectDB();
 
-
-connectDB().then(() => {
-  seedUsuarios();
+connectDB().then(async () => {
+  if (process.env.NODE_ENV !== "production") {
+    console.log("🌱 Ejecutando seeds...");
+    await seedUsuarios();
+    await seedProductos();
+    await seedPacientes();
+    await seedBusquedas();
+    await seedTurnos();
+    console.log("✅ Seeds ejecutados.");
+  }
 });
+
 
 
 const app = express();

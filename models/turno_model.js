@@ -1,6 +1,7 @@
 // models/turno_model.js
 
 const mongoose = require("mongoose");
+const { SERVICIOS } = require("../utils/constants");
 
 const turnoSchema = new mongoose.Schema({
   fecha: {
@@ -16,7 +17,7 @@ const turnoSchema = new mongoose.Schema({
   servicio: {
     type: String,
     required: true,
-    trim: true
+    enum: SERVICIOS
   },
   precio: {
     type: Number,

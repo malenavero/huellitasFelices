@@ -42,7 +42,10 @@ block content
     ul.busquedas-list
       each busqueda in busquedas
         li.busqueda-item
-          h3= busqueda.nombre ? busqueda.nombre.charAt(0).toUpperCase() + busqueda.nombre.slice(1) : '(Sin nombre)'
+          h3
+            a(href=`/busquedas/${busqueda.id}`)
+              = busqueda.nombre ? busqueda.nombre.charAt(0).toUpperCase() + busqueda.nombre.slice(1) : '(Sin nombre)'
+
           p
             strong Tipo: 
             | #{busqueda.tipo}

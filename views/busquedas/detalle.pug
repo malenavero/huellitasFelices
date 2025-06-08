@@ -30,7 +30,7 @@ block content
       | #{busqueda.activa ? 'Activa' : 'Resuelta'}
     if busqueda.imagen
       img(src=busqueda.imagen, alt=`Imagen de ${busqueda.nombre}`, style="max-width: 300px;")
-    
-    a(href="/busquedas") ← Volver al listado
-    a(href=`/busquedas/${busqueda.id}/editar`) ✏️ Editar
+    div
+      a(href="/busquedas") ← Volver al listado
+      a(href=`/busquedas/${busqueda.id}/editar`) ✏️ Editar
 

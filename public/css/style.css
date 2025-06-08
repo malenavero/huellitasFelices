@@ -186,6 +186,12 @@ button[type="submit"]:disabled {
   font-weight: 600;
   margin-bottom: 20px;
 }
+.button-create {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
 
 .button-primary:hover {
   background-color: #005999;

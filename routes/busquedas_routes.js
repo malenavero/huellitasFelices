@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/busquedasController");
-const { validarBusquedaCreate, validarBusquedaUpdate } = require("../middlewares/validacionesBusquedas");
+const controller = require("../controllers/busquedas_controller");
+const { validarBusquedaCreate, validarBusquedaUpdate } = require("../middlewares/validaciones_busquedas");
 const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require("../utils/constants.js");
 
 // GET VISTAS

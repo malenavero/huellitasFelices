@@ -1,5 +1,5 @@
 const { body } = require("express-validator");
-const { normalizarCamposTexto, manejoErrores, validarTexto, validarFecha } = require("./utils.js");
+const { normalizarCamposTexto, generarManejoErrores, validarTexto, validarFecha } = require("./utils.js");
 const { TIPOS_BUSQUEDA, ANIMALES_VALIDOS } = require("../utils/constants.js");
 
 const validarNombre = validarTexto("nombre", 100);
@@ -8,8 +8,10 @@ const validarDescripcion = validarTexto("descripcion", 255);
 const validarContacto = validarTexto("contacto", 100);
 const validarColor = validarTexto("color", 50);
 
+const camposTexto = ["nombre", "zona", "descripcion", "contacto", "color"];
+
 const validarBusquedaCreate = [
-  normalizarCamposTexto(["nombre", "zona", "descripcion", "contacto", "color"]),
+  normalizarCamposTexto(camposTexto),
 
   body("tipo")
     .exists({ checkFalsy: true }).withMessage("Tipo es obligatorio")
@@ -39,11 +41,19 @@ const validarBusquedaCreate = [
   body("color").optional(),
   ...validarColor,
 
-  manejoErrores,
+  generarManejoErrores({
+    vista: "busquedas/form",
+    obtenerDatos: req => ({
+      modo: "crear",
+      busqueda: req.body,
+      TIPOS_BUSQUEDA,
+      ANIMALES_VALIDOS
+    })
+  })
 ];
 
 const validarBusquedaUpdate = [
-  normalizarCamposTexto(["nombre", "zona", "descripcion", "contacto", "color"]),
+  normalizarCamposTexto(camposTexto),
 
   body("tipo").optional()
     .isIn(TIPOS_BUSQUEDA).withMessage(`Tipo inválido, debe ser uno de: ${TIPOS_BUSQUEDA.join(", ")}`),
@@ -72,10 +82,18 @@ const validarBusquedaUpdate = [
   body("activa").optional()
     .isBoolean().withMessage("Activa debe ser un valor booleano"),
 
-  manejoErrores,
+  generarManejoErrores({
+    vista: "busquedas/form",
+    obtenerDatos: req => ({
+      modo: "editar",
+      busqueda: { ...req.body, _id: req.params.id },
+      TIPOS_BUSQUEDA,
+      ANIMALES_VALIDOS
+    })
+  })
 ];
 
 module.exports = {
   validarBusquedaCreate,
-  validarBusquedaUpdate,
+  validarBusquedaUpdate
 };

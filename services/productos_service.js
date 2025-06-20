@@ -46,13 +46,16 @@ module.exports = {
     return resultado ? resultado._id : null;
   },
 
-  async vender(id, cantidad = 1) {
+  async validarStock(id, cantidad) {
     const producto = await Producto.findById(id);
     if (!producto) throw new Error("Producto no encontrado");
     if (producto.stock < cantidad) throw new Error("Stock insuficiente");
+    return producto;
+  },
 
-    producto.stock -= cantidad;
-    await producto.save();
-    return producto.toObject();
+  async descontarStock(id, cantidad) {
+    await Producto.findByIdAndUpdate(id, { $inc: { stock: -cantidad } });
   }
+
+
 };

@@ -1,29 +1,40 @@
 const ProductoService = require("../services/productos_service.js");
+const CarritosService = require("../services/carritos_service.js");
 const { CATEGORIAS_PRODUCTO } = require("../utils/constants.js");
 const { returnJSON, handleError, urls, handleDuplicados } = require("./utils.js");
 
-async function getListParams(query = {}) {
+async function getListParams(req, query = {}) {
   const productos = await ProductoService.findAll(query);
+  const carrito = CarritosService.obtenerCarrito(req.session);
+  const productosConStockTemporal = productos.map(producto => {
+      const itemEnCarrito = carrito.items.find(i => i.producto === producto._id.toString());
+      const stockDisponible = itemEnCarrito ? producto.stock - itemEnCarrito.cantidad : producto.stock;
+      return {
+        ...producto,
+        stock: stockDisponible >= 0 ? stockDisponible : 0
+      };
+    });
   return {
-    productos,
+    productos: productosConStockTemporal,
     categorias: CATEGORIAS_PRODUCTO,
     categoriaSeleccionada: query.categoria || "",
     ...urls
   };
 }
 
-async function renderListView(res, status = 200, query = {}) {
-  const params = await getListParams(query);
+async function renderListView(req, res, status = 200, query = {}) {
+  const params = await getListParams(req, query);
   return res.status(status).render("productos/index", params);
 }
 
 module.exports = {
   async listar(req, res) {
     const productos = await ProductoService.findAll(req.query);
+    
     if (returnJSON(req)) {
       return res.status(200).json(productos);
     }
-    return renderListView(res, 200, req.query);
+    return renderListView(req, res, 200, req.query);
   },
 
   async detalle(req, res) {
@@ -63,7 +74,7 @@ module.exports = {
         return res.status(201).json(nuevoProducto);
       }
 
-      return renderListView(res, 201, req.query);
+      return renderListView(req, res, 201, req.query);
     } catch (error) {
       console.log("Error:", error);
 
@@ -103,7 +114,7 @@ module.exports = {
         return res.status(200).json(productoActualizado);
       }
 
-      return renderListView(res, 200, req.query);
+      return renderListView(req, res, 200, req.query);
     } catch (error) {
       console.log("Error:", error);
       if (error.code == 11000) {
@@ -143,7 +154,7 @@ module.exports = {
         return res.status(200).json({ mensaje: `Producto ${idEliminado} eliminado` });
       }
 
-      return renderListView(res, 200, req.query);
+      return renderListView(req, res, 200, req.query);
     } catch (error) {
       console.log("Error:", error);
       return handleError(req, res, 500, "Error al eliminar producto");
@@ -163,7 +174,7 @@ module.exports = {
         return res.status(200).json(productoVendido);
       }
 
-      return renderListView(res, 200, req.query);
+      return renderListView(req, res, 200, req.query);
     } catch (error) {
       if (error.message === "Producto no encontrado") {
         return handleError(req, res, 404, error.message);

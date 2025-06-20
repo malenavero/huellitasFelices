@@ -25,16 +25,25 @@ block content
         p
           span.detail-label Stock:
           | #{producto.stock}
-        
-        //  Acciones principales
-        div(class="acciones")
-          a(href=`/productos/${producto._id}`) 👁️ Ver
-          a(href=`/productos/${producto._id}/editar`) ✏️ Editar
-          form(method="POST", action=`/productos/${producto._id}?_method=DELETE`)
-            button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')") 🗑️ Eliminar
 
-        //  Formulario para vender
-        form(method="POST", action=`/productos/${producto._id}/vender`, class="form-flex venta-form")
-          label(for=`cantidad-${producto._id}`) Cantidad:
-          input(type="number", id=`cantidad-${producto._id}`, name="cantidad", min="1", max=producto.stock, value="1", required)
-          button(type="submit") Vender
+        // Acciones clásicas
+        div.acciones
+          a(href=`/productos/${producto._id}`)
+            i.fa-solid.fa-eye
+            |  Ver
+          a(href=`/productos/${producto._id}/editar`)
+            i.fa-solid.fa-pen
+            |  Editar
+          form(method="POST", action=`/productos/${producto._id}?_method=DELETE`)
+            button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')")
+              i.fa-solid.fa-trash
+              |  Eliminar
+
+        // Acción carrito (separada y con margen)
+        div.acciones-carrito
+          form(method="POST", action="/carrito/agregar")
+            input(type="hidden", name="productoId", value=producto._id)
+            input(type="hidden", name="cantidad", value=1)
+            button(type="submit", class="button-primary")
+              i.fa-solid.fa-cart-plus
+              |  Agregar al carrito

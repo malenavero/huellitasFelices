@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const { setupSwagger } = require("./swagger.js");
 const methodOverride = require("method-override");
+const session = require("express-session");
+
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login.routes.js");
 const homeRouter = require("./routes/home");
@@ -15,26 +17,28 @@ const turnosRouter = require("./routes/turnos_routes");
 const usuariosRouter = require("./routes/usuarios_routes.js");
 const busquedasRouter = require("./routes/busquedas_routes");
 const documentacionRouter = require("./routes/documentacion.routes");
-const seedUsuarios = require("./scripts/seed_usuarios.js");
-const seedProductos = require("./scripts/seed_productos.js");
-const seedPacientes = require("./scripts/seed_pacientes.js");
-const seedBusquedas = require("./scripts/seed_busquedas.js");
-const seedTurnos = require("./scripts/seed_turnos.js");
+const carritoRouter = require("./routes/carritos_routes.js");
+// const seedUsuarios = require("./scripts/seed_usuarios.js");
+// const seedProductos = require("./scripts/seed_productos.js");
+// const seedPacientes = require("./scripts/seed_pacientes.js");
+// const seedBusquedas = require("./scripts/seed_busquedas.js");
+// const seedTurnos = require("./scripts/seed_turnos.js");
 
 require("dotenv").config();
 
 connectDB().then(async () => {
   if (process.env.NODE_ENV !== "production") {
-    console.log("🌱 Ejecutando seeds...");
-    await seedUsuarios();
-    await seedProductos();
-    await seedPacientes();
-    await seedBusquedas();
-    await seedTurnos();
-    console.log("✅ Seeds ejecutados.");
+    // Esto lo comento porque ahora está la base en atlas, así que no hace falta 
+    
+    // console.log("🌱 Ejecutando seeds...");
+    // await seedUsuarios();
+    // await seedProductos();
+    // await seedPacientes();
+    // await seedBusquedas();
+    // await seedTurnos();
+    // console.log("✅ Seeds ejecutados.");
   }
 });
-
 
 
 const app = express();
@@ -53,8 +57,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
 app.use((req, res, next) => {
   res.locals.productosUrl = "/productos";
+  res.locals.carritoUrl = "/carrito";
   res.locals.pacientesUrl = "/pacientes";
   res.locals.turnosUrl = "/turnos";
   res.locals.busquedasUrl = "/busquedas";
@@ -63,6 +73,18 @@ app.use((req, res, next) => {
   res.locals.loginUrl = "/login";
   next();
 });
+
+
+// Esto la hacemos para que en todas las vistas tengamos accesos a la cantidad de items agregados al carrito
+app.use((req, res, next) => {
+  if (!req.session.carrito) {
+    req.session.carrito = { items: [] };
+  }
+  const cantidadTotal = req.session.carrito.items.reduce((acc, item) => acc + item.cantidad, 0);
+  res.locals.carritoCantidad = cantidadTotal;
+  next();
+});
+
 
 
 
@@ -76,7 +98,7 @@ app.use("/turnos", turnosRouter);
 app.use("/usuarios", usuariosRouter);
 app.use("/busquedas", busquedasRouter);
 app.use("/documentacion", documentacionRouter);
-
+app.use("/carrito", carritoRouter);
 
 
 // eslint-disable-next-line no-unused-vars

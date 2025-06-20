@@ -1,0 +1,68 @@
+extends ../layout
+
+block content
+  .carrito-page
+    h1
+      i.fa-solid.fa-cart-shopping(style="margin-right: 8px")
+      | Carrito de compras
+
+    if carrito.items.length === 0
+      p El carrito está vacío.
+    else
+      table
+        thead
+          tr
+            th Producto
+            th Cantidad
+            th Precio unitario
+            th Subtotal
+            th Acciones
+        tbody
+          each item in carrito.items
+            tr
+              td= item.nombre
+              td.cantidad-control
+                form(method="POST", action="/carrito/actualizar", style="display:inline;")
+                  input(type="hidden", name="productoId", value=item.producto)
+                  button(
+                    type="submit",
+                    name="accion",
+                    value="remove",
+                    class="btn-cantidad",
+                    disabled=(item.cantidad === 1)
+                    ) −
+                span.cantidad-text #{item.cantidad}
+                form(method="POST", action="/carrito/actualizar", style="display:inline;")
+                  input(type="hidden", name="productoId", value=item.producto)
+                  button(
+                    type="submit",
+                    name="accion",
+                    value="add",
+                    class="btn-cantidad",
+                    disabled=(item.cantidad > item.stockDisponible)
+                  ) +
+
+              td $#{item.precioUnitario}
+              td $#{item.subtotal}
+              td
+                form(method="POST", action="/carrito/eliminar")
+                  input(type="hidden", name="productoId", value=item.producto)
+                  button(type="submit", class="danger")
+                    i.fa-solid.fa-trash
+                    | Quitar
+
+      p.total
+        | Total: 
+        strong $#{carrito.total}
+
+      form(method="POST", action="/carrito/vaciar")
+        button(type="submit", class="danger")
+          i.fa-solid.fa-trash-can
+          | Vaciar carrito
+
+      br
+
+      form(action="/orden/checkout", method="GET")
+        button(type="submit", class="button-primary")
+          i.fa-solid.fa-cash-register
+          | Ir a pagar

@@ -5,6 +5,9 @@ const controller = require("../controllers/productos_controller.js");
 // const autorizarRol = require('../middlewares/autorizarRol');
 const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require("../middlewares/validaciones_productos.js");
 
+
+// RUTAS PARA RENDERIZADO DE FORMULARIOS
+
 /**
  * @swagger
  * /productos/crear:
@@ -34,6 +37,7 @@ router.get("/crear", controller.formCrear);
  */
 router.get("/:id/editar", controller.formEditar);
 
+// RUTAS API
 
 //router.use(autorizarRol('admin','gerente', 'ventas', 'recepcionista_ventas', 'veterinaria_gerencia'));
 

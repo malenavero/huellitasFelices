@@ -103,7 +103,7 @@ const validarPacienteCreate = [
   generarManejoErrores({
     vista: "pacientes/form",
     obtenerDatos: req => ({
-      paciente: req.body,
+      paciente: {...req.body, _id: req.params.id},
       animales_validos: ANIMALES_VALIDOS
     })
   })
@@ -139,7 +139,7 @@ const validarPacienteUpdate = [
   generarManejoErrores({
     vista: "pacientes/form",
     obtenerDatos: req => ({
-      paciente: req.body,
+      paciente: {...req.body, _id: req.params.id},
       animales_validos: ANIMALES_VALIDOS
     })
   })

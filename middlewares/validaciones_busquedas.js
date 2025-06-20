@@ -40,12 +40,10 @@ const validarBusquedaCreate = [
 
   body("color").optional(),
   ...validarColor,
-
   generarManejoErrores({
     vista: "busquedas/form",
     obtenerDatos: req => ({
-      modo: "crear",
-      busqueda: req.body,
+      busqueda: {...req.body, _id: req.params.id},
       TIPOS_BUSQUEDA,
       ANIMALES_VALIDOS
     })
@@ -85,7 +83,6 @@ const validarBusquedaUpdate = [
   generarManejoErrores({
     vista: "busquedas/form",
     obtenerDatos: req => ({
-      modo: "editar",
       busqueda: { ...req.body, _id: req.params.id },
       TIPOS_BUSQUEDA,
       ANIMALES_VALIDOS

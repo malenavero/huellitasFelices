@@ -62,7 +62,7 @@ const validarUsuarioCreate = [
   generarManejoErrores({
     vista: "usuarios/form",
     obtenerDatos: req => ({
-      usuario: req.body,
+      usuario: {...req.body, _id: req.params.id},
       roles: ROLES
     })
   })
@@ -104,7 +104,7 @@ const validarUsuarioUpdate = [
   generarManejoErrores({
     vista: "usuarios/form",
     obtenerDatos: req => ({
-      usuario: req.body,
+      usuario: {...req.body, _id: req.params.id},
       roles: ROLES
     })
   })

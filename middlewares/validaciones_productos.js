@@ -72,11 +72,12 @@ const validarProductoCreate = [
       return true;
     }),
   ...validarFechaVencimiento,
+   
 
   generarManejoErrores({
     vista: "productos/form",
     obtenerDatos: req => ({
-      producto: req.body,
+      producto: {...req.body, _id: req.params.id},
       categorias: CATEGORIAS_PRODUCTO
     })
   })
@@ -104,10 +105,11 @@ const validarProductoUpdate = [
   body("fechaVencimiento").optional(),
   ...validarFechaVencimiento,
 
+
   generarManejoErrores({
     vista: "productos/form",
     obtenerDatos: req => ({
-      producto: req.body,
+      producto: {...req.body, _id: req.params.id},
       categorias: CATEGORIAS_PRODUCTO
     })
   })

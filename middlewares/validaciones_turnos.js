@@ -70,7 +70,7 @@ const validarTurnoCreate = [
     obtenerDatos: async req => {
     const pacientes = await Paciente.find().lean();
       return {
-        turno: req.body,
+        turno: {...req.body, _id: req.params.id},
         servicios: SERVICIOS,
         pacientes
       };
@@ -93,7 +93,7 @@ const validarTurnoUpdate = [
     obtenerDatos: async req => {
       const pacientes = await Paciente.find().lean();
         return {
-          turno: req.body,
+          turno: {...req.body, _id: req.params.id},
           servicios: SERVICIOS,
           pacientes
         };

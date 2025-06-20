@@ -1,35 +1,46 @@
-/* Reset simple */
+:root {
+  --color-primary: #0077cc;
+  --color-primary-dark: #004080;
+  --color-secondary: #005999;
+  --color-bg: #f5f8fa;
+  --color-text: #333;
+  --color-danger: #ff4136;
+  --color-white: #fff;
+  --shadow-small: 0 0 5px #ddd;
+  --shadow-medium: 0 2px 8px rgba(0, 119, 204, 0.1);
+  --shadow-large: 0 0 12px #0077ccaa;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 40px auto;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background: #f5f8fa;
-  color: #333;
+  background: var(--color-bg);
+  color: var(--color-text);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px #ccc;
+  position: relative;
 }
 
-h1,
-h2,
-h3 {
-  color: #0077cc;
+h1, h2, h3 {
+  color: var(--color-primary);
 }
 
 a {
-  color: #0077cc;
+  color: var(--color-primary);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #005999;
+  color: var(--color-secondary);
   text-decoration: underline;
 }
 
@@ -39,35 +50,114 @@ ul {
 }
 
 li {
-  background: #fff;
+  background: var(--color-white);
   padding: 15px 20px;
   margin-bottom: 15px;
   border-radius: 6px;
-  box-shadow: 0 0 5px #ddd;
+  box-shadow: var(--shadow-small);
   transition: box-shadow 0.3s ease;
 }
 
 li:hover {
-  box-shadow: 0 0 12px #0077ccaa;
+  box-shadow: var(--shadow-large);
 }
 
-.nav-links {
+/* NAV */
+nav.nav-links {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-medium);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 12px 20px;
   margin-bottom: 30px;
+  gap: 20px;
+  position: relative;
 }
 
-.nav-links a {
-  margin-right: 15px;
-  font-weight: 600;
-}
-
-.nav-links .main-nav-items {
+.nav-icon, .carrito-fijo {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
   display: flex;
-  margin-left: auto;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  position: relative;
+  cursor: pointer;  /* 👈 ahora ambas tienen el cursor de manito */
 }
+
+.nav-icon i,
+.carrito-fijo i {
+  color: var(--color-white);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.nav-icon:hover,
+.carrito-fijo:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.nav-icon:hover i,
+.carrito-fijo:hover i {
+  text-shadow: 0 0 2px #000;
+}
+
+.main-nav-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  align-items: center;
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+.main-nav-items a {
+  color: var(--color-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-nav-items a:hover,
+.main-nav-items a:focus {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.carrito-fijo {
+  margin-left: auto; /* mantiene el carrito a la derecha */
+}
+
+.carrito-cantidad {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background-color: var(--color-danger);
+  color: var(--color-white);
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .main-nav-items {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+
+/* CARDS HOME */
 
 .card-container {
   display: flex;

@@ -5,67 +5,71 @@ block content
     h1
       i.fa-solid.fa-cart-shopping(style="margin-right: 8px")
       | Carrito de compras
-    form(method="POST", action="/carrito/vaciar")
-        button(type="submit", class="danger")
-          i.fa-solid.fa-trash-can
-          | Vaciar carrito
-    if carrito.items.length === 0
-      p El carrito está vacío.
-    else
-      table
-        thead
-          tr
-            th Producto
-            th Cantidad
-            th Precio unitario
-            th Subtotal
-            th Acciones
-        tbody
-          each item in carrito.items
-            tr
-              td= item.nombre
-              td.cantidad-control
-                form(method="POST", action="/carrito/actualizar", style="display:inline;")
-                  input(type="hidden", name="productoId", value=item.producto)
-                  button(
-                    type="submit",
-                    name="accion",
-                    value="remove",
-                    class="btn-cantidad",
-                    disabled=(item.cantidad === 1)
-                  ) −
-                span.cantidad-text #{item.cantidad}
-                form(method="POST", action="/carrito/actualizar", style="display:inline;")
-                  input(type="hidden", name="productoId", value=item.producto)
-                  button(
-                    type="submit",
-                    name="accion",
-                    value="add",
-                    class="btn-cantidad",
-                    disabled=(item.cantidad >= item.stockDisponible)
-                  ) +
 
-              td $#{item.precioUnitario}
-              td $#{item.subtotal}
-              td
-                form(method="POST", action="/carrito/eliminar")
-                  input(type="hidden", name="productoId", value=item.producto)
-                  button(type="submit", class="danger")
-                    i.fa-solid.fa-trash
-                    | Quitar
+    form(method="POST", action="/carrito/vaciar")
+      button(type="submit", class="button-danger button-create")
+        i.fa-solid.fa-trash-can
+        | Vaciar carrito
+
+    if carrito.items.length === 0
+      p.sin-resultados El carrito está vacío.
+    else
+      .tabla-listado
+        table.listado-items
+          thead
+            tr
+              th Producto
+              th Cantidad
+              th Precio unitario
+              th Subtotal
+              th Acciones
+          tbody
+            each item in carrito.items
+              tr
+                td= item.nombre
+                td.cantidad-control
+                  form(method="POST", action="/carrito/actualizar", style="display:inline;")
+                    input(type="hidden", name="productoId", value=item.producto)
+                    button(
+                      type="submit",
+                      name="accion",
+                      value="remove",
+                      class="btn-cantidad",
+                      disabled=(item.cantidad === 1)
+                    ) −
+                  span.cantidad-text #{item.cantidad}
+                  form(method="POST", action="/carrito/actualizar", style="display:inline; margin-left: 4px;")
+                    input(type="hidden", name="productoId", value=item.producto)
+                    button(
+                      type="submit",
+                      name="accion",
+                      value="add",
+                      class="btn-cantidad",
+                      disabled=(item.cantidad >= item.stockDisponible)
+                    ) +
+
+                td $#{item.precioUnitario.toFixed(2)}
+                td $#{item.subtotal.toFixed(2)}
+                td.acciones
+                  form(method="POST", action="/carrito/eliminar")
+                    input(type="hidden", name="productoId", value=item.producto)
+                    button(type="submit", class="button-danger btn-eliminar")
+                      i.fa-solid.fa-trash
+                      | Quitar
 
       p.total
         | Total: 
-        strong $#{carrito.total}
+        strong $#{carrito.total.toFixed(2)}
 
     .acciones-final
       .acciones-izq
-        a(href=productosUrl, class="button-primary")
+        a(href=productosUrl, class="button-primary button-create")
           i.fa-solid.fa-arrow-left
           |  Seguir comprando
 
       if carrito.items.length > 0
         form(action="/ventas/checkout", method="GET")
-          button(type="submit", class="button-primary")
+          button(type="submit", class="button-primary button-create")
             i.fa-solid.fa-cash-register
             | Ir a pagar
+

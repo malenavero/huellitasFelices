@@ -4,10 +4,12 @@ block content
   h1 Resumen de compra - Checkout
 
   if carrito.items.length === 0
-    p El carrito está vacío.
-    a(href="/carrito") Volver al carrito
+    p.sin-resultados El carrito está vacío.
+    a.button-create(href="/carrito")
+      i.fa-solid.fa-arrow-left
+      | Volver al carrito
   else
-    table.checkout-tabla
+    table.listado-items
       thead
         tr
           th Producto
@@ -17,14 +19,14 @@ block content
       tbody
         each item in carrito.items
           tr
-            td= item.nombre
+            td= capitalizar(item.nombre)
             td= item.cantidad
-            td $#{item.precioUnitario}
-            td $#{item.subtotal}
+            td $#{item.precioUnitario.toFixed(2)}
+            td $#{item.subtotal.toFixed(2)}
 
-    p.total
+    p.total(style="text-align: right; font-weight: 600; margin-top: 20px;")
       | Total: 
-      strong $#{carrito.total}
+      strong $#{carrito.total.toFixed(2)}
 
     form(action="/ventas/pagar", method="POST")
       label(for="metodoPago") Método de pago:
@@ -32,7 +34,8 @@ block content
         each metodo in METODOS_PAGO
           option(value=metodo)= capitalizar(metodo)
 
-      .acciones-final(style="justify-content: flex-end; margin-top: 20px;")
-        button(type="submit", class="button-primary")
+      .acciones-final.acciones-final--checkout
+        button.button-create(type="submit")
           i.fa-solid.fa-cash-register
           | Pagar ahora
+

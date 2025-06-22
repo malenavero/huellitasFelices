@@ -1,36 +1,37 @@
 extends ../layout
 
 block content
-  h1 Detalle de búsqueda
+  h1 Detalle de Búsqueda
 
   if !busqueda
     p No se encontró la búsqueda.
   else
-    h2= busqueda.nombre ? capitalizar(busqueda.nombre) : '(Sin nombre)'
-    p
-      strong Tipo: 
-      | #{busqueda.tipo}
-    p
-      strong Animal: 
-      | #{busqueda.animal || 'No especificado'}
-    p
-      strong Zona: 
-      | #{busqueda.zona}
-    p
-      strong Fecha: 
-      | #{busqueda.fecha ? new Date(busqueda.fecha).toLocaleDateString() : 'No especificada'}
-    p
-      strong Descripción:
-      | #{busqueda.descripcion || 'No hay descripción'}
-    p
-      strong Contacto:
-      | #{busqueda.contacto}
-    p
-      strong Estado:
-      | #{busqueda.activa ? 'Activa' : 'Resuelta'}
+    h2 #{capitalizar(busqueda.nombre) || '(Sin nombre)'}
+
+    .detalle-box
+      p
+        span.detail-label Tipo:
+        | #{capitalizar(busqueda.tipo)}
+      p
+        span.detail-label Animal:
+        | #{capitalizar(busqueda.animal || 'No especificado')}
+      p
+        span.detail-label Zona:
+        | #{capitalizar(busqueda.zona)}
+      p
+        span.detail-label Fecha:
+        | #{busqueda.fecha ? new Date(busqueda.fecha).toLocaleDateString() : 'No especificada'}
+      p
+        span.detail-label Descripción:
+        | #{busqueda.descripcion || 'No hay descripción'}
+      p
+        span.detail-label Contacto:
+        | #{busqueda.contacto}
+      p
+        span.detail-label Estado:
+        | #{busqueda.activa ? 'Activa' : 'Resuelta'}
+
     if busqueda.imagen
       img(src=busqueda.imagen, alt=`Imagen de ${busqueda.nombre}`, style="max-width: 300px;")
-    div
-      a(href="/busquedas") ← Volver al listado
-      a(href=`/busquedas/${busqueda.id}/editar`) ✏️ Editar
 
+    a.button-primary(href="/busquedas") ← Volver al listado

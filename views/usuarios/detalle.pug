@@ -1,31 +1,26 @@
 extends ../layout
 
 block content
-  h1 #{usuario.nombre} #{usuario.apellido}
+  h1 #{capitalizar(usuario.nombre)} #{capitalizar(usuario.apellido)}
 
-  div.card
+  .detalle-box
     p
       span.detail-label Teléfono:
-      |  #{usuario.telefono}
-
+      | #{usuario.telefono}
     p
       span.detail-label Dirección:
-      |  #{usuario.direccion}
-
+      | #{usuario.direccion}
     p
       span.detail-label Correo:
-      |  #{usuario.correo}
-
+      | #{usuario.correo}
     p
       span.detail-label Rol:
-      |  #{usuario.rol}
-
+      | #{capitalizar(usuario.rol)}
     p
       span.detail-label Fecha de creación:
-      |  #{new Date(usuario.createdAt).toLocaleString()}
-
+      | #{new Date(usuario.createdAt).toLocaleString()}
     p
       span.detail-label Última actualización:
-      |  #{new Date(usuario.updatedAt).toLocaleString()}
+      | #{new Date(usuario.updatedAt).toLocaleString()}
 
-  a(href="/usuarios", class="button-primary") ← Volver al listado
+  a.button-primary(href="/usuarios") ← Volver al listado

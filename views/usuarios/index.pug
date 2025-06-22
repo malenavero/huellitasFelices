@@ -24,7 +24,7 @@ block content
         tbody
           each usuario in usuarios
             tr
-              td #{usuario.nombre} #{usuario.apellido}
+              td #{capitalizar(usuario.nombre)} #{capitalizar(usuario.apellido)}
               td #{usuario.telefono}
               td #{usuario.direccion}
               td #{usuario.correo}

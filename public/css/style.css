@@ -265,6 +265,116 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
+
+/* === DETALLES === */
+
+
+.detalle-box {
+  background-color: var(--color-white);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-medium);
+  margin-bottom: 30px;
+}
+
+.detalle-box h2, .detalle-box h3 {
+  margin-top: 0;
+}
+
+.detalle-box p {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.detalle-box .detail-label {
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-right: 6px;
+}
+/* === CARRITO === */
+
+.carrito-page form button.button-danger,
+.carrito-page button.button-danger {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+  box-shadow: 0 0 6px var(--color-danger);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carrito-page form button.button-danger:hover,
+.carrito-page button.button-danger:hover {
+  background-color: var(--color-delete-hover);
+  box-shadow: 0 0 10px var(--color-delete-hover-alt);
+}
+
+.acciones-final {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.carrito-page .acciones-final form {
+  text-align: right; /* fuerza alineado a la derecha del formulario 'Ir a pagar' */
+}
+
+/* Separar el número de cantidad de los botones + y - */
+
+.carrito-page td.cantidad-control {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* separa todos los elementos */
+}
+
+.carrito-page button.btn-cantidad {
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+  border-radius: 4px;
+  border: 1.5px solid var(--color-primary);
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.carrito-page button.btn-cantidad:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-color: var(--color-button-disabled-bg);
+  color: var(--color-button-disabled-bg);
+  background-color: #f0f0f0;
+}
+
+.carrito-page button.btn-cantidad:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+/* Cantidad como texto simple, centrado y con tamaño legible */
+
+.carrito-page span.cantidad-text {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  user-select: none;
+}
+
+
+.carrito-page td.cantidad-control form {
+  margin: 0 !important;
+}
+
+
+
 /* === TABLAS UNIFICADAS Y FILTROS === */
 
 /* Boton nuevo */
@@ -446,4 +556,123 @@ p.sin-resultados {
   margin-top: 20px;
   font-style: italic;
   color: var(--color-sin-resultados-text);
+}
+
+.acciones-final.acciones-final--checkout {
+  justify-content: flex-end;
+}
+
+
+/* === IMPRESIÓN DE COMPROBANTES === */
+/* Botón imprimir junto al título */
+
+.comprobante-total {
+  margin-top: 30px;
+  padding: 16px 20px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: right;
+  box-shadow: var(--shadow-medium);
+}
+
+.print-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.print-header button {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-small);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.print-header button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+/* === ESTILO DE RECIBO COMPROBANTE === */
+
+.comprobante-recibo {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: var(--color-white);
+  border: 1px dashed var(--color-primary-dark);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  font-family: "Courier New", Courier, monospace;
+  color: var(--color-text);
+  margin-top: 20px;
+}
+
+.comprobante-recibo h2,
+.comprobante-recibo h3 {
+  text-align: left;
+  margin-top: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.comprobante-recibo .detalle-box {
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 20px;
+}
+
+.comprobante-recibo .detalle-box p {
+  margin: 6px 0;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+.comprobante-recibo .tabla-listado {
+  margin-top: 20px;
+}
+
+.comprobante-recibo .comprobante-total {
+  margin-top: 30px;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 14px 20px;
+  border-radius: 8px;
+}
+
+/* Impresión */
+@media print {
+  body * {
+    display: none !important;
+  }
+
+  .comprobante-recibo,
+  .comprobante-recibo * {
+    display: block !important;
+  }
+
+  .comprobante-recibo {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .print-header,
+  .acciones-final,
+  .no-print {
+    display: none !important;
+  }
 }

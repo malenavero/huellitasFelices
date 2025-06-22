@@ -1,55 +1,60 @@
 extends ../layout
 
 block content
-  h1 Comprobante de pago
+  h1 Comprobante de Pago
 
   if !venta
     p No se encontró la información de la venta.
   else
-    .comprobante
+    .print-header
       h2 Comprobante # #{venta._id}
+      button.button-secundario.print-only(href="#", onclick="window.print()")
+        i.fa-solid.fa-print
+        |  Imprimir
 
-      .info-basica
+    .comprobante-recibo.comprobante-print
+      .detalle-box
         p
-          |  Fecha: 
-          strong #{venta.fechaPago.toLocaleDateString()} #{venta.fechaPago.toLocaleTimeString()}
-
+          span.detail-label Numero de Comprobante:
+          | #{venta._id}
+        
         p
-          |  Cliente: 
-          strong #{venta.usuarioId.nombre} #{venta.usuarioId.apellido}
-
+          span.detail-label Fecha:
+          | #{venta.fechaPago.toLocaleDateString()} #{venta.fechaPago.toLocaleTimeString()}
         p
-          |  Estado: 
-          strong #{venta.estado.toUpperCase()}
-
+          span.detail-label Cliente:
+          | #{capitalizar(venta.usuarioId.nombre)} #{capitalizar(venta.usuarioId.apellido)}
         p
-          |  Método de pago: 
-          strong #{capitalizar(venta.pago.metodo)}
+          span.detail-label Estado:
+          | #{venta.estado.toUpperCase()}
+        p
+          span.detail-label Método de pago:
+          | #{capitalizar(venta.pago.metodo)}
 
-      h3 Detalle de la compra
-      table.comprobante-tabla
-        thead
-          tr
-            th Producto
-            th Cantidad
-            th Precio unitario
-            th Subtotal
-        tbody
-          each item in venta.items
+      h3 Detalle de la Compra
+
+      .tabla-listado
+        table.listado-items
+          thead
             tr
-              td= item.nombreProducto
-              td= item.cantidad
-              td $#{item.precioUnitario.toFixed(2)}
-              td $#{item.subtotal.toFixed(2)}
+              th Producto
+              th Cantidad
+              th Precio Unitario
+              th Subtotal
+          tbody
+            each item in venta.items
+              tr
+                td= capitalizar(item.nombreProducto)
+                td= item.cantidad
+                td $#{item.precioUnitario.toFixed(2)}
+                td $#{item.subtotal.toFixed(2)}
 
-      p.total
-        | Total pagado: 
-        strong $#{venta.total.toFixed(2)}
+      .comprobante-total
+        | Total pagado: $#{venta.total.toFixed(2)}
 
-      .acciones
-        a(href="/ventas", class="button")
-          i.fa-solid.fa-arrow-left
-          |  Ver historial de compras
-        button(type="button", class="button", onclick="window.print()")
-          i.fa-solid.fa-print
-          |  Imprimir comprobante
+
+
+    .acciones-final.no-print
+      a.button-primary(href="/ventas")
+        i.fa-solid.fa-arrow-left
+        |  Ver Historial de Compras

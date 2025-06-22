@@ -1,33 +1,41 @@
 extends ../layout
 
 block content
-  h2 Detalle de Turno
+  h1 Detalle de Turno
 
-  p
-    span.detail-label Fecha:
-    | #{turno.fecha.toLocaleDateString("es-AR")}
-  p
-    span.detail-label Hora:
-    | #{turno.hora}
-  p
-    span.detail-label Paciente:
-    | #{turno.paciente.nombre || "Desconocido"}
-  p
-    span.detail-label Servicio:
-    | #{turno.servicio}
+  .detalle-box
+    p
+      span.detail-label Fecha:
+      | #{turno.fecha.toLocaleDateString("es-AR")}
+    p
+      span.detail-label Hora:
+      | #{turno.hora}
+    p
+      span.detail-label Paciente:
+      | #{capitalizar(turno.paciente && turno.paciente.nombre || "Desconocido")}
+    p
+      span.detail-label Servicio:
+      | #{capitalizar(turno.servicio)}
+    p
+      span.detail-label Precio:
+      | $#{turno.precio ? turno.precio.toFixed(2) : '0.00'}
+    p
+      span.detail-label Estado de pago:
+      | #{turno.pagado ? 'Pagado' : 'Pendiente'}
 
   - const responsable = turno.paciente && turno.paciente.responsable || {}
 
-  h3(style="margin-top: 20px") Contacto del responsable
+  h2 Contacto del Responsable
 
-  p
-    span.detail-label Nombre:
-    | #{responsable.nombre || "No disponible"}
-  p
-    span.detail-label Email:
-    | #{responsable.email || "No disponible"}
-  p
-    span.detail-label Teléfono:
-    | #{responsable.telefono || "No disponible"}
+  .detalle-box
+    p
+      span.detail-label Nombre:
+      | #{capitalizar(responsable.nombre || "No disponible")}
+    p
+      span.detail-label Email:
+      | #{responsable.email || "No disponible"}
+    p
+      span.detail-label Teléfono:
+      | #{responsable.telefono || "No disponible"}
 
-  a(href="/turnos", class="button-primary", style="display:inline-block; margin-top: 20px") ← Volver al listado
+  a.button-primary(href="/turnos") ← Volver al listado

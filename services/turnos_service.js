@@ -16,24 +16,25 @@ module.exports = {
       };
     }
 
-    if (query.pacienteId) filtro["paciente._id"] = query.pacienteId;
+    if (query.pacienteId) {
+      filtro.pacienteId = query.pacienteId;
+    }
 
-    const turnos = await Turno.find(filtro).lean();
+    const turnos = await Turno.find(filtro)
+    .populate("pacienteId") // Esto trae el objeto Paciente
+    .lean();
 
-    return turnos.map(t => ({
-      ...t,
-      paciente: t.paciente || {}
-    }));
+
+    return turnos;
   },
 
   async findById(id) {
-    const turno = await Turno.findById(id).lean();
+    const turno = await Turno.findById(id)
+      .populate("pacienteId")
+      .lean();
     if (!turno) return null;
-
-    return {
-      ...turno,
-      paciente: turno.paciente || {}
-    };
+   
+    return turno;
   },
 
   async create(data) {
@@ -50,18 +51,13 @@ module.exports = {
         hora,
         precio,
         servicio,
-        paciente: {
-          _id: pacienteId,
-          nombre: pacienteExiste.nombre,
-          responsable: pacienteExiste.responsable
-        }
+        pacienteId
       });
     } catch (err) {
       if (err.code === 11000) throw getDuplicatedError(err);
       throw err;
     }
   },
-
   async update(id, updatedFields) {
     if (updatedFields.fecha) {
       updatedFields.fecha = new Date(updatedFields.fecha);
@@ -69,32 +65,25 @@ module.exports = {
 
     if (updatedFields.pacienteId) {
       const pacienteExiste = await Paciente.findById(updatedFields.pacienteId);
-      if (!pacienteExiste) {
-        throw new Error("Paciente no existe. No se puede actualizar turno.");
-      }
-
-      updatedFields.paciente = {
-        _id: pacienteExiste._id,
-        nombre: pacienteExiste.nombre,
-        responsable: pacienteExiste.responsable
-      };
+      if (!pacienteExiste) throw new Error("Paciente no existe. No se puede actualizar turno.");
     }
-
-    delete updatedFields.pacienteId;
 
     try {
       const updated = await Turno.findByIdAndUpdate(
         id,
         { $set: updatedFields },
         { new: true, runValidators: true }
-      ).lean();
+      )
+      .populate("pacienteId") // <- populamos el paciente para mostrar info
+      .lean();
 
-      return updated ? { ...updated, paciente: updated.paciente || {} } : null;
+      return updated;
     } catch (err) {
       if (err.code === 11000) throw getDuplicatedError(err);
       throw err;
     }
   },
+
 
   async delete(id) {
     const deleted = await Turno.findByIdAndDelete(id);

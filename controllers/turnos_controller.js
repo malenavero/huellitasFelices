@@ -48,8 +48,8 @@ async function cargarFormParams({ modo, turno, errores = [] }) {
     });
   }
 
-  const pacienteId = (turno.paciente._id || turno.pacienteId || "").toString();
-
+  const pacienteId = (turno.pacienteId || "").toString();
+  
   return {
     modo,
     turno,

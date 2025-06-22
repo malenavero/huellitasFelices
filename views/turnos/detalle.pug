@@ -12,7 +12,7 @@ block content
       | #{turno.hora}
     p
       span.detail-label Paciente:
-      | #{capitalizar(turno.paciente && turno.paciente.nombre || "Desconocido")}
+      | #{capitalizar(turno.pacienteId.nombre || "Desconocido")}
     p
       span.detail-label Servicio:
       | #{capitalizar(turno.servicio)}
@@ -23,7 +23,7 @@ block content
       span.detail-label Estado de pago:
       | #{turno.pagado ? 'Pagado' : 'Pendiente'}
 
-  - const responsable = turno.paciente && turno.paciente.responsable || {}
+  - const responsable = turno.pacienteId.responsable || {}
 
   h2 Contacto del Responsable
 

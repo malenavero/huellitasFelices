@@ -23,14 +23,10 @@ const turnoSchema = new mongoose.Schema({
     required: true,
     min: [0, "Precio debe ser un número positivo"]
   },
-  paciente: {
-    _id: { type: mongoose.Schema.Types.ObjectId, ref: "Paciente", required: true },
-    nombre: String,
-    responsable: {
-      nombre: String,
-      email: String,
-      telefono: String,
-    }
+  pacienteId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Paciente",
+    required: true
   },
   createdAt: {
     type: Date,

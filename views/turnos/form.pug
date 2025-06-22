@@ -29,13 +29,14 @@ block content
     select(name="pacienteId", id="pacienteId", required)
       option(value="", disabled, selected=!pacienteId) -- Seleccione un paciente --
       each paciente in pacientes
-        option(value=paciente._id selected=(paciente._id == pacienteId))= paciente.nombre
+        option(value=paciente._id selected=(paciente._id == pacienteId))= capitalizar(paciente.nombre)
+
 
     label(for="servicio") Servicio:
     select(name="servicio", id="servicio", required)
       option(value="", disabled, selected=!(turno && turno.servicio)) -- Seleccione un servicio --
       each servicio in servicios
-        option(value=servicio selected=(turno && turno.servicio == servicio))= servicio
+        option(value=servicio selected=(turno && turno.servicio == servicio))= capitalizar(servicio)
 
     label(for="precio") Precio:
     input(

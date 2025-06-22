@@ -245,7 +245,7 @@ const options = {
             id: { type: "string" },
             fecha: { type: "string", format: "date" },
             hora: { type: "string" },
-            paciente: { type: "Paciente" },
+            pacienteId: {type: "string"},
             servicio: { type: "string" },
             precio: { type: "number" },
             createdAt: { type: "string", format: "date-time" },
@@ -258,7 +258,7 @@ const options = {
           properties: {
             fecha: { type: "string", format: "date" },
             hora: { type: "string" },
-            pacienteId: { type: "integer" },
+            pacienteId: { type: "string" },
             servicio: { type: "string" },
             precio: { type: "number" },
           },
@@ -268,7 +268,7 @@ const options = {
           properties: {
             fecha: { type: "string", format: "date" },
             hora: { type: "string" },
-            pacienteId: { type: "integer" },
+            pacienteId: { type: "string" },
             servicio: { type: "string" },
             precio: { type: "number" },
           },

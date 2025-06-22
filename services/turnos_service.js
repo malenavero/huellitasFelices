@@ -9,18 +9,20 @@ module.exports = {
     if (query.servicio) filtro.servicio = query.servicio;
 
     if (query.fecha) {
-      const fechaDate = new Date(query.fecha);
-      filtro.fecha = {
-        $gte: fechaDate,
-        $lt: new Date(fechaDate.getTime() + 24 * 60 * 60 * 1000) // hasta fin del día
-      };
+      const [year, month, day] = query.fecha.split("-").map(Number);
+      const desde = new Date(year, month - 1, day); // local
+      const hasta = new Date(year, month - 1, day + 1); // día siguiente
+
+      filtro.fecha = { $gte: desde, $lt: hasta };
     }
+
 
     if (query.pacienteId) {
       filtro.pacienteId = query.pacienteId;
     }
 
     const turnos = await Turno.find(filtro)
+    .sort({ fecha: 1, hora: 1 }) // más viejo a más nuevo
     .populate("pacienteId") // Esto trae el objeto Paciente
     .lean();
 
@@ -44,10 +46,11 @@ module.exports = {
     if (!pacienteExiste) {
       throw new Error("Paciente no existe. No se puede crear turno.");
     }
+    const [year, month, day] = fecha.split("-").map(Number);
 
     try {
       return await Turno.create({
-        fecha: new Date(fecha),
+        fecha: new Date(year, month - 1, day),
         hora,
         precio,
         servicio,

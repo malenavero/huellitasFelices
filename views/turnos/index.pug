@@ -19,6 +19,18 @@ block content
         option(value="") Todos los pacientes
         each paciente in pacientes
           option(value=paciente._id selected=(paciente._id == query.pacienteId))= paciente.nombre
+    
+    .filtro(style="flex-basis: 100%;")
+      label.checkbox-stock(for="ocultarPasados")
+        input#ocultarSinStock(type="checkbox", name="ocultarPasados", checked=ocultarPasados ? true : false)
+        span Ocultar turnos pasados
+
+    .filtro(style="flex-basis: 100%;")
+      label.checkbox-stock(for="soloHoy")
+        input#soloHoy(type="checkbox", name="soloHoy", checked=query.soloHoy)
+        span Mostrar solo turnos de hoy
+
+
 
     .filtro.filtro-boton
       button(type="submit", class="button")

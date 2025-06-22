@@ -8,23 +8,50 @@ async function getListParams(query = {}, errors = []) {
   const turnos = await TurnoService.findAll(query);
   const pacientes = await PacienteService.findAll();
   const servicios = SERVICIOS;
-  const hoy = new Date().toISOString().split("T")[0];
 
-  const turnosFiltradosYOrdenados = turnos
-  .filter(t => {
-    const fecha = new Date(t.fecha);
-    return fecha.toISOString().split("T")[0] >= hoy;
-  })
-  .sort((a, b) => {
-    const fechaA = new Date(a.fecha).toISOString();
-    const fechaB = new Date(b.fecha).toISOString();
-    if (fechaA === fechaB) return a.hora.localeCompare(b.hora);
-    return fechaA.localeCompare(fechaB);
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+
+  const mañana = new Date(hoy);
+  mañana.setDate(hoy.getDate() + 1);
+
+  const ocultarPasados = !!query.ocultarPasados;
+  const soloHoy = !!query.soloHoy;
+
+  const turnosFiltrados = turnos.filter(t => {
+    const fechaTurno = new Date(
+      t.fecha.getFullYear(),
+      t.fecha.getMonth(),
+      t.fecha.getDate()
+    );
+
+    if (soloHoy) {
+      return fechaTurno >= hoy && fechaTurno < mañana;
+    }
+    if (ocultarPasados) {
+      return fechaTurno >= hoy;
+    }
+    return true;
   });
 
+  const turnosOrdenados = turnosFiltrados.sort((a, b) => {
+    const fechaA = new Date(`${a.fecha}T${a.hora}`);
+    const fechaB = new Date(`${b.fecha}T${b.hora}`);
+    return fechaA - fechaB;
+  });
 
-  return { turnos: turnosFiltradosYOrdenados, servicios, pacientes, query, ...urls, errors };
+  return {
+    turnos: turnosOrdenados,
+    servicios,
+    pacientes,
+    query,
+    ocultarPasados,
+    ...urls,
+    errors
+  };
 }
+
+
 
 async function renderListView(res, status = 200, query = {}, errors = []) {
   const params = await getListParams(query, errors);

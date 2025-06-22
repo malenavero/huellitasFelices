@@ -24,7 +24,7 @@ block content
 
         p
           |  Método de pago: 
-          strong #{venta.pago.metodo.charAt(0).toUpperCase() + venta.pago.metodo.slice(1)}
+          strong #{capitalizar(venta.pago.metodo)}
 
       h3 Detalle de la compra
       table.comprobante-tabla

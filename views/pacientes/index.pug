@@ -23,11 +23,11 @@ block content
       tbody
         each paciente in pacientes
           tr
-            td(style="text-align: center")= paciente.nombre
-            td(style="text-align: center")= paciente.especie
+            td(style="text-align: center")= capitalizar(paciente.nombre)
+            td(style="text-align: center")= capitalizar(paciente.especie)
             td(style="text-align: center")= paciente.raza
             td(style="text-align: center")= paciente.edad
-            td(style="text-align: center")= paciente.responsable.nombre
+            td(style="text-align: center")= capitalizar(paciente.responsable.nombre)
             td(style="text-align: right; white-space: nowrap;")
               a(href=`/pacientes/${paciente._id}`, class="button button-small", style="margin-right: 6px;") 👁️ Ver
               a(href=`/pacientes/${paciente._id}/editar`, class="button button-small", style="margin-right: 6px;") ✏️ Editar

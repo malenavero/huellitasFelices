@@ -6,7 +6,7 @@ block content
   if !busqueda
     p No se encontró la búsqueda.
   else
-    h2= busqueda.nombre ? busqueda.nombre.charAt(0).toUpperCase() + busqueda.nombre.slice(1) : '(Sin nombre)'
+    h2= busqueda.nombre ? capitalizar(busqueda.nombre) : '(Sin nombre)'
     p
       strong Tipo: 
       | #{busqueda.tipo}

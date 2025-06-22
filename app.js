@@ -88,6 +88,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.locals.capitalizar = function(texto) {
+  if (!texto) return "";
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+};
 
 
 

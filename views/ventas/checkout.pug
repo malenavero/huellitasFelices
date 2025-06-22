@@ -30,7 +30,7 @@ block content
       label(for="metodoPago") Método de pago:
       select(name="metodoPago", id="metodoPago", required)
         each metodo in METODOS_PAGO
-          option(value=metodo)= metodo.charAt(0).toUpperCase() + metodo.slice(1)
+          option(value=metodo)= capitalizar(metodo)
 
       .acciones-final(style="justify-content: flex-end; margin-top: 20px;")
         button(type="submit", class="button-primary")

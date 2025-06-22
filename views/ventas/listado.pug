@@ -31,7 +31,7 @@ block content
             td 
               span(class=venta.estado === 'pagado' ? 'estado-pagado' : 'estado-otro')
                 | #{venta.estado.toUpperCase()}
-            td #{venta.pago.metodo.charAt(0).toUpperCase() + venta.pago.metodo.slice(1)}
+            td #{capitalizar(venta.pago.metodo)}
             td
               a(href=`/ventas/${venta._id}`, class="button button-small")
                 i.fa.fa-file-text

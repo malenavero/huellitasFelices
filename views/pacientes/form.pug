@@ -24,8 +24,7 @@ block content
     select(name="especie", id="especie", required)
       option(value="") Seleccioná una especie
       each especie in animales_validos
-        - const capitalized = especie.charAt(0).toUpperCase() + especie.slice(1)
-        option(value=especie selected=(datos.especie === especie))= capitalized
+        option(value=especie selected=(datos.especie === especie))= capitalizar(especie)
     if errores
       each e in errores
         if e.campo === 'especie'

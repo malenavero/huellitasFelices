@@ -1,3 +1,5 @@
+// controllers/ carritos_controller.js
+
 const CarritosService = require("../services/carritos_service.js");
 const { returnJSON } = require("./utils.js");
 
@@ -9,7 +11,7 @@ module.exports = {
       return res.status(200).json(carrito);
     }
 
-    return res.render("carrito/index", { carrito });
+    return res.render("carrito/carrito", { carrito });
   },
 
   async agregar(req, res) {

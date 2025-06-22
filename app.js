@@ -16,8 +16,10 @@ const pacientesRouter = require("./routes/pacientes_routes");
 const turnosRouter = require("./routes/turnos_routes");
 const usuariosRouter = require("./routes/usuarios_routes.js");
 const busquedasRouter = require("./routes/busquedas_routes");
-const documentacionRouter = require("./routes/documentacion.routes");
+const documentacionRouter = require("./routes/documentacion_routes");
 const carritoRouter = require("./routes/carritos_routes.js");
+const ventasRouter = require("./routes/ventas_routes.js");
+
 // const seedUsuarios = require("./scripts/seed_usuarios.js");
 // const seedProductos = require("./scripts/seed_productos.js");
 // const seedPacientes = require("./scripts/seed_pacientes.js");
@@ -65,6 +67,7 @@ app.use(session({
 app.use((req, res, next) => {
   res.locals.productosUrl = "/productos";
   res.locals.carritoUrl = "/carrito";
+  res.locals.ventasUrl = "/ventas";
   res.locals.pacientesUrl = "/pacientes";
   res.locals.turnosUrl = "/turnos";
   res.locals.busquedasUrl = "/busquedas";
@@ -99,6 +102,7 @@ app.use("/usuarios", usuariosRouter);
 app.use("/busquedas", busquedasRouter);
 app.use("/documentacion", documentacionRouter);
 app.use("/carrito", carritoRouter);
+app.use("/ventas", ventasRouter);
 
 
 // eslint-disable-next-line no-unused-vars

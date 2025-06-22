@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+  h1 Resumen de compra - Checkout
+
+  if carrito.items.length === 0
+    p El carrito está vacío.
+    a(href="/carrito") Volver al carrito
+  else
+    table.checkout-tabla
+      thead
+        tr
+          th Producto
+          th Cantidad
+          th Precio unitario
+          th Subtotal
+      tbody
+        each item in carrito.items
+          tr
+            td= item.nombre
+            td= item.cantidad
+            td $#{item.precioUnitario}
+            td $#{item.subtotal}
+
+    p.total
+      | Total: 
+      strong $#{carrito.total}
+
+    form(action="/ventas/pagar", method="POST")
+      label(for="metodoPago") Método de pago:
+      select(name="metodoPago", id="metodoPago", required)
+        each metodo in METODOS_PAGO
+          option(value=metodo)= metodo.charAt(0).toUpperCase() + metodo.slice(1)
+
+      .acciones-final(style="justify-content: flex-end; margin-top: 20px;")
+        button(type="submit", class="button-primary")
+          i.fa-solid.fa-cash-register
+          | Pagar ahora

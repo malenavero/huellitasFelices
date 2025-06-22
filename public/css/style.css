@@ -9,8 +9,51 @@
   --shadow-small: 0 0 5px #ddd;
   --shadow-medium: 0 2px 8px rgba(0, 119, 204, 0.1);
   --shadow-large: 0 0 12px #0077ccaa;
+
+  /* adicionales para sombras y otros colores usados */
+  --shadow-small-color: #ddd;
+  --shadow-medium-color-rgba: rgba(0, 119, 204, 0.1);
+  --shadow-large-color-alpha: #0077ccaa;
+
+  --box-shadow-body: 0 0 10px #ccc;
+
+  --color-input-border: #ccc;
+  --color-input-focus-bg: #f0f8ff;
+
+  --color-button-disabled-bg: #ccc;
+
+  --color-li-hover-shadow: var(--shadow-large-color-alpha);
+
+  --color-card-bg: var(--color-white);
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+  --color-card-shadow-hover: rgba(0, 119, 204, 0.3);
+
+  --color-text-muted: #555;
+
+  --color-input-border-hover: var(--color-primary);
+
+  --color-delete-hover: #990000;
+  --color-delete-hover-alt: #b30000;
+
+  --color-carrito-row-hover-bg: #f0f8ff;
+
+  --color-comprobante-th-bg: #f5f5f5;
+  --color-comprobante-td-color: #444;
+
+  --color-estado-pagado-bg: #e6f4ea;
+  --color-estado-pagado-text: #2e7d32;
+
+  --color-estado-otro-bg: #fcebea;
+  --color-estado-otro-text: #c0392b;
+
+  --color-sin-resultados-text: #777;
+
+  --color-listado-hover-bg: #f0f8ff;
+
+  --color-listado-bg: var(--color-white);
 }
 
+/* Uso variables para sombras y colores */
 * {
   box-sizing: border-box;
 }
@@ -25,7 +68,7 @@ body {
   color: var(--color-text);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px #ccc;
+  box-shadow: var(--box-shadow-body);
   position: relative;
 }
 
@@ -41,7 +84,6 @@ a {
 
 a:hover {
   color: var(--color-secondary);
-  text-decoration: underline;
 }
 
 ul {
@@ -75,7 +117,8 @@ nav.nav-links {
   position: relative;
 }
 
-.nav-icon, .carrito-fijo {
+.nav-icon,
+.carrito-fijo {
   background-color: var(--color-primary);
   color: var(--color-white);
   width: 42px;
@@ -87,7 +130,7 @@ nav.nav-links {
   font-size: 1.3rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
   position: relative;
-  cursor: pointer;  /* 👈 ahora ambas tienen el cursor de manito */
+  cursor: pointer;
 }
 
 .nav-icon i,
@@ -99,6 +142,7 @@ nav.nav-links {
 .nav-icon:hover,
 .carrito-fijo:hover {
   background-color: var(--color-primary-dark);
+  transform: scale(1.05);
 }
 
 .nav-icon:hover i,
@@ -155,8 +199,6 @@ nav.nav-links {
   }
 }
 
-
-
 /* CARDS HOME */
 
 .card-container {
@@ -167,10 +209,10 @@ nav.nav-links {
 }
 
 .card {
-  background: #fff;
+  background: var(--color-card-bg);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px var(--color-card-shadow);
   transition: all 0.3s ease;
   flex: 1;
   min-width: 200px;
@@ -178,7 +220,7 @@ nav.nav-links {
 }
 
 .card:hover {
-  box-shadow: 0 6px 16px rgba(0, 119, 204, 0.3);
+  box-shadow: 0 6px 16px var(--color-card-shadow-hover);
   transform: translateY(-5px);
 }
 
@@ -188,12 +230,28 @@ nav.nav-links {
   font-size: 1.1em;
 }
 
+.card i {
+  margin-bottom: 10px;
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+
+.card:hover i {
+  color: var(--color-secondary);
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+}
+
 /* Formularios y botones */
 .form-box {
-  background: #fff;
+  background: var(--color-white);
   padding: 20px;
   border-radius: 6px;
-  box-shadow: 0 0 8px #ccc;
+  box-shadow: 0 0 8px var(--box-shadow-body);
   margin-bottom: 30px;
 }
 
@@ -231,7 +289,7 @@ textarea {
   width: 100%;
   padding: 8px 10px;
   margin-bottom: 18px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-input-border);
   border-radius: 4px;
   font-size: 14px;
   transition: border-color 0.3s ease;
@@ -242,35 +300,35 @@ input[type="number"]:focus,
 input[type="date"]:focus,
 select:focus,
 textarea:focus {
-  border-color: #0077cc;
+  border-color: var(--color-input-border-hover);
   outline: none;
-  background: #f0f8ff;
+  background: var(--color-input-focus-bg);
 }
 
 button {
-  background-color: #0077cc;
+  background-color: var(--color-primary);
   border: none;
   padding: 5px 8px;
   border-radius: 2px;
-  color: white;
+  color: var(--color-white);
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #005999;
+  background-color: var(--color-secondary);
 }
 
 button[type="submit"]:disabled {
-  background-color: #ccc;
+  background-color: var(--color-button-disabled-bg);
   cursor: not-allowed;
 }
 
 .button-primary {
   display: inline-block;
-  background-color: #0077cc;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   padding: 10px 16px;
   border-radius: 5px;
   font-weight: 600;
@@ -284,12 +342,12 @@ button[type="submit"]:disabled {
 }
 
 .button-primary:hover {
-  background-color: #005999;
+  background-color: var(--color-secondary);
 }
 
 a.button-primary {
   text-decoration: none;
-  color: white;
+  color: var(--color-white);
 }
 
 button.delete {
@@ -304,14 +362,13 @@ button.delete {
 }
 
 button.delete:hover {
-  color: #990000;
+  color: var(--color-delete-hover);
 }
 
 .detail-label {
   font-weight: 600;
   margin-right: 5px;
 }
-
 
 .error {
   color: red;
@@ -364,8 +421,7 @@ button.delete:hover {
 }
 
 .acciones button.delete:hover {
-  color: #b30000;
-  text-decoration: underline;
+  color: var(--color-delete-hover-alt);
 }
 
 /* Botón agregar al carrito */
@@ -396,7 +452,6 @@ button.delete:hover {
   box-shadow: var(--shadow-large);
 }
 
-
 /* VISTA CARRITO */
 
 .carrito-page table {
@@ -426,7 +481,7 @@ button.delete:hover {
 }
 
 .carrito-page tbody tr:hover {
-  background-color: #f0f8ff;
+  background-color: var(--color-carrito-row-hover-bg);
 }
 
 .carrito-page tbody td {
@@ -450,7 +505,7 @@ button.delete:hover {
 }
 
 .carrito-page button.danger:hover {
-  background-color: #b30000;
+  background-color: var(--color-delete-hover-alt);
 }
 
 .carrito-page p.total {
@@ -469,7 +524,6 @@ button.delete:hover {
   background-color: var(--color-primary-dark);
 }
 
-
 .carrito-page td.cantidad-control {
   display: flex;
   align-items: center;
@@ -482,7 +536,7 @@ button.delete:hover {
 .carrito-page .btn-cantidad {
   background-color: var(--color-primary);
   border: none;
-  color: white;
+  color: var(--color-white);
   font-weight: bold;
   font-size: 1.2rem;
   width: 28px;
@@ -508,7 +562,7 @@ button.delete:hover {
   display: inline-block;
 }
 
-/* Botón vaciar carrito como tacho de basura */
+/* Botón vaciar carrito */
 .carrito-page button.vaciar-btn {
   background-color: transparent;
   color: var(--color-danger);
@@ -520,10 +574,150 @@ button.delete:hover {
 }
 
 .carrito-page button.vaciar-btn:hover {
-  color: #b30000;
+  color: var(--color-delete-hover-alt);
 }
 
+/* CHECKOUT */
+.checkout-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: var(--shadow-small);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-white);
+}
 
+.checkout-tabla thead {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
 
+.checkout-tabla th,
+.checkout-tabla td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 0.95rem;
+}
 
+.checkout-tabla tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-tabla tbody tr:hover {
+  background-color: var(--color-carrito-row-hover-bg);
+}
+
+/* Comprobante de pago */
+
+.comprobante-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.comprobante-tabla th,
+.comprobante-tabla td {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-input-border);
+}
+
+.comprobante-tabla th {
+  background-color: var(--color-comprobante-th-bg);
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.comprobante-tabla td {
+  color: var(--color-comprobante-td-color);
+}
+
+.total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* listado ventas */
+.estado-pagado {
+  background-color: var(--color-estado-pagado-bg);
+  color: var(--color-estado-pagado-text);
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.estado-otro {
+  background-color: var(--color-estado-otro-bg);
+  color: var(--color-estado-otro-text);
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.sin-resultados {
+  margin-top: 20px;
+  font-style: italic;
+  color: var(--color-sin-resultados-text);
+}
+
+.acciones-final {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.acciones-izq {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Tabla de historial de ventas */
+table.listado-ventas {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px; /* Espaciado vertical entre filas */
+  margin-top: 20px;
+  background-color: var(--color-listado-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-small);
+}
+
+.listado-ventas thead {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.listado-ventas thead th {
+  padding: 14px 18px; 
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.listado-ventas tbody tr {
+  background-color: var(--color-white);
+  transition: background-color 0.2s ease;
+  border-radius: 8px;
+}
+
+.listado-ventas tbody tr:hover {
+  background-color: var(--color-white);
+}
+
+.listado-ventas tbody td {
+  padding: 12px 18px; /* Espacio entre columnas */
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
 

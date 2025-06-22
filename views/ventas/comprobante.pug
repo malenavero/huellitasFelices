@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  h1 Comprobante de pago
+
+  if !venta
+    p No se encontró la información de la venta.
+  else
+    .comprobante
+      h2 Comprobante # #{venta._id}
+
+      .info-basica
+        p
+          |  Fecha: 
+          strong #{venta.fechaPago.toLocaleDateString()} #{venta.fechaPago.toLocaleTimeString()}
+
+        p
+          |  Cliente: 
+          strong #{venta.usuarioId.nombre} #{venta.usuarioId.apellido}
+
+        p
+          |  Estado: 
+          strong #{venta.estado.toUpperCase()}
+
+        p
+          |  Método de pago: 
+          strong #{venta.pago.metodo.charAt(0).toUpperCase() + venta.pago.metodo.slice(1)}
+
+      h3 Detalle de la compra
+      table.comprobante-tabla
+        thead
+          tr
+            th Producto
+            th Cantidad
+            th Precio unitario
+            th Subtotal
+        tbody
+          each item in venta.items
+            tr
+              td= item.nombreProducto
+              td= item.cantidad
+              td $#{item.precioUnitario.toFixed(2)}
+              td $#{item.subtotal.toFixed(2)}
+
+      p.total
+        | Total pagado: 
+        strong $#{venta.total.toFixed(2)}
+
+      .acciones
+        a(href="/ventas", class="button")
+          i.fa-solid.fa-arrow-left
+          |  Ver historial de compras
+        button(type="button", class="button", onclick="window.print()")
+          i.fa-solid.fa-print
+          |  Imprimir comprobante

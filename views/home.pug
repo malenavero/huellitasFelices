@@ -1,23 +1,49 @@
 extends layout
 
 block content
-  h1= title
+  h1 Bienvenido a Huellitas Felices
 
-  div.card-container
-    div.card
-      a(href=productosUrl) Productos
-    div.card
-      a(href=carritoUrl) Carrito
-    div.card
-      a(href=pacientesUrl) Pacientes
-    div.card
-      a(href=turnosUrl) Turnos
-    div.card
-      a(href=busquedasUrl) Búsquedas
-    div.card
-      a(href=usuariosUrl) Usuarios
-    div.card
-      a(href=documentacionUrl) Documentación
+  .card-container
+    .card
+      a(href=productosUrl)
+        i.fa-solid.fa-box.fa-2x
+        h2 Productos
+        p Administrar el stock de productos y agregar al carrito.
+
+    .card
+      a(href=pacientesUrl)
+        i.fa-solid.fa-paw.fa-2x
+        h2 Pacientes
+        p Ver y editar información de mascotas.
+
+    .card
+      a(href=turnosUrl)
+        i.fa-solid.fa-calendar-check.fa-2x
+        h2 Turnos
+        p Gestionar los turnos de atención.
+
+    .card
+      a(href=busquedasUrl)
+        i.fa-solid.fa-search.fa-2x
+        h2 Búsquedas
+        p Ver mascotas perdidas y encontradas.
+
+    .card
+      a(href=ventasUrl)
+        i.fa-solid.fa-receipt.fa-2x
+        h2 Ventas
+        p Ver historial y generar comprobantes.
 
 
-      
+    .card
+      a(href=usuariosUrl)
+        i.fa-solid.fa-user.fa-2x
+        h2 Usuarios
+        p Administrar el personal de la clínica.
+
+    
+    .card
+      a(href=documentacionUrl)
+        i.fa-solid.fa-book.fa-2x
+        h2 Documentación
+        p Consultar guía de endpoints.

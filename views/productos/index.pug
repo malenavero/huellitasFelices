@@ -3,47 +3,52 @@ extends ../layout
 block content
   h1 Productos disponibles
 
-  // Filtrado por categoría
-  form(method="GET", class="form-box form-flex")
+  form(method="GET", class="form-box form-flex", style="max-width: 500px; margin-bottom: 20px;")
     select(name="categoria")
       option(value="") Todas las categorías
       each categoria in categorias
         option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
-    button(type="submit") Filtrar
+    button(type="submit", class="button") Filtrar
 
-  // Botón para nuevo producto
   a(href="/productos/crear", class="button-primary") ➕ Nuevo Producto
 
-  // Lista de productos
-  ul
-    each producto in productos
-      li
-        h3= producto.nombre
-        p
-          span.detail-label Precio:
-          | $#{producto.precio}
-        p
-          span.detail-label Stock:
-          | #{producto.stock}
-
-        // Acciones clásicas
-        div.acciones
-          a(href=`/productos/${producto._id}`)
-            i.fa-solid.fa-eye
-            |  Ver
-          a(href=`/productos/${producto._id}/editar`)
-            i.fa-solid.fa-pen
-            |  Editar
-          form(method="POST", action=`/productos/${producto._id}?_method=DELETE`)
-            button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')")
-              i.fa-solid.fa-trash
-              |  Eliminar
-
-        // Acción carrito (separada y con margen)
-        div.acciones-carrito
-          form(method="POST", action="/carrito/agregar")
-            input(type="hidden", name="productoId", value=producto._id)
-            input(type="hidden", name="cantidad", value=1)
-            button(type="submit", class="button-primary")
-              i.fa-solid.fa-cart-plus
-              |  Agregar al carrito
+  if productos.length
+    table.listado-ventas
+      thead
+        tr
+          th Nombre
+          th Precio
+          th Stock
+          th Acciones
+          th Agregar al carrito
+      tbody
+        each producto in productos
+          tr
+            td= producto.nombre.charAt(0).toUpperCase() + producto.nombre.slice(1)
+            td $#{producto.precio.toFixed(2)}
+            td #{producto.stock}
+            td.acciones(style="white-space: nowrap; display: flex; gap: 10px; align-items: center; vertical-align: middle;")
+              a(href=`/productos/${producto._id}`, class="button button-small")
+                i.fa-solid.fa-eye
+                |  Ver
+              a(href=`/productos/${producto._id}/editar`, class="button button-small")
+                i.fa-solid.fa-pen
+                |  Editar
+              form(method="POST", action=`/productos/${producto._id}?_method=DELETE`, style="display:inline; margin: 0;")
+                button(type="submit", class="button delete button-small", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')")
+                  i.fa-solid.fa-trash
+                  |  Eliminar
+            td.agregar-carrito(style="vertical-align: middle;")
+              form(method="POST", action="/carrito/agregar", style="margin: 0; display: flex; justify-content: center;")
+                input(type="hidden", name="productoId", value=producto._id)
+                input(type="hidden", name="cantidad", value=1)
+                button(
+                  type="submit", 
+                  class="button-primary", 
+                  disabled=producto.stock === 0 ? true : false,
+                  title= producto.stock === 0 ? 'Sin stock disponible' : ''
+                )
+                  i.fa-solid.fa-cart-plus
+                  |  Agregar
+  else
+    p.sin-resultados No hay productos disponibles.

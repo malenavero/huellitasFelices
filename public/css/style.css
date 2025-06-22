@@ -222,10 +222,12 @@ nav.nav-links {
 
 
 /* === FORMULARIOS Y BOTONES === */
+
 input[type="text"],
 input[type="number"],
 input[type="date"],
 input[type="email"],
+input[type="password"],
 select,
 textarea {
   width: 100%;
@@ -234,22 +236,40 @@ textarea {
   border: 1px solid var(--color-input-border);
   border-radius: 4px;
   font-size: 14px;
+  font-family: inherit;
   transition: border-color 0.3s ease;
+  background: var(--color-white);
+  box-sizing: border-box;
+  resize: vertical; /* para textarea */
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #999;
+  font-style: italic;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--color-input-border-hover);
-  outline: none;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
   background: var(--color-input-focus-bg);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
 }
 
 button {
   background-color: var(--color-primary);
   border: none;
-  padding: 5px 8px;
-  border-radius: 2px;
+  padding: 8px 16px;
+  border-radius: 6px;
   color: var(--color-white);
   font-weight: 700;
   cursor: pointer;
@@ -264,6 +284,30 @@ button[type="submit"]:disabled {
   background-color: var(--color-button-disabled-bg);
   cursor: not-allowed;
 }
+
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--color-primary);
+  text-transform: capitalize;
+}
+
+.error {
+  color: var(--color-danger);
+  font-size: 0.85rem;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+
+
+
 
 
 /* === DETALLES === */
@@ -390,18 +434,28 @@ button[type="submit"]:disabled {
   border: none;
   border-radius: 8px;
   box-shadow: var(--shadow-medium);
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
+  cursor: pointer;
 }
 
 .button-create:hover {
   background-color: var(--color-secondary);
+  color: var(--color-white);
   transform: translateY(-2px);
   box-shadow: var(--shadow-large);
+  position: relative;
+  z-index: 1;
 }
 
 .button-create i {
   font-size: 1.1rem;
+  transition: color 0.3s ease;
 }
+
+.button-create:hover i {
+  color: var(--color-white);
+}
+
 
 
 /* Filtros */
@@ -442,6 +496,73 @@ button[type="submit"]:disabled {
 .filtros .filtro,
 .filtros .filtro-boton {
   align-self: stretch;
+}
+
+/* Wrapper para el label con checkbox */
+.checkbox-stock {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--color-primary);
+  user-select: none;
+  gap: 8px;
+}
+
+.checkbox-stock input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.checkbox-stock::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-primary);
+  border-radius: 4px;
+  background: var(--color-white);
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Checkmark */
+.checkbox-stock input[type="checkbox"]:checked + span::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--color-primary);
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 18px;
+  pointer-events: none;
+}
+
+/* El texto con padding para que no se superponga */
+.checkbox-stock span {
+  padding-left: 26px;
+  position: relative;
 }
 
 

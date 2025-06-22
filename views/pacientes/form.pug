@@ -13,95 +13,103 @@ block content
 
     h2 Datos del paciente
 
-    label(for="nombre") Nombre:
-    input(type="text", name="nombre", id="nombre", value=datos.nombre || '', required)
-    if errores
-      each e in errores
-        if e.campo === 'nombre'
-          span.error= e.mensaje
+    .form-group
+      label(for="nombre") Nombre:
+      input#nombre(type="text", name="nombre", value=datos.nombre || '', required)
+      if errores
+        each e in errores
+          if e.campo === 'nombre'
+            span.error(id="error-nombre")= e.mensaje
 
-    label(for="especie") Especie:
-    select(name="especie", id="especie", required)
-      option(value="") Seleccioná una especie
-      each especie in animales_validos
-        option(value=especie selected=(datos.especie === especie))= capitalizar(especie)
-    if errores
-      each e in errores
-        if e.campo === 'especie'
-          span.error= e.mensaje
+    .form-group
+      label(for="especie") Especie:
+      select#especie(name="especie", required, aria-describedby= errores && errores.find(e => e.campo === 'especie') ? 'error-especie' : undefined)
+        option(value="") Seleccioná una especie
+        each especie in animales_validos
+          option(value=especie selected=(datos.especie === especie))= capitalizar(especie)
+      if errores
+        each e in errores
+          if e.campo === 'especie'
+            span.error(id="error-especie")= e.mensaje
 
     h2 Datos del responsable
 
-    label(for="responsable_nombre") Nombre del responsable:
-    input(type="text", name="responsable[nombre]", id="responsable_nombre", value=resp.nombre || '', required)
-    if errores
-      each e in errores
-        if e.campo === 'responsable.nombre'
-          span.error= e.mensaje
+    .form-group
+      label(for="responsable_nombre") Nombre del responsable:
+      input#responsable_nombre(type="text", name="responsable[nombre]", value=resp.nombre || '', required)
+      if errores
+        each e in errores
+          if e.campo === 'responsable.nombre'
+            span.error(id="error-responsable_nombre")= e.mensaje
 
-    label(for="responsable_telefono") Teléfono:
-    input(type="text", name="responsable[telefono]", id="responsable_telefono", value=resp.telefono || '', placeholder="Teléfono de contacto")
-    if errores
-      each e in errores
-        if e.campo === 'responsable.telefono'
-          span.error= e.mensaje
+    .form-group
+      label(for="responsable_telefono") Teléfono:
+      input#responsable_telefono(type="text", name="responsable[telefono]", value=resp.telefono || '', placeholder="Teléfono de contacto")
+      if errores
+        each e in errores
+          if e.campo === 'responsable.telefono'
+            span.error(id="error-responsable_telefono")= e.mensaje
 
-    label(for="responsable_email") Email:
-    input(type="email", name="responsable[email]", id="responsable_email", value=resp.email || '', required)
-    if errores
-      each e in errores
-        if e.campo === 'responsable.email'
-          span.error= e.mensaje
+    .form-group
+      label(for="responsable_email") Email:
+      input#responsable_email(type="email", name="responsable[email]", value=resp.email || '', required)
+      if errores
+        each e in errores
+          if e.campo === 'responsable.email'
+            span.error(id="error-responsable_email")= e.mensaje
 
-    label(for="responsable_direccion") Dirección:
-    input(type="text", name="responsable[direccion]", id="responsable_direccion", value=resp.direccion || '', placeholder="Calle, número, ciudad")
-    if errores
-      each e in errores
-        if e.campo === 'responsable.direccion'
-          span.error= e.mensaje
+    .form-group
+      label(for="responsable_direccion") Dirección:
+      input#responsable_direccion(type="text", name="responsable[direccion]", value=resp.direccion || '', placeholder="Calle, número, ciudad")
+      if errores
+        each e in errores
+          if e.campo === 'responsable.direccion'
+            span.error(id="error-responsable_direccion")= e.mensaje
 
     h2 Ficha médica (opcional)
 
-    label(for="fichaMedica.raza") Raza:
-    input(type="text", name="fichaMedica[raza]", id="fichaMedica.raza", value=ficha.raza || '', placeholder="Raza del animal")
-    if errores
-      each e in errores
-        if e.campo === 'fichaMedica.raza'
-          span.error= e.mensaje
+    .form-group
+      label(for="fichaMedica.raza") Raza:
+      input#fichaMedica.raza(type="text", name="fichaMedica[raza]", value=ficha.raza || '', placeholder="Raza del animal")
+      if errores
+        each e in errores
+          if e.campo === 'fichaMedica.raza'
+            span.error(id="error-fichaMedica_raza")= e.mensaje
 
-    label(for="fichaMedica.fechaNacimiento") Fecha de nacimiento:
-    input(
-      type="date",
-      name="fichaMedica[fechaNacimiento]",
-      id="fichaMedica.fechaNacimiento",
-      value=(ficha.fechaNacimiento ? new Date(ficha.fechaNacimiento).toISOString().split('T')[0] : '')
-    )
-    if errores
-      each e in errores
-        if e.campo === 'fichaMedica.fechaNacimiento'
-          span.error= e.mensaje
+    .form-group
+      label(for="fichaMedica.fechaNacimiento") Fecha de nacimiento:
+      input#fichaMedica.fechaNacimiento(
+        type="date",
+        name="fichaMedica[fechaNacimiento]",
+        value=(ficha.fechaNacimiento ? new Date(ficha.fechaNacimiento).toISOString().split('T')[0] : '')
+      )
+      if errores
+        each e in errores
+          if e.campo === 'fichaMedica.fechaNacimiento'
+            span.error(id="error-fichaMedica_fechaNacimiento")= e.mensaje
 
-    label(for="fichaMedica.peso") Peso (kg):
-    input(type="number", name="fichaMedica[peso]", id="fichaMedica.peso", value=ficha.peso || '', min="0", step="0.01", placeholder="Peso actual del animal")
-    if errores
-      each e in errores
-        if e.campo === 'fichaMedica.peso'
-          span.error= e.mensaje
+    .form-group
+      label(for="fichaMedica.peso") Peso (kg):
+      input#fichaMedica.peso(type="number", name="fichaMedica[peso]", value=ficha.peso || '', min="0", step="0.01", placeholder="Peso actual del animal")
+      if errores
+        each e in errores
+          if e.campo === 'fichaMedica.peso'
+            span.error(id="error-fichaMedica_peso")= e.mensaje
 
-    label(for="fichaMedica.alergias") Alergias:
-    input(type="text", name="fichaMedica[alergias]", id="fichaMedica.alergias", value=(ficha.alergias || []).join(", "), placeholder="Separadas por coma")
-    if errores
-      each e in errores
-        if e.campo === 'fichaMedica.alergias'
-          span.error= e.mensaje
+    .form-group
+      label(for="fichaMedica.alergias") Alergias:
+      input#fichaMedica.alergias(type="text", name="fichaMedica[alergias]", value=(ficha.alergias || []).join(", "), placeholder="Separadas por coma")
+      if errores
+        each e in errores
+          if e.campo === 'fichaMedica.alergias'
+            span.error(id="error-fichaMedica_alergias")= e.mensaje
 
-    label(for="fichaMedica.notas") Notas adicionales:
-    textarea(name="fichaMedica[notas]", id="fichaMedica.notas")= ficha.notas || ""
-    if errores
-      each e in errores
-        if e.campo === 'fichaMedica.notas'
-          span.error= e.mensaje
+    .form-group
+      label(for="fichaMedica.notas") Notas adicionales:
+      textarea#fichaMedica.notas(name="fichaMedica[notas]")= ficha.notas || ""
+      if errores
+        each e in errores
+          if e.campo === 'fichaMedica.notas'
+            span.error(id="error-fichaMedica_notas")= e.mensaje
 
-   
-
-    button(type="submit")= modo === 'editar' ? 'Guardar cambios' : 'Crear'
+    button(type="submit" class="button-create")= modo === 'editar' ? 'Guardar cambios' : 'Crear'

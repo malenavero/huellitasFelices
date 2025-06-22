@@ -3,33 +3,33 @@ extends ../layout
 block content
   h1 Productos disponibles
 
-  form(method="GET", class="form-box form-flex filtros-productos")
+  form(method="GET", class="form-box filtros")
     .filtro
       label(for="categoria") Categoría:
       select#categoria(name="categoria")
-        option(value="") Todas las categorías
+        option(value="" selected=!(categoriaSeleccionada)) Todas las categorías
         each categoria in categorias
-          option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
+          option(value=categoria selected=(categoria === categoriaSeleccionada))= categoria
 
     .filtro
       label(for="nombre") Nombre:
       input#nombre(type="text", name="nombre", placeholder="Buscar por nombre", value=nombreBuscado || "")
 
-    .filtro.checkbox-wrapper
+    .filtro(style="flex-basis: 100%;")
       label.checkbox-stock(for="ocultarSinStock")
         input#ocultarSinStock(type="checkbox", name="ocultarSinStock", checked=ocultarSinStock ? true : false)
-        | Ocultar sin stock
+        span Ocultar sin stock
+
 
     .filtro.filtro-boton
       button(type="submit", class="button")
         i.fa.fa-filter
         |  Filtrar
 
-    .acciones-final(style="text-align: right")
-      a(href="/productos/crear", class="button-create")
-        i.fa.fa-plus
-        |  Nuevo Producto
-
+  .acciones-final(style="text-align: right")
+    a(href="/productos/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nuevo Producto
 
 
   if productos.length

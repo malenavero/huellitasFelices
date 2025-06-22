@@ -7,48 +7,55 @@ block content
 
   form(method="POST", action=modo === 'editar' ? `/productos/${producto._id}?_method=PUT` : '/productos')
 
-    label(for="nombre") Nombre:
-    input(type="text", name="nombre", id="nombre", value=(producto && producto.nombre) || '', placeholder="Nombre del producto", required)
-    if errores
-      each e in errores
-        if e.campo === 'nombre'
-          span.error= e.mensaje
+    .form-group
+      label(for="nombre") Nombre:
+      input#nombre(type="text", name="nombre", value=(producto && producto.nombre) || '', placeholder="Nombre del producto", required)
+      if errores
+        each e in errores
+          if e.campo === 'nombre'
+            span.error= e.mensaje
 
-    label(for="categoria") Categoría:
-    select(name="categoria", id="categoria", required)
-      each cat in categorias
-        option(value=cat selected=(producto && producto.categoria === cat))= cat
-    if errores
-      each e in errores
-        if e.campo === 'categoria'
-          span.error= e.mensaje
+    .form-group
+      label(for="categoria") Categoría:
+      select#categoria(name="categoria", required)
+        option(value="" selected=!(producto && producto.categoria)) -- Seleccione una categoría --
+        each cat in categorias
+          option(value=cat selected=(producto && producto.categoria === cat))= capitalizar(cat)
+      if errores
+        each e in errores
+          if e.campo === 'categoria'
+            span.error= e.mensaje
 
-    label(for="precio") Precio:
-    input(type="number", step="0.01", name="precio", id="precio", value=(producto && producto.precio) || '', placeholder="Precio en $", required)
-    if errores
-      each e in errores
-        if e.campo === 'precio'
-          span.error= e.mensaje
+    .form-group
+      label(for="precio") Precio:
+      input#precio(type="number", step="0.01", name="precio", value=(producto && producto.precio) || '', placeholder="Precio en $", required)
+      if errores
+        each e in errores
+          if e.campo === 'precio'
+            span.error= e.mensaje
 
-    label(for="stock") Stock:
-    input(type="number", name="stock", id="stock", value=(producto && producto.stock) || 0, placeholder="Cantidad en stock")
-    if errores
-      each e in errores
-        if e.campo === 'stock'
-          span.error= e.mensaje
+    .form-group
+      label(for="stock") Stock:
+      input#stock(type="number", name="stock", value=(producto && producto.stock) || 0, placeholder="Cantidad en stock")
+      if errores
+        each e in errores
+          if e.campo === 'stock'
+            span.error= e.mensaje
 
-    label(for="fechaVencimiento") Fecha de vencimiento:
-    input(type="date", name="fechaVencimiento", id="fechaVencimiento", value=(producto && producto.fechaVencimiento) || '')
-    if errores
-      each e in errores
-        if e.campo === 'fechaVencimiento'
-          span.error= e.mensaje
+    .form-group
+      label(for="fechaVencimiento") Fecha de vencimiento:
+      input#fechaVencimiento(type="date", name="fechaVencimiento", value=(producto && producto.fechaVencimiento) || '')
+      if errores
+        each e in errores
+          if e.campo === 'fechaVencimiento'
+            span.error= e.mensaje
 
-    label(for="descripcion") Descripción:
-    textarea(name="descripcion", id="descripcion", placeholder="Descripción opcional")= (producto && producto.descripcion) || ''
-    if errores
-      each e in errores
-        if e.campo === 'descripcion'
-          span.error= e.mensaje
+    .form-group
+      label(for="descripcion") Descripción:
+      textarea#descripcion(name="descripcion", placeholder="Descripción opcional")= (producto && producto.descripcion) || ''
+      if errores
+        each e in errores
+          if e.campo === 'descripcion'
+            span.error= e.mensaje
 
-    button(type="submit")= modo === 'editar' ? 'Actualizar' : 'Crear'
+    button(type="submit" class="button-create")= modo === 'editar' ? 'Actualizar' : 'Crear'

@@ -5,57 +5,69 @@ block content
 
   h1= modo === 'editar' ? 'Editar Usuario' : 'Nuevo Usuario'
 
-  form(method="POST", action=modo === 'editar' ? `/usuarios/${usuario._id}?_method=PUT` : '/usuarios')
+  form(method="POST", action=modo === 'editar' ? `/usuarios/${usuario._id}?_method=PUT` : '/usuarios', autocomplete="off")
 
-    label(for="nombre") Nombre:
-    input(type="text", name="nombre", id="nombre", value=(usuario && usuario.nombre) || '', placeholder="Nombre del usuario", required)
-    if errores
-      each e in errores
-        if e.campo === 'nombre'
-          span.error= e.mensaje
+    // Campos ocultos para prevenir autocompletado no deseado
+    input(type="text", name="fakeusernameremembered", style="display:none")
+    input(type="password", name="fakepasswordremembered", style="display:none")
 
-    label(for="apellido") Apellido:
-    input(type="text", name="apellido", id="apellido", value=(usuario && usuario.apellido) || '', placeholder="Apellido del usuario", required)
-    if errores
-      each e in errores
-        if e.campo === 'apellido'
-          span.error= e.mensaje
+    .form-group
+      label(for="nombre") Nombre:
+      input#nombre(type="text", name="nombre", autocomplete="given-name", value=(usuario && usuario.nombre) || '', placeholder="Nombre del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'nombre'
+            span.error= e.mensaje
 
-    label(for="password") Contraseña:
-    input(type="password", name="password", id="password", value=(usuario && usuario.password) || '', placeholder="Contraseña del usuario", required)
-    if errores
-      each e in errores
-        if e.campo === 'password'
-          span.error= e.mensaje
+    .form-group
+      label(for="apellido") Apellido:
+      input#apellido(type="text", name="apellido", autocomplete="family-name", value=(usuario && usuario.apellido) || '', placeholder="Apellido del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'apellido'
+            span.error= e.mensaje
 
-    label(for="telefono") Teléfono:
-    input(type="text", name="telefono", id="telefono", maxlength="20", value=(usuario && usuario.telefono) || '', placeholder="Teléfono del usuario", required)
-    if errores
-      each e in errores
-        if e.campo === 'telefono'
-          span.error= e.mensaje
+    .form-group
+      label(for="password") Contraseña:
+      input#password(type="password", name="password", autocomplete=modo === 'editar' ? 'current-password' : 'new-password', value='', placeholder="Contraseña del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'password'
+            span.error= e.mensaje
 
-    label(for="direccion") Dirección:
-    input(type="text", name="direccion", id="direccion", value=(usuario && usuario.direccion) || '', placeholder="Dirección del usuario opcional")
-    if errores
-      each e in errores
-        if e.campo === 'direccion'
-          span.error= e.mensaje
+    .form-group
+      label(for="telefono") Teléfono:
+      input#telefono(type="text", name="telefono", maxlength="20", autocomplete="tel", value=(usuario && usuario.telefono) || '', placeholder="Teléfono del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'telefono'
+            span.error= e.mensaje
 
-    label(for="correo") Correo electrónico:
-    input(type="email", name="correo", id="correo", value=(usuario && usuario.correo) || '', placeholder="Correo electrónico del usuario", required)
-    if errores
-      each e in errores
-        if e.campo === 'correo'
-          span.error= e.mensaje
+    .form-group
+      label(for="direccion") Dirección:
+      input#direccion(type="text", name="direccion", autocomplete="street-address", value=(usuario && usuario.direccion) || '', placeholder="Dirección del usuario opcional")
+      if errores
+        each e in errores
+          if e.campo === 'direccion'
+            span.error= e.mensaje
 
-    label(for="rol") Rol:
-    select(name="rol", id="rol")
-      each r in roles
-        option(value=r selected=(usuario && usuario.rol === r))= r
-    if errores
-      each e in errores
-        if e.campo === 'rol'
-          span.error= e.mensaje
+    .form-group
+      label(for="correo") Correo electrónico:
+      input#correo(type="email", name="correo", autocomplete="email", value=(usuario && usuario.correo) || '', placeholder="Correo electrónico del usuario", required)
+      if errores
+        each e in errores
+          if e.campo === 'correo'
+            span.error= e.mensaje
 
-    button(type="submit")= modo === 'editar' ? 'Actualizar' : 'Crear'
+    .form-group
+      label(for="rol") Rol:
+      select#rol(name="rol", autocomplete="off")
+        option(value="" selected=!(usuario && usuario.rol)) -- Seleccione un rol --
+        each r in roles
+          option(value=r selected=(usuario && usuario.rol === r))= capitalizar(r)
+      if errores
+        each e in errores
+          if e.campo === 'rol'
+            span.error= e.mensaje
+
+    button(type="submit" class="button-create")= modo === 'editar' ? 'Actualizar' : 'Crear'

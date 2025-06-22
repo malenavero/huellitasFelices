@@ -7,7 +7,15 @@ module.exports = {
     const filtro = {};
 
     if (query.servicio) filtro.servicio = query.servicio;
-    if (query.fecha) filtro.fecha = query.fecha;
+
+    if (query.fecha) {
+      const fechaDate = new Date(query.fecha);
+      filtro.fecha = {
+        $gte: fechaDate,
+        $lt: new Date(fechaDate.getTime() + 24 * 60 * 60 * 1000) // hasta fin del día
+      };
+    }
+
     if (query.pacienteId) filtro["paciente._id"] = query.pacienteId;
 
     const turnos = await Turno.find(filtro).lean();
@@ -27,6 +35,7 @@ module.exports = {
       paciente: turno.paciente || {}
     };
   },
+
   async create(data) {
     const { fecha, hora, precio, servicio, pacienteId } = data;
 
@@ -37,7 +46,7 @@ module.exports = {
 
     try {
       return await Turno.create({
-        fecha,
+        fecha: new Date(fecha),
         hora,
         precio,
         servicio,
@@ -48,14 +57,16 @@ module.exports = {
         }
       });
     } catch (err) {
-      if (err.code === 11000) {
-          throw getDuplicatedError(err);
-        }
+      if (err.code === 11000) throw getDuplicatedError(err);
       throw err;
     }
   },
 
   async update(id, updatedFields) {
+    if (updatedFields.fecha) {
+      updatedFields.fecha = new Date(updatedFields.fecha);
+    }
+
     if (updatedFields.pacienteId) {
       const pacienteExiste = await Paciente.findById(updatedFields.pacienteId);
       if (!pacienteExiste) {
@@ -80,13 +91,10 @@ module.exports = {
 
       return updated ? { ...updated, paciente: updated.paciente || {} } : null;
     } catch (err) {
-        if (err.code === 11000) {
-          throw getDuplicatedError(err);
-        }
-        throw err;
+      if (err.code === 11000) throw getDuplicatedError(err);
+      throw err;
     }
   },
-
 
   async delete(id) {
     const deleted = await Turno.findByIdAndDelete(id);

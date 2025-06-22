@@ -5,9 +5,8 @@ const { SERVICIOS } = require("../utils/constants");
 
 const turnoSchema = new mongoose.Schema({
   fecha: {
-    type: String,
+    type: Date,
     required: true,
-    match: [/^\d{4}-\d{2}-\d{2}$/, "Fecha inválida"]
   },
   hora: {
     type: String,

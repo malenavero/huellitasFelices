@@ -17,28 +17,34 @@ block content
         option(value=paciente._id selected=(paciente._id == query.pacienteId))= paciente.nombre
 
     button(type="submit") Filtrar
-  a(href="/turnos/crear").button ➕ Nuevo Turno
+
+  a(href="/turnos/crear", class="button-primary")
+    i.fa.fa-plus
+    |  Nuevo Turno
 
   if turnos.length
-    table(style="margin: 40px auto; width: 100%; max-width: 900px; border-collapse: collapse;")
+    table.listado-items
       thead
         tr
           th Fecha
           th Hora
           th Paciente
           th Servicio
-          th(style="text-align: right")
+          th Acciones
       tbody
         each turno in turnos
-          tr(style="text-align: center")
+          tr
             td= turno.fecha ? new Date(turno.fecha).toLocaleDateString("es-AR") : '-'
             td= turno.hora
             td= turno.paciente.nombre || "Desconocido"
             td= turno.servicio
-            td
-              a.btn.btn-sm.btn-primary(href=`/turnos/${turno._id}`, style="margin-right: 10px;") 👁️ Ver
-              a.btn.btn-sm.btn-warning(href=`/turnos/${turno._id}/editar`, style="margin-right: 10px;") ✏️Editar
-              form(method="POST", action=`/turnos/${turno._id}?_method=DELETE`, style="display:inline; padding: 0; margin: 0;")
-                button(type="submit", onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')") 🗑️ Eliminar
+            td.acciones(style="white-space: nowrap; display: flex; gap: 10px; align-items: center; vertical-align: middle;")
+              a(href=`/turnos/${turno._id}`, class="button", title="Ver")
+                i.fa.fa-eye
+              a(href=`/turnos/${turno._id}/editar`, class="button", title="Editar")
+                i.fa.fa-pen
+              form(method="POST", action=`/turnos/${turno._id}?_method=DELETE`, style="display:inline; margin: 0;")
+                button(type="submit", class="button delete", onclick="return confirm('¿Estás seguro de que querés eliminar este turno?')", title="Eliminar")
+                  i.fa.fa-trash
   else
-    p No hay turnos registrados.
+    p.sin-resultados No hay turnos registrados.

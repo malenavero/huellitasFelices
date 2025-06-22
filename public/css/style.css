@@ -681,8 +681,8 @@ button.delete:hover {
   align-items: center;
 }
 
-/* Tabla de historial de ventas */
-table.listado-ventas {
+/* Tabla de items */
+table.listado-items {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 6px; /* Espaciado vertical entre filas */
@@ -693,29 +693,29 @@ table.listado-ventas {
   box-shadow: var(--shadow-small);
 }
 
-.listado-ventas thead {
+.listado-items thead {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
 
-.listado-ventas thead th {
+.listado-items thead th {
   padding: 14px 18px; 
   text-align: left;
   font-weight: 600;
   font-size: 1rem;
 }
 
-.listado-ventas tbody tr {
+.listado-items tbody tr {
   background-color: var(--color-white);
   transition: background-color 0.2s ease;
   border-radius: 8px;
 }
 
-.listado-ventas tbody tr:hover {
+.listado-items tbody tr:hover {
   background-color: var(--color-white);
 }
 
-.listado-ventas tbody td {
+.listado-items tbody td {
   padding: 12px 18px; /* Espacio entre columnas */
   vertical-align: middle;
   font-size: 0.95rem;

@@ -11,11 +11,17 @@ async function getListParams(query = {}, errors = []) {
   const hoy = new Date().toISOString().split("T")[0];
 
   const turnosFiltradosYOrdenados = turnos
-    .filter(t => t.fecha >= hoy)
-    .sort((a, b) => {
-      if (a.fecha === b.fecha) return a.hora.localeCompare(b.hora);
-      return a.fecha.localeCompare(b.fecha);
-    });
+  .filter(t => {
+    const fecha = new Date(t.fecha);
+    return fecha.toISOString().split("T")[0] >= hoy;
+  })
+  .sort((a, b) => {
+    const fechaA = new Date(a.fecha).toISOString();
+    const fechaB = new Date(b.fecha).toISOString();
+    if (fechaA === fechaB) return a.hora.localeCompare(b.hora);
+    return fechaA.localeCompare(fechaB);
+  });
+
 
   return { turnos: turnosFiltradosYOrdenados, servicios, pacientes, query, ...urls, errors };
 }
@@ -32,6 +38,15 @@ async function cargarFormParams({ modo, turno, errores = [] }) {
 
   turno = turno || {};
   turno.paciente = turno.paciente || {};
+  turno.fechaStr = turno.fecha ? new Date(turno.fecha).toISOString().split("T")[0] : "";
+
+  const horasDisponibles = [];
+  for (let h = 8; h <= 20; h++) {
+    ["00", "30"].forEach(min => {
+      const hora = `${h.toString().padStart(2, "0")}:${min}`;
+      horasDisponibles.push(hora);
+    });
+  }
 
   const pacienteId = (turno.paciente._id || turno.pacienteId || "").toString();
 
@@ -42,7 +57,9 @@ async function cargarFormParams({ modo, turno, errores = [] }) {
     errores,
     pacientes,
     servicios,
+    horasDisponibles
   };
+
 }
 
 

@@ -18,8 +18,11 @@ async function getListParams(req, query = {}) {
     productos: productosConStockTemporal,
     categorias: CATEGORIAS_PRODUCTO,
     categoriaSeleccionada: query.categoria || "",
+    nombreBuscado: query.nombre || "",
+    ocultarSinStock: !!query.ocultarSinStock,
     ...urls
   };
+
 }
 
 async function renderListView(req, res, status = 200, query = {}) {

@@ -3,12 +3,26 @@ extends ../layout
 block content
   h1 Productos disponibles
 
-  form(method="GET", class="form-box form-flex", style="max-width: 500px; margin-bottom: 20px;")
-    select(name="categoria")
-      option(value="") Todas las categorías
-      each categoria in categorias
-        option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
-    button(type="submit", class="button") Filtrar
+  form(method="GET", class="form-box form-flex filtros-productos")
+    div.filtro
+      label(for="categoria") Categoría:
+      select#categoria(name="categoria")
+        option(value="") Todas las categorías
+        each categoria in categorias
+          option(value=categoria selected=(categoria == categoriaSeleccionada))= categoria
+
+    div.filtro
+      label(for="nombre") Nombre:
+      input#nombre(type="text", name="nombre", placeholder="Buscar por nombre", value=nombreBuscado || "")
+
+    div.filtro.checkbox-wrapper
+      label.checkbox-stock(for="ocultarSinStock")
+      input#ocultarSinStock(type="checkbox", name="ocultarSinStock", checked=ocultarSinStock ? true : false)
+      | Ocultar sin stock
+
+    div.filtro.filtro-boton
+      button(type="submit", class="button") Filtrar
+
 
   a(href="/productos/crear", class="button-primary") ➕ Nuevo Producto
 
@@ -27,19 +41,19 @@ block content
             td= producto.nombre.charAt(0).toUpperCase() + producto.nombre.slice(1)
             td $#{producto.precio.toFixed(2)}
             td #{producto.stock}
-            td.acciones(style="white-space: nowrap; display: flex; gap: 10px; align-items: center; vertical-align: middle;")
+            td.acciones
               a(href=`/productos/${producto._id}`, class="button button-small")
                 i.fa-solid.fa-eye
                 |  Ver
               a(href=`/productos/${producto._id}/editar`, class="button button-small")
                 i.fa-solid.fa-pen
                 |  Editar
-              form(method="POST", action=`/productos/${producto._id}?_method=DELETE`, style="display:inline; margin: 0;")
+              form(method="POST", action=`/productos/${producto._id}?_method=DELETE`)
                 button(type="submit", class="button delete button-small", onclick="return confirm('¿Estás seguro de que querés eliminar este producto?')")
                   i.fa-solid.fa-trash
                   |  Eliminar
-            td.agregar-carrito(style="vertical-align: middle;")
-              form(method="POST", action="/carrito/agregar", style="margin: 0; display: flex; justify-content: center;")
+            td.agregar-carrito
+              form(method="POST", action="/carrito/agregar")
                 input(type="hidden", name="productoId", value=producto._id)
                 input(type="hidden", name="cantidad", value=1)
                 button(

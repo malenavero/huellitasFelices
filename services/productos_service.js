@@ -4,9 +4,20 @@ const { getDuplicatedError } = require("./utils");
 module.exports = {
   async findAll(query = {}) {
     const filtro = {};
+
     if (query.categoria) filtro.categoria = query.categoria;
+
+    if (query.nombre) {
+      filtro.nombre = { $regex: query.nombre, $options: "i" };
+    }
+
+    if (query.ocultarSinStock) {
+      filtro.stock = { $gt: 0 };
+    }
+
     return await Producto.find(filtro).lean();
   },
+
 
   async findById(id) {
     return await Producto.findById(id).lean();

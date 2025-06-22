@@ -3,65 +3,79 @@ extends ../layout
 block content
   h1 Búsquedas
 
-  // Formulario de filtros
-  form(method="GET", style="margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;")
-    // Filtro por nombre
-    label(for="nombre") Nombre:
-    input(type="text", name="nombre", id="nombre", value=nombreSeleccionado || '', placeholder="Buscar por nombre")
+  // Filtros
+  form(method="GET", class="form-box filtros")
+    .filtro
+      label(for="nombre") Nombre:
+      input(type="text", name="nombre", id="nombre", value=nombreSeleccionado || '', placeholder="Buscar por nombre")
 
-    // Filtro por tipo
-    label(for="tipo") Tipo:
-    select(name="tipo", id="tipo")
-      option(value="") Todos
-      option(value="perdida" selected=(tipoSeleccionado === 'perdida')) Perdida
-      option(value="encontrada" selected=(tipoSeleccionado === 'encontrada')) Encontrada
+    .filtro
+      label(for="tipo") Tipo:
+      select(name="tipo", id="tipo")
+        option(value="") Todos
+        option(value="perdida", selected=tipoSeleccionado === 'perdida') Perdida
+        option(value="encontrada", selected=tipoSeleccionado === 'encontrada') Encontrada
 
-    // Filtro por animal
-    label(for="animal") Animal:
-    select(name="animal", id="animal")
-      option(value="") Todos
-      option(value="gato" selected=(animalSeleccionado === 'gato')) Gato
-      option(value="perro" selected=(animalSeleccionado === 'perro')) Perro
+    .filtro
+      label(for="animal") Animal:
+      select(name="animal", id="animal")
+        option(value="") Todos
+        option(value="gato", selected=animalSeleccionado === 'gato') Gato
+        option(value="perro", selected=animalSeleccionado === 'perro') Perro
 
-    // Filtro por activa (booleano)
-    label(for="activa") Activa:
-    select(name="activa", id="activa")
-      option(value="") Todos
-      option(value="true" selected=(activaSeleccionado === 'true')) Sí
-      option(value="false" selected=(activaSeleccionado === 'false')) No
+    .filtro
+      label(for="activa") Activa:
+      select(name="activa", id="activa")
+        option(value="") Todos
+        option(value="true", selected=activaSeleccionado === 'true') Sí
+        option(value="false", selected=activaSeleccionado === 'false') No
 
-    button(type="submit") Filtrar
+    .filtro.filtro-boton
+      button(type="submit", class="button")
+        i.fa.fa-filter
+        |  Filtrar
 
-  // Botón para crear nueva búsqueda
-  a(href="/busquedas/crear", class="button-primary", style="margin-bottom: 20px; display: inline-block;") ➕ Nueva Búsqueda
+  // Botón crear
+  .acciones-final
+    a(href="/busquedas/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nueva Búsqueda
 
-  // Lista de búsquedas
+  // Resultados
   if busquedas.length === 0
-    p No se encontraron búsquedas con esos filtros.
+    p.sin-resultados No se encontraron búsquedas con esos filtros.
   else
-    ul.busquedas-list
-      each busqueda in busquedas
-        li.busqueda-item
-          h3
-            a(href=`/busquedas/${busqueda.id}`)
-              = busqueda.nombre ? capitalizar(busqueda.nombre) : '(Sin nombre)'
-
-          p
-            strong Tipo: 
-            | #{busqueda.tipo}
-          p
-            strong Animal: 
-            | #{busqueda.animal || 'No especificado'}
-          p
-            strong Zona: 
-            | #{busqueda.zona}
-          p
-            strong Activa: 
-            | #{busqueda.activa ? 'Sí' : 'No'}
-
-          // Acciones
-          div.acciones(style="margin-top: 10px;")
-            a(href=`/busquedas/${busqueda.id}`, style="margin-right: 10px;") 👁️ Ver
-            a(href=`/busquedas/${busqueda.id}/editar`, style="margin-right: 10px;") ✏️ Editar
-            form(method="POST", action=`/busquedas/${busqueda.id}?_method=DELETE`)
-              button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar esta busqueda?')") 🗑️ Eliminar
+    .tabla-listado
+      table.listado-items
+        thead
+          tr
+            th Nombre
+            th Tipo
+            th Animal
+            th Zona
+            th Activa
+            th Acciones
+        tbody
+          each busqueda in busquedas
+            tr
+              td= busqueda.nombre ? capitalizar(busqueda.nombre) : '(Sin nombre)'
+              td= capitalizar(busqueda.tipo)
+              td= busqueda.animal ? capitalizar(busqueda.animal) : 'No especificado'
+              td= busqueda.zona || '-'
+              td= busqueda.activa ? 'Sí' : 'No'
+              td.acciones
+                .acciones-wrapper
+                  a(href=`/busquedas/${busqueda.id}`, class="button button-small")
+                    i.fa.fa-eye
+                    |
+                  a(href=`/busquedas/${busqueda.id}/editar`, class="button button-small")
+                    i.fa.fa-pen
+                    |
+                  form(method="POST", action=`/busquedas/${busqueda.id}?_method=DELETE`)
+                    button(
+                      type="submit",
+                      class="button delete button-small",
+                      onclick="return confirm('¿Estás seguro de que querés eliminar esta búsqueda?')"
+                    )
+                      i.fa.fa-trash
+                      |

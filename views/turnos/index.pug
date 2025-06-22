@@ -2,49 +2,69 @@ extends ../layout.pug
 
 block content
   h1 Lista de Turnos
+
   // Formulario de filtros
-  form(method="GET", class="form-box form-flex", style="margin-bottom: 20px; gap: 10px; flex-wrap: wrap;")
-    select(name="servicio")
-      option(value="") Todos los servicios
-      each s in servicios
-        option(value=s selected=(s === query.servicio))= s
+  form(method="GET", class="form-box filtros")
+    .filtro
+      select(name="servicio")
+        option(value="") Todos los servicios
+        each s in servicios
+          option(value=s selected=(s === query.servicio))= s
 
-    input(type="date", name="fecha", value=query.fecha || '', lang="es")
+    .filtro
+      input(type="date", name="fecha", value=query.fecha || '', lang="es")
 
-    select(name="pacienteId")
-      option(value="") Todos los pacientes
-      each paciente in pacientes
-        option(value=paciente._id selected=(paciente._id == query.pacienteId))= paciente.nombre
+    .filtro
+      select(name="pacienteId")
+        option(value="") Todos los pacientes
+        each paciente in pacientes
+          option(value=paciente._id selected=(paciente._id == query.pacienteId))= paciente.nombre
 
-    button(type="submit") Filtrar
+    .filtro.filtro-boton
+      button(type="submit", class="button")
+        i.fa.fa-filter
+        |  Filtrar
 
-  a(href="/turnos/crear", class="button-primary")
-    i.fa.fa-plus
-    |  Nuevo Turno
+        
+
+  .acciones-final
+    a(href="/turnos/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nuevo Turno
 
   if turnos.length
-    table.listado-items
-      thead
-        tr
-          th Fecha
-          th Hora
-          th Paciente
-          th Servicio
-          th Acciones
-      tbody
-        each turno in turnos
+    .tabla-listado
+      table.listado-items
+        thead
           tr
-            td= turno.fecha ? new Date(turno.fecha).toLocaleDateString("es-AR") : '-'
-            td= turno.hora
-            td= capitalizar(turno.paciente.nombre) || "Desconocido"
-            td= capitalizar(turno.servicio)
-            td.acciones(style="white-space: nowrap; display: flex; gap: 10px; align-items: center; vertical-align: middle;")
-              a(href=`/turnos/${turno._id}`, class="button", title="Ver")
-                i.fa.fa-eye
-              a(href=`/turnos/${turno._id}/editar`, class="button", title="Editar")
-                i.fa.fa-pen
-              form(method="POST", action=`/turnos/${turno._id}?_method=DELETE`, style="display:inline; margin: 0;")
-                button(type="submit", class="button delete", onclick="return confirm('¿Estás seguro de que querés eliminar este turno?')", title="Eliminar")
-                  i.fa.fa-trash
+            th Fecha
+            th Hora
+            th Paciente
+            th Servicio
+            th Acciones
+        tbody
+          each turno in turnos
+            tr
+              td= turno.fecha ? new Date(turno.fecha).toLocaleDateString("es-AR") : '-'
+              td= turno.hora
+              td= capitalizar(turno.paciente.nombre) || "Desconocido"
+              td= capitalizar(turno.servicio)
+              td.acciones
+                .acciones-wrapper
+                  a(href=`/turnos/${turno._id}`, class="button button-small", title="Ver")
+                    i.fa.fa-eye
+                    |
+                  a(href=`/turnos/${turno._id}/editar`, class="button button-small", title="Editar")
+                    i.fa.fa-pen
+                    |
+                  form(method="POST", action=`/turnos/${turno._id}?_method=DELETE`)
+                    button(
+                      type="submit",
+                      class="button delete button-small",
+                      onclick="return confirm('¿Estás seguro de que querés eliminar este turno?')",
+                      title="Eliminar"
+                    )
+                      i.fa.fa-trash
+                      |
   else
     p.sin-resultados No hay turnos registrados.

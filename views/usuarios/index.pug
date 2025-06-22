@@ -3,28 +3,46 @@ extends ../layout
 block content
   h1 Usuarios
 
-  // Botón para nuevo usuario
-  a(href="/usuarios/crear", class="button-primary") ➕ Nuevo Usuario
+  .acciones-final
+    a(href="/usuarios/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nuevo Usuario
 
-  ul
-    each usuario in usuarios
-      li
-        h3 #{usuario.nombre} #{usuario.apellido}
-        p
-          span.detail-label Teléfono:
-          |  #{usuario.telefono}
-        p
-          span.detail-label Dirección:
-          |  #{usuario.direccion}
-        p
-          span.detail-label Correo:
-          |  #{usuario.correo}
-        p
-          span.detail-label Rol:
-          |  #{usuario.rol}
-
-        div.acciones
-          a(href=`/usuarios/${usuario._id}`) 👁️ Ver
-          a(href=`/usuarios/${usuario._id}/editar`) ✏️ Editar
-          form(method="POST", action=`/usuarios/${usuario._id}?_method=DELETE`)
-            button(type="submit", class="delete", onclick="return confirm('¿Estás seguro de que querés eliminar este usuario?')") 🗑️ Eliminar
+  if usuarios.length === 0
+    p.sin-resultados No hay usuarios registrados.
+  else
+    .tabla-listado
+      table.listado-items
+        thead
+          tr
+            th Nombre
+            th Teléfono
+            th Dirección
+            th Correo
+            th Rol
+            th Acciones
+        tbody
+          each usuario in usuarios
+            tr
+              td #{usuario.nombre} #{usuario.apellido}
+              td #{usuario.telefono}
+              td #{usuario.direccion}
+              td #{usuario.correo}
+              td= capitalizar(usuario.rol)
+              td.acciones
+                .acciones-wrapper
+                  a(href=`/usuarios/${usuario._id}`, class="button button-small", title="Ver")
+                    i.fa.fa-eye
+                    | 
+                  a(href=`/usuarios/${usuario._id}/editar`, class="button button-small", title="Editar")
+                    i.fa.fa-pen
+                    | 
+                  form(method="POST", action=`/usuarios/${usuario._id}?_method=DELETE`)
+                    button(
+                      type="submit",
+                      class="button delete button-small",
+                      onclick="return confirm('¿Estás seguro de que querés eliminar este usuario?')",
+                      title="Eliminar"
+                    )
+                      i.fa.fa-trash
+                      | 

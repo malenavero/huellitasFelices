@@ -4,35 +4,53 @@ block content
   h1 Lista de Pacientes
 
   // Filtro por nombre
-  form(method="GET", class="form-box form-flex", style="margin-bottom: 20px; gap: 10px; max-width: 500px;")
-    input(type="text", name="nombre", placeholder="Buscar por nombre", value=nombreBuscado || '')
-    button(type="submit", class="button") Buscar
+  form(method="GET", class="form-box filtros", style="max-width: 500px;")
+    .filtro
+      input(type="text", name="nombre", placeholder="Buscar por nombre", value=nombreBuscado || '')
+    .filtro.filtro-boton
+      button(type="submit", class="button")
+        i.fa.fa-search
+        |  Buscar
 
-  a(href="/pacientes/crear", class="button button-primary") ➕ Nuevo Paciente
+  .acciones-final
+    a(href="/pacientes/crear", class="button-create")
+      i.fa.fa-plus
+      |  Nuevo Paciente
 
   if pacientes.length
-    table.listado-items(style="max-width: 900px; margin: 40px auto;")
-      thead
-        tr
-          th Nombre
-          th Especie
-          th Raza
-          th Edad
-          th Dueño
-          th Acciones
-      tbody
-        each paciente in pacientes
+    .tabla-listado
+      table.listado-items
+        thead
           tr
-            td(style="text-align: center")= capitalizar(paciente.nombre)
-            td(style="text-align: center")= capitalizar(paciente.especie)
-            td(style="text-align: center")= paciente.raza
-            td(style="text-align: center")= paciente.edad
-            td(style="text-align: center")= capitalizar(paciente.responsable.nombre)
-            td(style="text-align: right; white-space: nowrap;")
-              a(href=`/pacientes/${paciente._id}`, class="button button-small", style="margin-right: 6px;") 👁️ Ver
-              a(href=`/pacientes/${paciente._id}/editar`, class="button button-small", style="margin-right: 6px;") ✏️ Editar
-              form(method="POST", action=`/pacientes/${paciente._id}?_method=DELETE`, style="display:inline;")
-                button(type="submit", class="button delete button-small", onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')") 🗑️ Eliminar
-
+            th Nombre
+            th Especie
+            th Raza
+            th Edad
+            th Dueño
+            th Acciones
+        tbody
+          each paciente in pacientes
+            tr
+              td= capitalizar(paciente.nombre)
+              td= capitalizar(paciente.especie)
+              td= paciente.raza
+              td= paciente.edad
+              td= capitalizar(paciente.responsable.nombre)
+              td.acciones
+                .acciones-wrapper
+                  a(href=`/pacientes/${paciente._id}`, class="button button-small")
+                    i.fa.fa-eye
+                    |
+                  a(href=`/pacientes/${paciente._id}/editar`, class="button button-small")
+                    i.fa.fa-pen
+                    |
+                  form(method="POST", action=`/pacientes/${paciente._id}?_method=DELETE`)
+                    button(
+                      type="submit",
+                      class="button delete button-small",
+                      onclick="return confirm('¿Estás seguro de que querés eliminar este paciente?')"
+                    )
+                      i.fa.fa-trash
+                      |
   else
     p.sin-resultados No hay pacientes registrados.

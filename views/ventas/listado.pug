@@ -3,41 +3,43 @@ extends ../layout
 block content
   h1 Historial de Ventas
 
-  form(action="/ventas", method="GET", class="form-box")
-    label(for="filtro") Filtrar por fecha:
-    select(name="filtro", id="filtro")
-      option(value="") Todas
-      option(value="hoy", selected=filtroSeleccionado === 'hoy') Hoy
-      option(value="semana", selected=filtroSeleccionado === 'semana') Última semana
-      option(value="mes", selected=filtroSeleccionado === 'mes') Último mes
-    button(type="submit", class="button") Aplicar filtro
+  form(action="/ventas", method="GET", class="form-box filtros")
+    .filtro
+      label(for="filtro") Filtrar por fecha:
+      select(name="filtro", id="filtro")
+        option(value="") Todas
+        option(value="hoy", selected=filtroSeleccionado === 'hoy') Hoy
+        option(value="semana", selected=filtroSeleccionado === 'semana') Última semana
+        option(value="mes", selected=filtroSeleccionado === 'mes') Último mes
+
+    .filtro.filtro-boton
+      button(type="submit", class="button")
+        i.fa.fa-filter
+        |  Aplicar filtro
 
   if ventas.length === 0
     p.sin-resultados No se encontraron ventas registradas.
   else
-    table.listado-items
-      thead
-        tr
-          th Fecha
-          th Total
-          th Estado
-          th Método de pago
-          th Acciones
-      tbody
-        each venta in ventas
+    .tabla-listado
+      table.listado-items
+        thead
           tr
-            td #{venta.createdAt.toLocaleDateString()} #{venta.createdAt.toLocaleTimeString()}
-            td $#{venta.total.toFixed(2)}
-            td 
-              span(class=venta.estado === 'pagado' ? 'estado-pagado' : 'estado-otro')
-                | #{venta.estado.toUpperCase()}
-            td #{capitalizar(venta.pago.metodo)}
-            td
-              a(href=`/ventas/${venta._id}`, class="button button-small")
-                i.fa.fa-file-text
-                |  Ver detalle
-
-  .acciones.acciones-final
-    a(href="/home", class="button")
-      i.fa.fa-arrow-left
-      |  Volver al inicio
+            th Fecha
+            th Total
+            th Estado
+            th Método de pago
+            th Acciones
+        tbody
+          each venta in ventas
+            tr
+              td #{venta.createdAt.toLocaleDateString()} #{venta.createdAt.toLocaleTimeString()}
+              td $#{venta.total.toFixed(2)}
+              td 
+                span(class=venta.estado === 'pagado' ? 'estado-pagado' : 'estado-otro')
+                  | #{venta.estado.toUpperCase()}
+              td #{capitalizar(venta.pago.metodo)}
+              td.acciones
+                .acciones-wrapper
+                  a(href=`/ventas/${venta._id}`, class="button button-small")
+                    i.fa.fa-file-text
+                    |  Ver detalle

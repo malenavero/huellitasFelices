@@ -1,6 +1,6 @@
 const Venta = require("../models/venta_model");
 const Producto = require("../models/producto_model");
-
+const Turno = require("../models/turno_model");
 
 function startOfDay(date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -29,12 +29,26 @@ async function crearYConfirmarVenta(usuarioId, carrito, metodoPago) {
   });
 
   // Descontar stock
-  for (const item of nuevaVenta.items) {
-    await Producto.findByIdAndUpdate(item.productoId, {
-      $inc: { stock: -item.cantidad }
-    });
-  }
 
+  for (const item of nuevaVenta.items) {
+    const productoExiste = await Producto.exists({ _id: item.productoId });
+    const turnoExiste = await Turno.exists({ _id: item.productoId });
+
+    if (productoExiste) {
+      // Producto  -> descontar stock
+      await Producto.findByIdAndUpdate(item.productoId, {
+        $inc: { stock: -item.cantidad }
+      });
+    } else if (turnoExiste){
+      // Servicio -> marcar turno como pagado
+      await Turno.findByIdAndUpdate(item.productoId, {
+        $set: { pagado: true }
+      });
+    } else {
+      throw new Error("INVALID_PRODUCT");
+    }
+  }
+ 
   return nuevaVenta;
 }
 

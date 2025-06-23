@@ -7,6 +7,10 @@ module.exports = {
   mostrar(req, res) {
     const carrito = CarritosService.obtenerCarrito(req.session);
 
+    carrito.esServicio = carrito.items.some((item) => {
+      return item.esServicio;
+    });
+
     if (returnJSON(req)) {
       return res.status(200).json(carrito);
     }
@@ -16,14 +20,15 @@ module.exports = {
 
   async agregar(req, res) {
     try {
-      const { productoId, cantidad } = req.body;
+      const { productoId, cantidad, precio, esServicio } = req.body;
       const cantidadNum = parseInt(cantidad, 10);
+      const precioNum = parseFloat(precio);
 
-      if (!productoId || isNaN(cantidadNum) || cantidadNum <= 0) {
+      if (!productoId || isNaN(cantidadNum) || cantidadNum <= 0 || isNaN(precioNum) || precioNum < 0) {
         return res.status(400).send("Datos inválidos");
       }
 
-      await CarritosService.agregarProducto(req.session, productoId, cantidadNum);
+      await CarritosService.agregarProducto(req.session, productoId, cantidadNum, precioNum, esServicio);
 
       if (returnJSON(req)) {
         return res.status(200).json({ mensaje: "Producto agregado", carrito: req.session.carrito });
@@ -35,6 +40,7 @@ module.exports = {
       return res.status(400).send(error.message);
     }
   },
+
 
   eliminar(req, res) {
     const { productoId } = req.body;

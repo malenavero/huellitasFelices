@@ -21,6 +21,10 @@ module.exports = {
       filtro.pacienteId = query.pacienteId;
     }
 
+    if (query.pagado !== undefined) {
+      filtro.pagado = query.pagado === "true";
+    }
+
     const turnos = await Turno.find(filtro)
     .sort({ fecha: 1, hora: 1 }) // más viejo a más nuevo
     .populate("pacienteId") // Esto trae el objeto Paciente
@@ -40,7 +44,7 @@ module.exports = {
   },
 
   async create(data) {
-    const { fecha, hora, precio, servicio, pacienteId } = data;
+    const { fecha, hora, precio, servicio, pacienteId, pagado = false} = data;
 
     const pacienteExiste = await Paciente.findById(pacienteId);
     if (!pacienteExiste) {
@@ -54,7 +58,8 @@ module.exports = {
         hora,
         precio,
         servicio,
-        pacienteId
+        pacienteId,
+        pagado
       });
     } catch (err) {
       if (err.code === 11000) throw getDuplicatedError(err);

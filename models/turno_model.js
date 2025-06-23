@@ -28,6 +28,10 @@ const turnoSchema = new mongoose.Schema({
     ref: "Paciente",
     required: true
   },
+  pagado: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: () => new Date()

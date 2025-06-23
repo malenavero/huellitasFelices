@@ -53,6 +53,7 @@ block content
             th Hora
             th Paciente
             th Servicio
+            th Pago 
             th Acciones
         tbody
           each turno in turnos
@@ -61,6 +62,16 @@ block content
               td= turno.hora
               td= capitalizar(turno.pacienteId && turno.pacienteId.nombre) || "Desconocido"
               td= capitalizar(turno.servicio)
+              td
+                if turno.pagado
+                  a.button(href=`/comprobante/${turno._id}`, title="Ver Comprobante") Pagado
+                else
+                  form(method="POST", action="/carrito/agregar")
+                    input(type="hidden", name="esServicio", value=turno.servicio)
+                    input(type="hidden", name="productoId", value=turno._id)
+                    input(type="hidden", name="cantidad", value="1")
+                    input(type="hidden", name="precio", value=turno.precio)
+                    button(type="submit", class="button") Pagar
               td.acciones
                 .acciones-wrapper
                   a(href=`/turnos/${turno._id}`, class="button button-small", title="Ver")

@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/pacientes_controller.js");
-
-// const autorizarRol = require('../middlewares/autorizarRol');
+const autorizarRol = require("../middlewares/autorizarRol");
 const {
   validarPacienteCreate,
   validarPacienteUpdate
 } = require("../middlewares/validaciones_pacientes.js");
 
 
-//router.use(autorizarRol('admin', 'veterinaria_gerencia', 'veterinaria', 'gerencia'));
+// Middleware para autorizar acceso a rutas de pacientes
+router.use(autorizarRol("admin", "gerencia", "clinica"));
 
 
 // GET VISTAS

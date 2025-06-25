@@ -74,7 +74,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({
       clientPromise,
-      dbName: "huellitas",
+      dbName: process.env.DB_NAME,
       touchAfter: 24 * 3600, // Solo guarda cambios 1 vez por día si no hay modificaciones
       collectionName: "sessiones",
       ttl: 2 * 24 * 60 * 60, // 48 horas para cleanup automático

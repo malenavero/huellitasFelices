@@ -2,9 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/productos_controller.js");
-// const autorizarRol = require('../middlewares/autorizarRol');
+const autorizarRol = require("../middlewares/autorizarRol");
 const { validarProductoCreate, validarProductoUpdate, validarCantidad } = require("../middlewares/validaciones_productos.js");
 
+// Middleware para autorizar acceso a rutas de productos
+router.use(autorizarRol("admin","gerencia", "ventas", "recepcion"));
 
 // RUTAS PARA RENDERIZADO DE FORMULARIOS
 
@@ -38,8 +40,6 @@ router.get("/crear", controller.formCrear);
 router.get("/:id/editar", controller.formEditar);
 
 // RUTAS API
-
-//router.use(autorizarRol('admin','gerente', 'ventas', 'recepcionista_ventas', 'veterinaria_gerencia'));
 
 /**
  * @swagger

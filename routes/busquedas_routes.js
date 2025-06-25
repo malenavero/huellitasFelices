@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/busquedas_controller");
+const autorizarRol  = require("../middlewares/autorizarRol");
 const { validarBusquedaCreate, validarBusquedaUpdate } = require("../middlewares/validaciones_busquedas");
 const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require("../utils/constants.js");
+
+// Middleware para autorizar acceso a rutas de busquedas
+router.use(autorizarRol("admin","gerencia","clinica","recepcion"));
 
 // GET VISTAS
 /**

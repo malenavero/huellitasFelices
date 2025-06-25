@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/turnos_controller");
-// const autorizarRol = require('../middlewares/autorizarRol');
+const autorizarRol = require("../middlewares/autorizarRol");
 const { validarTurnoCreate, validarTurnoUpdate } = require("../middlewares/validaciones_turnos");
 
-//router.use(autorizarRol('admin', 'recepcionista', 'recepcionista_peluqueria', 'veterinaria_gerencia'));
+// Middleware para autorizar acceso a rutas de turnos
+router.use(autorizarRol("admin", "gerencia", "clinica", "peluqueria","recepcion"));
 
 // GET VISTAS
 /**

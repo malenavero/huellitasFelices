@@ -6,6 +6,18 @@ html(lang="es")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
     link(rel="stylesheet", href="/css/style.css")
   body
+    header
+    if usuario
+      div.usuario-info
+        span
+          i.fa-solid.fa-user.user-icon
+          | #{capitalizar(usuario.nombre)}
+        span
+          | Rol: #{usuario.rol}
+        a(href=logoutUrl, class="logout-btn", title="Cerrar sesión")
+          i.fa-solid.fa-right-from-bracket
+          |  Cerrar sesión
+
     nav.nav-links
       a(href="/home", class="nav-icon", title="Inicio")
         i.fa-solid.fa-house

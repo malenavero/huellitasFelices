@@ -9,6 +9,7 @@ const logger = require("morgan");
 const { setupSwagger } = require("./swagger.js");
 const methodOverride = require("method-override");
 const session = require("express-session");
+const helmet = require("helmet");
 
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login_routes.js");
@@ -51,6 +52,8 @@ const clientPromise = connectDB().then(async () => {
 const app = express();
 setupSwagger(app);
 
+// Seguridad - Helmet ayuda a proteger la aplicación configurando varios encabezados HTTP
+app.use(helmet());
 
 
 // view engine setup

@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/usuarios_controller.js");
-// const autorizarRol  = require('../middlewares/autorizarRol');
+const autorizarRol  = require("../middlewares/autorizarRol");
 const { ROLES } = require("../utils/constants.js");
 const {
   validarUsuarioCreate,
   validarUsuarioUpdate
 } = require("../middlewares/validaciones_usuarios.js");
 
-
+// Middleware para autorizar acceso a rutas de usuarios
+router.use(autorizarRol("admin"));
 
 /**
  * @swagger
@@ -45,7 +46,6 @@ router.get("/crear", (req, res) => {
  */
 router.get("/:id/editar", controller.formEditar);
 
-//router.use(autorizarRol('admin'));
 /**
  * @swagger
  * /usuarios:

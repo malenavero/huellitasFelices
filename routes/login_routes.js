@@ -18,7 +18,10 @@ const { validarLogin } = require("../middlewares/validaciones_usuarios");
  *         description: Formulario HTML de login
  */
 router.get("/", (req, res) => {
-  res.render("login");
+  if (!req.session || !req.session.usuario) {
+    return res.render("login");
+  }
+  res.redirect("/home");
 });
 
 /**

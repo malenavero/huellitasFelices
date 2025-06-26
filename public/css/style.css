@@ -85,6 +85,43 @@ a:hover {
   color: var(--color-secondary);
 }
 
+/* === USUARIO INFO === */
+.usuario-info {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-medium);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  gap: 20px;
+  font-family: inherit;
+}
+
+.user-icon {
+  color: var(--color-primary);
+  margin-right: 6px;
+}
+
+.logout-btn {
+  color: var(--color-danger);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn i {
+  margin-right: 6px;
+}
+
 /* === NAVEGACIÓN === */
 nav.nav-links {
   background-color: var(--color-white);

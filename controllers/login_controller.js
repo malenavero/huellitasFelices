@@ -15,8 +15,6 @@ module.exports = {
         email: email.trim(),
       });
 
-      console.log("usuario encontrado :", usuario);
-
 
       if (!usuario) {
         return handleError(req, res, 401, "Credenciales inválidas");
@@ -24,7 +22,6 @@ module.exports = {
 
       const passwordValido = await comparePassword(password, usuario.password);
 
-      console.log("passwordValido:: ", passwordValido)
       if (!passwordValido) {
         return handleError(req, res, 401, "Credenciales inválidas");
       }
@@ -37,8 +34,10 @@ module.exports = {
         ultimoAcceso: new Date(),
       };
      
+      console.log("========req.session::: ", req.session)
 
       if (returnJSON(req)) {
+        console.log("NO DEBERIA APARECER ESTO")
         return res.status(200).json(usuario);
       }
 

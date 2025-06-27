@@ -91,13 +91,21 @@ app.use(
       ttl: 2 * 24 * 60 * 60, // 48 horas para cleanup automático
     }),
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
+      //secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 4, // 4 horas de sesión activa
-      sameSite: "strict",
+      sameSite: "lax",
     },
   })
 );
+
+app.use((req, res, next) => {
+  console.log("Cookies:", req.headers.cookie);
+  console.log("Session:", req.session);
+  next();
+});
+
 app.use((req, res, next) => {
   res.locals.productosUrl = "/productos";
   res.locals.carritoUrl = "/carrito";

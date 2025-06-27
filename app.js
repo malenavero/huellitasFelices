@@ -53,7 +53,13 @@ const app = express();
 setupSwagger(app);
 
 // Seguridad - Helmet ayuda a proteger la aplicación configurando varios encabezados HTTP
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'"]
+  }
+}));
+
 
 
 // view engine setup

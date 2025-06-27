@@ -90,12 +90,14 @@ app.use(
       collectionName: "sessiones",
       ttl: 2 * 24 * 60 * 60, // 48 horas para cleanup automático
     }),
-    cookie: {
-      secure: true,
-      //secure: process.env.NODE_ENV === "production",
+    cookie: 
+    {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 4, // 4 horas de sesión activa
-      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 4, // 4 horas
+      
+      // Diferenciar según entorno
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "lax" : "strict",
     },
   })
 );

@@ -38,10 +38,10 @@ router.get("/", (req, res) => {
  *           schema:
  *             type: object
  *             required:
- *               - correo
+ *               - email
  *               - password
  *             properties:
- *               correo:
+ *               email:
  *                 type: string
  *                 format: email
  *               password:

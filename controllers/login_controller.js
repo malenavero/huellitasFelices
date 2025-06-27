@@ -4,14 +4,15 @@ const { comparePassword, returnJSON, handleError } = require("./utils.js");
 module.exports = {
   async login(req, res) {
     try {
-      const { correo = "", password = "" } = req.body;
+      console.log("Intento de Login :", req.body);
+      const { email = "", password = "" } = req.body;
 
-      if (!correo.trim() || !password.trim()) {
+      if (!email.trim() || !password.trim()) {
         return handleError(req, res, 400, "Correo y contraseña son requeridos");
       }
 
       const usuario = await UsuariosService.findOneByQuery({
-        correo: correo.trim(),
+        email: email.trim(),
       });
 
       if (!usuario) {
@@ -30,6 +31,7 @@ module.exports = {
         rol: usuario.rol,
         ultimoAcceso: new Date(),
       };
+     
 
       if (returnJSON(req)) {
         return res.status(200).json(usuario);

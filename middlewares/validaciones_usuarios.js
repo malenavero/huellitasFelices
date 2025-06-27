@@ -26,7 +26,7 @@ const validarUsuarioCreate = [
     "password",
     "telefono",
     "direccion",
-    "correo",
+    "email",
     "rol",
   ]),
   asignarDefaults({ direccion: "" }),
@@ -44,7 +44,7 @@ const validarUsuarioCreate = [
     .isLength({ min: 5 })
     .withMessage("La contraseña debe tener al menos 5 caracteres"),
 
-  body("correo")
+  body("email")
     .exists({ checkFalsy: true })
     .withMessage("Correo obligatorio")
     .isEmail()
@@ -75,7 +75,7 @@ const validarUsuarioUpdate = [
     "password",
     "telefono",
     "direccion",
-    "correo",
+    "email",
     "rol",
   ]),
 
@@ -90,7 +90,7 @@ const validarUsuarioUpdate = [
     .isLength({ min: 5 })
     .withMessage("La contraseña debe tener al menos 5 caracteres"),
 
-  body("correo").optional().isEmail().withMessage("Correo inválido"),
+  body("email").optional().isEmail().withMessage("Correo inválido"),
 
   body("telefono").optional(),
   ...validarTexto("telefono", 50),
@@ -111,9 +111,9 @@ const validarUsuarioUpdate = [
 ];
 
 const validarLogin = [
-  normalizarCamposTexto(["correo", "password"]),
+  normalizarCamposTexto(["email", "password"]),
 
-  body("correo")
+  body("email")
     .exists({ checkFalsy: true })
     .withMessage("Correo obligatorio")
     .isEmail()
@@ -126,7 +126,7 @@ const validarLogin = [
   generarManejoErrores({
     vista: "login",
     obtenerDatos: req => ({
-      correo: req.body.correo
+      email: req.body.email
     })
   })
 ];

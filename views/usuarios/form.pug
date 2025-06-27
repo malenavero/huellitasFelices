@@ -52,11 +52,11 @@ block content
             span.error= e.mensaje
 
     .form-group
-      label(for="correo") Correo electrónico:
-      input#correo(type="email", name="correo", autocomplete="email", value=(usuario && usuario.correo) || '', placeholder="Correo electrónico del usuario", required)
+      label(for="email") Correo electrónico:
+      input#correo(type="email", name="email", autocomplete="email", value=(usuario && usuario.email) || '', placeholder="Correo electrónico del usuario", required)
       if errores
         each e in errores
-          if e.campo === 'correo'
+          if e.campo === 'email'
             span.error= e.mensaje
 
     .form-group

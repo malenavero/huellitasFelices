@@ -74,7 +74,7 @@ function formCrear(req, res) {
 
 async function crear(req, res) {
   try {
-    const { nombre, apellido, password, telefono, direccion, correo, rol } = req.body;
+    const { nombre, apellido, password, telefono, direccion, email, rol } = req.body;
 
     const passEncriptada = await hashPassword(password);
 
@@ -84,7 +84,7 @@ async function crear(req, res) {
       password: passEncriptada,
       telefono,
       direccion,
-      correo,
+      email,
       rol,
     });
 
@@ -108,7 +108,7 @@ async function crear(req, res) {
           roles: ROLES,
           errores: [],
         },
-        campoFallback: "correo",
+        campoFallback: "email",
       });
     }
 
@@ -156,7 +156,7 @@ async function actualizar(req, res) {
           roles: ROLES,
           errores: [],
         },
-        campoFallback: "correo",
+        campoFallback: "email",
       });
     }
 

@@ -32,11 +32,13 @@ module.exports = {
         rol: usuario.rol,
         ultimoAcceso: new Date(),
       };
-     
+      console.log("SESION EN POST LOGIN: PRIMERO", req.session.usuario)
+
       if (returnJSON(req)) {
         return res.status(200).json(usuario);
       }
 
+      console.log("SESION EN POST LOGIN: ULTIMO", req.session.usuario)
       return res.status(200).redirect("/home");
     } catch (error) {
       console.error(error);

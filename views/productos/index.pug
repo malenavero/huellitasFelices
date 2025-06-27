@@ -64,6 +64,8 @@ block content
               form(method="POST", action="/carrito/agregar")
                 input(type="hidden", name="productoId", value=producto._id)
                 input(type="hidden", name="cantidad", value=1)
+                input(type="hidden", name="precio", value=producto.precio)
+
                 button(
                   type="submit",
                   class="button-primary",

@@ -15,11 +15,16 @@ module.exports = {
         email: email.trim(),
       });
 
+      console.log("usuario encontrado :", usuario);
+
+
       if (!usuario) {
         return handleError(req, res, 401, "Credenciales inválidas");
       }
 
       const passwordValido = await comparePassword(password, usuario.password);
+
+      console.log("passwordValido:: ", passwordValido)
       if (!passwordValido) {
         return handleError(req, res, 401, "Credenciales inválidas");
       }

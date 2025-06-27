@@ -10,6 +10,9 @@ async function findById(id) {
 }
 
 async function findOneByQuery(query) {
+  console.log("USUARIOS EXISTENTES", Usuario.find().lean())
+    console.log("query", query)
+
   return await Usuario.findOne(query).lean();
 }
 

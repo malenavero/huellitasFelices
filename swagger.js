@@ -1,7 +1,13 @@
 // Aca tambien pedi ayuda a la IA para configurar el archivo de swagger
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const { CATEGORIAS_PRODUCTO, TIPOS_BUSQUEDA, ANIMALES_VALIDOS, ROLES } = require("./utils/constants.js");
+const { 
+  CATEGORIAS_PRODUCTO,
+  TIPOS_BUSQUEDA,
+  ANIMALES_VALIDOS, ROLES,
+  METODOS_PAGO,
+  ESTADOS_VENTA
+} = require("./utils/constants.js");
 
 
 const options = {
@@ -20,6 +26,14 @@ const options = {
       {
         name: "Productos (Vistas)",
         description: "Vistas HTML para formularios de productos",
+      },
+      {
+        name: "Ventas",
+        description: "Operaciones relacionadas con ventas"
+      },
+      {
+        name: "Carrito",
+        description: "Operaciones relacionadas con el carrito de compras (en sesión)"
       },
       {
         name: "Pacientes",
@@ -56,7 +70,9 @@ const options = {
       { 
         name: "Login",
         description: "Formulario e inicio de sesión de usuarios" 
-      }
+      },
+      
+
     ],
     components: {
       schemas: {
@@ -120,6 +136,134 @@ const options = {
           example: {
             precio: 18999,
           },
+        },
+        CarritoItem: {
+          type: "object",
+          properties: {
+            producto: { type: "string", description: "ID del producto" },
+            nombre: { type: "string" },
+            cantidad: { type: "integer", minimum: 1 },
+            precioUnitario: { type: "number", minimum: 0 },
+            subtotal: { type: "number", minimum: 0 },
+            esServicio: { type: "boolean", description: "Indica si el producto es un servicio" }
+          },
+        },
+        Carrito: {
+          type: "object",
+          properties: {
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/CarritoItem" }
+            },
+            total: { type: "number" },
+            esServicio: { type: "boolean" }
+          }
+        },
+        Venta: {
+          type: "object",
+          properties: {
+            id: { type: "string", description: "ID de la venta" },
+            usuarioId: { type: "string", description: "ID del usuario que realizó la venta" },
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/ItemVenta" }
+            },
+            total: { type: "number", description: "Total de la venta" },
+            pago: {
+              type: "object",
+              properties: {
+                metodo: {
+                  type: "string",
+                  enum: METODOS_PAGO,
+                  description: "Método de pago utilizado"
+                },
+                detalles: {
+                  type: "object",
+                  description: "Detalles adicionales del pago (puede variar según método)"
+                }
+              }
+            },
+            estado: {
+              type: "string",
+              enum: ESTADOS_VENTA,
+              description: "Estado actual de la venta"
+            },
+            createdAt: { type: "string", format: "date-time" },
+            updatedAt: { type: "string", format: "date-time" },
+            fechaPago: { type: "string", format: "date-time" },
+            observaciones: { type: "string" }
+          }
+        },
+        ItemVenta: {
+          type: "object",
+          properties: {
+            productoId: { type: "string", description: "ID del producto vendido" },
+            nombreProducto: { type: "string", description: "Nombre del producto" },
+            cantidad: { type: "integer", minimum: 1, description: "Cantidad vendida" },
+            precioUnitario: { type: "number", minimum: 0, description: "Precio por unidad" },
+            subtotal: { type: "number", minimum: 0, description: "Subtotal de este ítem" }
+          }
+        },
+        VentaInput: {
+          type: "object",
+          required: ["usuarioId", "items", "total", "pago"],
+          properties: {
+            usuarioId: { type: "string" },
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/ItemVenta" }
+            },
+            total: { type: "number" },
+            pago: {
+              type: "object",
+              required: ["metodo"],
+              properties: {
+                metodo: {
+                  type: "string",
+                  enum: METODOS_PAGO
+                },
+                detalles: {
+                  type: "object"
+                }
+              }
+            },
+            observaciones: { type: "string" }
+          }
+        },
+        VentaUpdateInput: {
+          type: "object",
+          properties: {
+            items: {
+              type: "array",
+              items: { $ref: "#/components/schemas/ItemVenta" }
+            },
+            total: { type: "number" },
+            pago: {
+              type: "object",
+              properties: {
+                metodo: {
+                  type: "string",
+                  enum: METODOS_PAGO
+                },
+                detalles: {
+                  type: "object"
+                }
+              }
+            },
+            estado: {
+              type: "string",
+              enum: ESTADOS_VENTA
+            },
+            fechaPago: {
+              type: "string",
+              format: "date-time"
+            },
+            observaciones: { type: "string" }
+          },
+          example: {
+            estado: "pagado",
+            observaciones: "Venta corregida por error en precio"
+          }
         },
         Paciente: {
           type: "object",

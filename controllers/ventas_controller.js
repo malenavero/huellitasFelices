@@ -13,12 +13,22 @@ module.exports = {
         return handleError(req, res, 400, "El carrito está vacío");
       }
 
+      if (returnJSON(req)) {
+        const resumenCarrito = {
+          items: carrito.items,
+          total: carrito.total,
+          metodosPagoDisponibles: METODOS_PAGO,
+        };
+        return res.status(200).json(resumenCarrito);
+      }
+
       return res.render("ventas/checkout", { carrito, METODOS_PAGO });
     } catch (error) {
       console.error("Error al mostrar resumen:", error);
       return handleError(req, res, 500, "Error al mostrar resumen");
     }
   },
+
 
   // Confirmar pago, crear venta y mostrar comprobante
   async confirmarPago(req, res) {
@@ -34,6 +44,9 @@ module.exports = {
 
       const ventaConfirmada = await VentasService.crearYConfirmarVenta(userId, carrito, metodoPago);
 
+      if (returnJSON(req)) {
+        return res.status(200).json(ventaConfirmada);
+      }
       // Vaciar carrito si el pago fue exitoso
       CarritosService.vaciarCarrito(req.session);
 
@@ -54,7 +67,9 @@ module.exports = {
       if (!venta) {
         return handleError(req, res, 404, "Venta no encontrada");
       }
-
+      if (returnJSON(req)) {
+        return res.status(200).json(venta);
+      }
       return res.render("ventas/comprobante", { venta });
     } catch (error) {
       console.error("Error al obtener detalle de venta:", error);

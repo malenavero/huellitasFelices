@@ -28,7 +28,7 @@ const fichaMedicaSchema = new mongoose.Schema({
     trim: true,
     default: ""
   },
-  actualizadoEn: {
+  updatedAt: {
     type: Date,
     default: () => new Date()
   }
@@ -89,9 +89,8 @@ const pacienteSchema = new mongoose.Schema({
     type: [consultaSchema],
     default: []
   },
-
-  createdAt: { type: Date, default: () => new Date() },
-  updatedAt: { type: Date, default: () => new Date() }
+}, {
+  timestamps: true
 });
 
 // Índice compuesto para evitar duplicados
@@ -113,19 +112,18 @@ pacienteSchema.virtual("edad").get(function () {
 });
 
 
-// Hooks para fechas de actualizacion
+// Hooks para fechas de actualizacion de los embebidos
 pacienteSchema.pre("save", function (next) {
-  this.updatedAt = new Date();
-  if (this.fichaMedica) this.fichaMedica.actualizadoEn = new Date();
+  if (this.fichaMedica) this.fichaMedica.updatedAt = new Date();
   next();
 });
 pacienteSchema.pre("findOneAndUpdate", function (next) {
-  this._update.updatedAt = new Date();
   if (this._update.fichaMedica) {
-    this._update["fichaMedica.actualizadoEn"] = new Date();
+    this._update["fichaMedica.updatedAt"] = new Date();
   }
   next();
 });
+
 
 
 pacienteSchema.set("toJSON", { virtuals: true });

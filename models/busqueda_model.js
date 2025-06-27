@@ -60,16 +60,9 @@ const busquedaSchema = new mongoose.Schema({
     type: Date,
     default: () => new Date()
   }
+}, {
+  timestamps: true
 });
 
-busquedaSchema.pre("save", function (next) {
-  this.updatedAt = new Date();
-  next();
-});
-
-busquedaSchema.pre("findOneAndUpdate", function (next) {
-  this._update.updatedAt = new Date();
-  next();
-});
 
 module.exports = mongoose.model("Busqueda", busquedaSchema);

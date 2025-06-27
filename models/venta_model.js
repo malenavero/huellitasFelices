@@ -59,26 +59,11 @@ const ventaSchema = new mongoose.Schema({
     enum: ESTADOS_VENTA,
     default: "pendiente"
   },
-  createdAt: {
-    type: Date,
-    default: () => new Date()
-  },
-  updatedAt: {
-    type: Date,
-    default: () => new Date()
-  },
   fechaPago: Date,
   observaciones: String
+}, {
+  timestamps: true
 });
 
-ventaSchema.pre("save", function (next) {
-  this.updatedAt = new Date();
-  next();
-});
-
-ventaSchema.pre("findOneAndUpdate", function (next) {
-  this._update.updatedAt = new Date();
-  next();
-});
 
 module.exports = mongoose.model("Venta", ventaSchema);

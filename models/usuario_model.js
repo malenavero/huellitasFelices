@@ -12,15 +12,9 @@ const usuarioSchema = new mongoose.Schema({
   rol: { 
     type: String,
     enum: ROLES,
-  },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-});
-
-// Middleware para actualizar updatedAt automáticamente
-usuarioSchema.pre("save", function (next) {
-  this.updatedAt = new Date();
-  next();
+  }
+}, {
+  timestamps: true
 });
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);

@@ -31,15 +31,9 @@ const turnoSchema = new mongoose.Schema({
   pagado: {
     type: Boolean,
     default: false
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date()
-  },
-  updatedAt: {
-    type: Date,
-    default: () => new Date()
   }
+}, {
+  timestamps: true
 });
 
 // indice único para evitar turnos duplicados en fecha + hora + servicio
@@ -48,11 +42,5 @@ turnoSchema.index(
   { unique: true, name: "turno_unico_por_fecha_hora_servicio" }
 );
 
-
-// Hook para mantener actualizado el campo `updatedAt`
-turnoSchema.pre("findOneAndUpdate", function (next) {
-  this._update.updatedAt = new Date();
-  next();
-});
 
 module.exports = mongoose.model("Turno", turnoSchema);

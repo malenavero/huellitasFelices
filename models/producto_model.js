@@ -33,25 +33,9 @@ const productoSchema = new mongoose.Schema({
   fechaVencimiento: {
     type: Date,
     default: null
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date()
-  },
-  updatedAt: {
-    type: Date,
-    default: () => new Date()
   }
-});
-
-productoSchema.pre("save", function (next) {
-  this.updatedAt = new Date();
-  next();
-});
-
-productoSchema.pre("findOneAndUpdate", function (next) {
-  this._update.updatedAt = new Date();
-  next();
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model("Producto", productoSchema);

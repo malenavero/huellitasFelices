@@ -23,7 +23,7 @@ block content
           | #{venta.fechaPago.toLocaleDateString()} #{venta.fechaPago.toLocaleTimeString()}
         p
           span.detail-label Vendido por:
-          | #{capitalizar("Aca sacariamos el req.user..nombre")}
+          | #{capitalizar(usuarioNombre)}
         p
           span.detail-label Estado:
           | #{venta.estado.toUpperCase()}

@@ -40,7 +40,7 @@ module.exports = {
       }
 
       const { metodoPago } = req.body;
-      const userId = "68558bd7d35297459f6cb56b";// req.user._id;
+      const userId = req.session.usuario.id;
 
       const ventaConfirmada = await VentasService.crearYConfirmarVenta(userId, carrito, metodoPago);
 
@@ -60,7 +60,7 @@ module.exports = {
   // Mostrar detalle de una venta ya concretada
   async detalle(req, res) {
     try {
-      const userId = "68558bd7d35297459f6cb56b";// req.user._id;
+      const userId = req.session.usuario.id;
 
       const venta = await VentasService.obtenerVentaPorId(req.params.id, userId);
 
@@ -70,7 +70,8 @@ module.exports = {
       if (returnJSON(req)) {
         return res.status(200).json(venta);
       }
-      return res.render("ventas/comprobante", { venta });
+      const usuarioNombre = req.session.usuario.nombre;
+      return res.render("ventas/comprobante", { venta, usuarioNombre });
     } catch (error) {
       console.error("Error al obtener detalle de venta:", error);
       return handleError(req, res, 500, "Error al obtener detalle de venta");
@@ -82,7 +83,7 @@ module.exports = {
   async listar(req, res) {
     try {
       const { filtro } = req.query; // 'hoy', 'semana', 'mes'
-      const userId = "68558bd7d35297459f6cb56b";// req.user._id;
+      const userId = req.session.usuario.id;
       const ventas = await VentasService.listarVentasPorUsuarioConFiltro(userId, filtro);
 
       if (returnJSON(req)) return res.status(200).json(ventas);

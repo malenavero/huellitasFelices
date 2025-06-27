@@ -17,7 +17,7 @@ async function crearYConfirmarVenta(usuarioId, carrito, metodoPago) {
   }));
 
   const nuevaVenta = await Venta.create({
-    usuarioId,
+    usuarioId: usuarioId.toString(),
     items,
     total: carrito.total,
     pago: {

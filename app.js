@@ -64,7 +64,7 @@ setupSwagger(app);
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
-
+app.set("trust proxy", 1); 
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -91,7 +91,7 @@ app.use(
       ttl: 2 * 24 * 60 * 60, // 48 horas para cleanup automático
     }),
     cookie: {
-      secure: false,
+      secure: true,
       //secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 4, // 4 horas de sesión activa

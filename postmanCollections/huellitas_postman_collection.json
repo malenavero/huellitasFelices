@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "2b25cbe6-43c6-4daf-b866-74c883b636d9",
-		"name": "Huellitas Felices - Endpoints Básicos",
+		"_postman_id": "907d4736-75ec-43f9-8972-a95f768d052f",
+		"name": "Huellitas Felices - Endpoints Extendido",
 		"description": "Colección de endpoints básicos para productos, pacientes, turnos y mascotas perdidas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "19669280"
@@ -87,7 +87,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/productos/2",
+							"raw": "http://localhost:3000/productos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -95,7 +95,7 @@
 							"port": "3000",
 							"path": [
 								"productos",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -117,7 +117,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "  {\n    \"nombre\": \"Nutrique gato adulto\",\n    \"categoria\": \"comida\", // ['farmacia', 'comida', 'otros'];\n    \"precio\": 5689,\n    \"stock\": 10,\n    \"fechaVencimiento\": \"2026-10-12\", //aaaa-mm-dd\n    \"descripcion\": \"Mayor a 2 años\"\n  }"
+							"raw": "  {\n    \"nombre\": \"Nutrique perro adulto\",\n    \"categoria\": \"comida\", // ['farmacia', 'comida', 'otros'];\n    \"precio\": 5689,\n    \"stock\": 10,\n    \"fechaVencimiento\": \"2026-10-12\", //aaaa-mm-dd\n    \"descripcion\": \"Mayor a 2 años\"\n  }"
 						},
 						"url": {
 							"raw": "http://localhost:3000/productos",
@@ -149,10 +149,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"precio\": \"9000\"\n}"
+							"raw": "{\n  \"stock\": \"100\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/productos/3",
+							"raw": "http://localhost:3000/productos/685866f3b1e34c7b8c50d548",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -160,7 +160,7 @@
 							"port": "3000",
 							"path": [
 								"productos",
-								"3"
+								"685866f3b1e34c7b8c50d548"
 							]
 						}
 					},
@@ -213,7 +213,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cantidad\": 1\n}",
+							"raw": "{\n    \"cantidad\": 200\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -674,7 +674,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/busquedas?activa=true",
+							"raw": "http://localhost:3000/busquedas",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -701,7 +701,8 @@
 								},
 								{
 									"key": "activa",
-									"value": "true"
+									"value": "true",
+									"disabled": true
 								}
 							]
 						}
@@ -934,13 +935,52 @@
 					"response": []
 				},
 				{
+					"name": "Listar usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
 					"name": "Login de usuario",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "emanuel@huellitasfelices.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"correo\":\"nicolas@ejemplo.com\",\n  \"password\":\"12345\"\n}",
+							"raw": "{\n  \"correo\":\"emanuel@huellitasfelices.com\",\n  \"password\":\"12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -955,27 +995,262 @@
 							],
 							"port": "3000",
 							"path": [
-								"usuarios",
 								"login"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Carrito",
+			"item": [
 				{
-					"name": "Listar usuarios",
+					"name": "Mostrar carrito",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/usuarios",
+							"raw": "http://localhost:3000/carrito",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"usuarios"
+								"carrito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar producto al carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productoId\": \"685866f3b1e34c7b8c50d548\",\n  \"cantidad\": 2,\n  \"precio\": 5000,\n  \"esServicio\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/carrito/agregar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carrito",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar producto del carrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productoId\": \"60f8d0c2c25e7e001f72b95a\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/carrito/eliminar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carrito",
+								"eliminar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar cantidad",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productoId\": \"685866f3b1e34c7b8c50d548\",\n  \"accion\": \"add\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/carrito/actualizar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carrito",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vaciar carrito",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carrito/vaciar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carrito",
+								"vaciar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ventas",
+			"item": [
+				{
+					"name": "Resumen de compra (checkout)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/ventas/checkout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ventas",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmar pago",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "metodoPago",
+									"value": "efectivo"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/ventas/pagar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ventas",
+								"pagar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver venta por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/ventas/685ef34b32211a5f53e2bdfc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ventas",
+								"685ef34b32211a5f53e2bdfc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar ventas (filtro=mes)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/ventas?filtro=mes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ventas"
+							],
+							"query": [
+								{
+									"key": "filtro",
+									"value": "mes"
+								}
 							]
 						}
 					},

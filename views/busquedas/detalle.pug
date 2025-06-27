@@ -31,7 +31,7 @@ block content
         span.detail-label Estado:
         | #{busqueda.activa ? 'Activa' : 'Resuelta'}
 
-    if busqueda.imagen
-      img(src=busqueda.imagen, alt=`Imagen de ${busqueda.nombre}`, style="max-width: 300px;")
+      if busqueda.imagen
+        img(src=busqueda.imagen, alt=`Imagen de ${busqueda.nombre}`, style="max-width: 300px;")
 
     a.button-primary(href="/busquedas") ← Volver al listado

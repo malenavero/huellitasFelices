@@ -68,6 +68,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
 
+// Para las imagenes de las mascotas /perdidas encontradas
+app.use("/uploads", express.static("public/uploads"));
+
 // Session settings
 app.use(
   session({

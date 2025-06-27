@@ -81,7 +81,7 @@ block content
 
     .form-group
       label(for="imagen") Imagen URL:
-      input#imagen(type="url", name="imagen", placeholder="URL de la imagen", value=(busqueda && busqueda.imagen) || '')
+      input#imagen(type="text", name="imagen", placeholder="URL de la imagen", value=(busqueda && busqueda.imagen) || '')
       if errores
         each e in errores
           if e.campo === 'imagen'

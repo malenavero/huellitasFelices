@@ -1,6 +1,7 @@
 const BusquedaService = require("../services/busquedas_service.js");
 const { ANIMALES_VALIDOS, TIPOS_BUSQUEDA } = require("../utils/constants.js");
-const { returnJSON, handleError, urls, handleDuplicados } = require("./utils.js");
+const { returnJSON, handleError, urls, handleDuplicados, guardarImagenDesdeURL, obtenerExtensionSegura } = require("./utils.js");
+const path = require("path");
 
 async function getListParams(query = {}) {
   const busquedas = await BusquedaService.findAll(query);
@@ -45,7 +46,7 @@ module.exports = {
       if (returnJSON(req)) {
         return res.status(200).json(busqueda);
       }
-
+      console.log("busqueda.imagen: ", busqueda.imagen)
       return res.status(200).render("busquedas/detalle", { busqueda });
     } catch (error) {
       console.log("Error:", error);
@@ -82,6 +83,16 @@ module.exports = {
 
   async crear(req, res) {
     try {
+
+      const creatingWithHttpImage = req.body && req.body.imagen && req.body.imagen.startsWith("http");
+      if(creatingWithHttpImage) {
+        const newImg = req.body.imagen;
+        const extension = path.extname(newImg) || ".jpg";
+        const nombreArchivo = `busqueda-${Date.now()}${extension}`;
+        const rutaLocal = await guardarImagenDesdeURL(newImg, nombreArchivo);
+        req.body.imagen = rutaLocal; 
+      }
+
       const nuevaBusqueda = await BusquedaService.create(req.body);
 
       if (returnJSON(req)) {
@@ -116,11 +127,22 @@ module.exports = {
 
   async actualizar(req, res) {
     try {
+      const updatingWithHttpImage = req.body && req.body.imagen && req.body.imagen.startsWith("http");
+      if(updatingWithHttpImage) {
+        const newImg = req.body.imagen;
+        const extension = obtenerExtensionSegura(newImg, ".jpg");
+        const nombreArchivo = `busqueda-${Date.now()}${extension}`;
+        const rutaLocal = await guardarImagenDesdeURL(newImg, nombreArchivo);
+        req.body.imagen = rutaLocal; 
+      }
       const busquedaActualizada = await BusquedaService.update(req.params.id, req.body);
 
       if (!busquedaActualizada) {
         return handleError(req, res, 404, "Búsqueda no encontrada");
       }
+
+      
+
 
       if (returnJSON(req)) {
         return res.status(200).json(busquedaActualizada);

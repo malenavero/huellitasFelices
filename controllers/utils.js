@@ -1,5 +1,9 @@
 const bcrypt = require("bcrypt");
 
+const fs = require("fs");
+const path = require("path");
+const axios = require("axios");
+
 function returnJSON(req) {
     const accept = req.headers.accept || "";
     return (
@@ -64,6 +68,40 @@ async function handleDuplicados({ campos, req, res, modo, vista, datos = {}, cam
 
 }
 
+const { URL } = require("url");
+
+function obtenerExtensionSegura(desdeURL, fallback = ".jpg") {
+  try {
+    const parsed = new URL(desdeURL);
+    const ext = path.extname(parsed.pathname);
+    return ext || fallback;
+  // eslint-disable-next-line no-unused-vars
+  } catch (e) {
+    return fallback;
+  }
+}
+
+
+
+async function guardarImagenDesdeURL(url, nombreArchivo) {
+  const rutaDestino = path.join(__dirname, "../public/uploads", nombreArchivo);
+  const writer = fs.createWriteStream(rutaDestino);
+
+  const response = await axios({
+    url,
+    method: "GET",
+    responseType: "stream"
+  });
+
+  response.data.pipe(writer);
+
+  return new Promise((resolve, reject) => {
+    writer.on("finish", () => resolve(`/uploads/${nombreArchivo}`));
+    writer.on("error", reject);
+  });
+}
+
+
 
 const urls = {
   productosUrl: "/productos",
@@ -80,5 +118,7 @@ module.exports = {
     comparePassword,
     handleError,
     handleDuplicados,
+    guardarImagenDesdeURL,
+    obtenerExtensionSegura,
     urls
 }

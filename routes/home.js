@@ -1,7 +1,7 @@
 // routes/home.js
 const express = require("express");
 const router = express.Router();
-const { urls} = require("./utils.js");
+const { urls} = require("../controllers/utils.js");
 
 
 router.get("/", (req, res) => {

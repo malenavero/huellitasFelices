@@ -62,12 +62,10 @@ block content
         strong $#{carrito.total.toFixed(2)}
 
     .acciones-final
-    .acciones-izq
       if !carrito.esServicio
         a(href=productosUrl, class="button-primary button-create")
           i.fa-solid.fa-arrow-left
           |  Seguir comprando
-
 
       if carrito.items.length > 0
         form(action="/ventas/checkout", method="GET")

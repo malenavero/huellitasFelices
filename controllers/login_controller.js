@@ -4,7 +4,6 @@ const { comparePassword, returnJSON, handleError } = require("./utils.js");
 module.exports = {
   async login(req, res) {
     try {
-      console.log("Intento de Login :", req.body);
       const { email = "", password = "" } = req.body;
 
       if (!email.trim() || !password.trim()) {

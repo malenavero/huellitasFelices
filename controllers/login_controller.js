@@ -34,10 +34,7 @@ module.exports = {
         ultimoAcceso: new Date(),
       };
      
-      console.log("========req.session::: ", req.session)
-
       if (returnJSON(req)) {
-        console.log("NO DEBERIA APARECER ESTO")
         return res.status(200).json(usuario);
       }
 

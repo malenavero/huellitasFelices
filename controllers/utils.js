@@ -105,13 +105,17 @@ async function guardarImagenDesdeURL(url, nombreArchivo) {
 
 const urls = {
   productosUrl: "/productos",
+  carritoUrl: "/carrito",
+  ventasUrl: "/ventas",
   pacientesUrl: "/pacientes",
   turnosUrl: "/turnos",
   busquedasUrl: "/busquedas",
   usuariosUrl: "/usuarios",
-  documentacionUrl: "/documentacion"
+  documentacionUrl: "/documentacion",
+  loginUrl: "/login",
+  logoutUrl: "/logout",
 }
-
+ 
 module.exports = {
     returnJSON,
     hashPassword,

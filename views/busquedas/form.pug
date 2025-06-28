@@ -47,7 +47,8 @@ block content
 
     .form-group
       label(for="fecha") Fecha:
-      input#fecha(type="date", name="fecha", value=(busqueda && busqueda.fecha) || '')
+      - const fechaFormateada = busqueda ? formatearFecha(busqueda.fecha) : ''
+      input#fecha(type="date", name="fecha", value=fechaFormateada)
       if errores
         each e in errores
           if e.campo === 'fecha'

@@ -7,7 +7,8 @@ block content
   form(method="POST", action=modo === 'editar' ? `/turnos/${turno._id}?_method=PUT` : '/turnos', class="form-box")
 
     label(for="fecha") Fecha:
-      input(type="date", name="fecha", id="fecha", required, value=turno.fechaStr)
+      - const fechaFormateada = turno ? formatearFecha(turno.fecha) : ''
+      input(type="date", name="fecha", id="fecha", required, value=fechaFormateada)
 
     if errores
       each e in errores

@@ -81,7 +81,7 @@ block content
       input#fichaMedica.fechaNacimiento(
         type="date",
         name="fichaMedica[fechaNacimiento]",
-        value=(ficha.fechaNacimiento ? new Date(ficha.fechaNacimiento).toISOString().split('T')[0] : '')
+        value=(ficha.fechaNacimiento ? formatearFecha(ficha.fechaNacimiento) : '')
       )
       if errores
         each e in errores

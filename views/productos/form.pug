@@ -44,7 +44,7 @@ block content
 
     .form-group
       label(for="fechaVencimiento") Fecha de vencimiento:
-      - const fechaFormateada = producto && producto.fechaVencimiento ? new Date(producto.fechaVencimiento).toISOString().split('T')[0] : ''
+      - const fechaFormateada = producto ? formatearFecha(producto.fechaVencimiento) : ''
       input#fechaVencimiento(type="date", name="fechaVencimiento", value=fechaFormateada)
       if errores
         each e in errores

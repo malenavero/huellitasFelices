@@ -65,7 +65,6 @@ async function cargarFormParams({ modo, turno, errores = [] }) {
 
   turno = turno || {};
   turno.paciente = turno.paciente || {};
-  turno.fechaStr = turno.fecha ? new Date(turno.fecha).toISOString().split("T")[0] : "";
 
   const horasDisponibles = [];
   for (let h = 8; h <= 20; h++) {

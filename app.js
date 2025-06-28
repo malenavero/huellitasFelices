@@ -141,6 +141,10 @@ app.locals.capitalizar = function(texto) {
     .join(" ");
 };
 
+app.locals.formatearFecha = function(fecha) {
+  return fecha ? new Date(fecha).toISOString().split("T")[0] : "";
+};
+
 // Rutas públicas
 app.use("/login", loginRouter);
 app.use("/documentacion", documentacionRouter);

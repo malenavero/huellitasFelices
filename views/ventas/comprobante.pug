@@ -8,7 +8,7 @@ block content
   else
     .print-header
       h2 Comprobante # #{venta._id}
-      button.button-secundario.print-only(href="#", onclick="window.print()")
+      button#btnPrint.button-secundario.print-only(type="button")
         i.fa-solid.fa-print
         |  Imprimir
 
@@ -52,9 +52,16 @@ block content
       .comprobante-total
         | Total pagado: $#{venta.total.toFixed(2)}
 
-
-
     .acciones-final.no-print
       a.button-primary(href="/ventas")
         i.fa-solid.fa-arrow-left
         |  Ver Historial de Compras
+
+  //- Script para asignar el evento de impresión sin usar inline onclick
+  script.
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("btnPrint");
+      if (btn) {
+        btn.addEventListener("click", () => window.print());
+      }
+    });

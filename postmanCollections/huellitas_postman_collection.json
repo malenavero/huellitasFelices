@@ -380,10 +380,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Gala\"\n}"
+							"raw": "{\n  \"nombre\": \"\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/pacientes/1",
+							"raw": "http://localhost:3000/pacientes/68558bd7d35297459f6cb580",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -391,7 +391,7 @@
 							"port": "3000",
 							"path": [
 								"pacientes",
-								"1"
+								"68558bd7d35297459f6cb580"
 							]
 						}
 					},
@@ -724,7 +724,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/busquedas/1",
+							"raw": "http://localhost:3000/busquedas/685efa69fb1955eadd5da6a3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -732,7 +732,7 @@
 							"port": "3000",
 							"path": [
 								"busquedas",
-								"1"
+								"685efa69fb1955eadd5da6a3"
 							]
 						}
 					},
@@ -887,9 +887,20 @@
 				},
 				{
 					"name": "Actualizar un usuario por ID",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \n  \"email\": \"\"\n\n}",

@@ -45,7 +45,7 @@ block content
                       name="accion",
                       value="add",
                       class="btn-cantidad",
-                      disabled=(item.cantidad >= item.stockDisponible)
+                      disabled=(item.cantidad > item.stockDisponible)
                     ) +
 
                 td $#{item.precioUnitario.toFixed(2)}

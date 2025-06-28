@@ -9,7 +9,7 @@ const logger = require("morgan");
 const { setupSwagger } = require("./swagger.js");
 const methodOverride = require("method-override");
 const session = require("express-session");
-// const helmet = require("helmet");
+const helmet = require("helmet");
 
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login_routes.js");
@@ -53,11 +53,11 @@ const app = express();
 setupSwagger(app);
 
 // Seguridad - Helmet ayuda a proteger la aplicación configurando varios encabezados HTTP
-// app.use(helmet.contentSecurityPolicy({
-//   directives: {
-//     defaultSrc: ["'self'"],
-//     scriptSrc: ["'self'", "'unsafe-inline'"]  }
-// }));
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'"]  }
+}));
 
 
 

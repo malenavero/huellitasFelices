@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
+const { URL } = require("url");
 
 function returnJSON(req) {
     const accept = req.headers.accept || "";
@@ -68,7 +69,6 @@ async function handleDuplicados({ campos, req, res, modo, vista, datos = {}, cam
 
 }
 
-const { URL } = require("url");
 
 function obtenerExtensionSegura(desdeURL, fallback = ".jpg") {
   try {

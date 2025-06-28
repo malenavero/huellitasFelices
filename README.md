@@ -33,13 +33,16 @@ Podés acceder a la aplicación ya desplegada desde este enlace:
 🌐 https://huellitas-felices.onrender.com
 
 #### Usuarios de prueba
-Email	Contraseña	Rol
-emanuel@huellitasfelices.com	12345	Gerencia
-admin@huellitasfelices.com	12345	Admin
-gonzalo@huellitasfelices.com	12345	Ventas
-susana@huellitasfelices.com	12345	Peluquería
-paula@huellitasfelices.com	12345	Clínica
-cristian@huellitasfelices.com	12345	Recepción
+
+| Email                          | Contraseña | Rol         |
+|-------------------------------|------------|-------------|
+| emanuel@huellitasfelices.com  | 12345      | Gerencia    |
+| admin@huellitasfelices.com    | 12345      | Admin       |
+| gonzalo@huellitasfelices.com  | 12345      | Ventas      |
+| susana@huellitasfelices.com   | 12345      | Peluquería  |
+| paula@huellitasfelices.com    | 12345      | Clínica     |
+| cristian@huellitasfelices.com | 12345      | Recepción   |
+
 
 ## Documentación de la API 📚
 

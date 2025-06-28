@@ -26,7 +26,7 @@ block content
           tbody
             each item in carrito.items
               tr
-                td= item.nombre
+                td= capitalizar(item.nombre)
                 td.cantidad-control
                   form(method="POST", action="/carrito/actualizar", style="display:inline;")
                     input(type="hidden", name="productoId", value=item.producto)

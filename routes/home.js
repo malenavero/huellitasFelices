@@ -5,9 +5,6 @@ const { urls} = require("../controllers/utils.js");
 
 
 router.get("/", (req, res) => {
-  console.log("LLEGO A HOME")
-  console.log("ventasUrl::: ", urls)
-
   res.render("home", {
     title: "Huellitas Felices",
     ...urls

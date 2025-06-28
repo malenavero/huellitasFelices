@@ -36,13 +36,13 @@ require("dotenv").config();
 const clientPromise = connectDB().then(async () => {
   if (process.env.NODE_ENV !== "production") {
     // Esto lo comento porque ahora está la base en atlas, así que no hace falta
-    // console.log("🌱 Ejecutando seeds...");
+    // console.log("Ejecutando seeds...");
     // await seedUsuarios();
     // await seedProductos();
     // await seedPacientes();
     // await seedBusquedas();
     // await seedTurnos();
-    // console.log("✅ Seeds ejecutados.");
+    // console.log("Seeds ejecutados.");
   }
   // Retornar el cliente para connect-mongo
   return mongoose.connection.getClient();
@@ -101,12 +101,6 @@ app.use(
     },
   })
 );
-
-app.use((req, res, next) => {
-  console.log("Cookies:", req.headers.cookie);
-  console.log("Session:", req.session);
-  next();
-});
 
 app.use((req, res, next) => {
   res.locals.productosUrl = "/productos";

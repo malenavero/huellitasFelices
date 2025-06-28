@@ -46,7 +46,6 @@ module.exports = {
       if (returnJSON(req)) {
         return res.status(200).json(busqueda);
       }
-      console.log("busqueda.imagen: ", busqueda.imagen)
       return res.status(200).render("busquedas/detalle", { busqueda });
     } catch (error) {
       console.log("Error:", error);

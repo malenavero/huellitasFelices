@@ -4,7 +4,8 @@ Aplicación web para la gestión integral de una veterinaria y peluquería canin
 
 ## Funcionalidades principales
 
-- **Autenticación básica de usuarios:** Permite el acceso mediante validación de credenciales almacenadas en archivos JSON.
+- **Autenticación básica de usuarios:** Permite el acceso mediante validación de credenciales almacenadas en base de datos y gestión de estado mediante sesiones.
+- **Autorización de usuarios:** Gestión de acceso a rutas privadas de la aplicación según rol.
 - **CRUD de productos con control de stock:** Alta, consulta, modificación y baja de productos, gestionando el stock de cada uno.
 - **Registro, consulta, modificación y baja de mascotas y dueños:** Permite asociar mascotas a sus propietarios y gestionar su información.
 - **Agenda de turnos para peluquería y veterinaria:** Gestión completa de turnos vinculados a mascotas y servicios.
@@ -13,6 +14,7 @@ Aplicación web para la gestión integral de una veterinaria y peluquería canin
 - **Documentación interactiva de la API con Swagger:** Acceso a la documentación y pruebas de endpoints desde `/docs`.
 - **Pruebas automatizadas y manuales con Postman:** Validación de los endpoints mediante colecciones de pruebas.
 - **Middlewares personalizados para validaciones y manejo de errores:** Robustez y control en el flujo de la aplicación.
+- **Flujo de ventas:** Gestión de stock, creación de carrito, resumen de compra y comrpobante de pago para productos y servicios.
 
 ## Herramientas de desarrollo 🛠️
 
@@ -91,28 +93,31 @@ En el navegador coloque la URL --> [http://localhost:3000](http://localhost:3000
 
 ## Estructura del Proyecto 📦
 
+
+```bash
 huellitasFelices
-├─ **bin/** (Scripts para iniciar la aplicación)
-├─ **controllers/** (Lógica de negocio y controladores que gestionan las peticiones)
-├─ **data/** (Archivos JSON usados como base de datos local)
-├─ **middlewares/** (Middlewares personalizados para validaciones y manejo de errores)
-├─ **models/** (Definición de la estructura de los datos de la aplicación)
-├─ **postmanCollections/** (Colección Postman de las pruebas de los endpoints de la API)
-├─ **public/** (Imágenes, y otros archivos CSS y JS)
-├─ **routes/** (Rutas de la API y vistas)
-├─ **scripts/** (Scripts utilitarios y de inicialización de datos)
-├─ **services/** (Servicios de lógica de negocio y acceso a datos)
-├─ **tests/** (Pruebas automatizadas del sistema)
-├─ **utils/** (Funciones utilitarias y helpers)
-├─ **views/** (Plantillas Pug para renderizar vistas en HTML)
-├─ **.gitignore** (Archivos y carpetas ignorados por Git)
-├─ **app.js** (Archivo principal de la API)
-├─ **db.js** (Conexión y configuración de la base de datos)
-├─ **eslint.config.mjs** (Configuración de ESLint)
-├─ **initDataFiles.js** (Script para inicializar los archivos de datos)
-├─ **package-lock.json** (Archivo generado automáticamente)
-├─ **package.json** (Configuración del proyecto y dependencias)
-└─ **swagger.js** (Configuración de Swagger para documentar la API)
+├─ bin/ --> (Scripts para iniciar la aplicación)
+├─ controllers/ --> (Lógica de negocio y controladores que gestionan las peticiones)
+├─ data/ --> (Archivos JSON usados como base de datos local)
+├─ middlewares/ --> (Middlewares personalizados para validaciones y manejo de errores)
+├─ models/ --> (Definición de la estructura de los datos de la aplicación)
+├─ postmanCollections/ --> (Colección Postman de las pruebas de los endpoints de la API)
+├─ public/ --> (Imágenes, y otros archivos CSS y JS)
+├─ routes/ --> (Rutas de la API y vistas)
+├─ scripts/ --> (Scripts utilitarios y de inicialización de datos)
+├─ services/ --> (Servicios de lógica de negocio y acceso a datos)
+├─ tests/ --> (Pruebas automatizadas del sistema)
+├─ utils/ --> (Funciones utilitarias y helpers)
+├─ views/ --> (Plantillas Pug para renderizar vistas en HTML)
+├─ .gitignore --> (Archivos y carpetas ignorados por Git)
+├─ app.js --> (Archivo principal de la API)
+├─ db.js --> (Conexión y configuración de la base de datos)
+├─ eslint.config.mjs --> (Configuración de ESLint)
+├─ initDataFiles.js --> (Script para inicializar los archivos de datos)
+├─ package-lock.json --> (Archivo generado automáticamente)
+├─ package.json --> (Configuración del proyecto y dependencias)
+└─ swagger.js --> (Configuración de Swagger para documentar la API)
+```
 
 ## Autores ✒️
 

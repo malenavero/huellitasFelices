@@ -43,12 +43,12 @@ module.exports = {
       const userId = req.session.usuario.id;
 
       const ventaConfirmada = await VentasService.crearYConfirmarVenta(userId, carrito, metodoPago);
+      // Vaciar carrito si el pago fue exitoso
+      CarritosService.vaciarCarrito(req.session);
 
       if (returnJSON(req)) {
         return res.status(200).json(ventaConfirmada);
       }
-      // Vaciar carrito si el pago fue exitoso
-      CarritosService.vaciarCarrito(req.session);
 
       return res.redirect(`/ventas/${ventaConfirmada._id}`);
     } catch (error) {

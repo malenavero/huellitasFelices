@@ -50,29 +50,47 @@ Estas instrucciones te permitirán lanzar el proyecto en tu navegador web.
 ```
 
 
-- Crear archivo .env con lo siguiente 
-```bash
-    MONGO_URI=mongodb://localhost:27017/huellitas
-```
+- Crear archivo .env con los datos provistos en la entrega final.
 ### Como ejecutar ⚙️
 
 Utilizando Bash (Git) desde la ruta del proyecto levantamos la aplicacion de dos formas: 
 
-- Modo de inicio normal:
 ```bash
-    node app.js
+    npm run dev
 ```
-- Modo reinicio automatico:
-```bash
-    nodemon app.js
-```
+
 
 ### Acceso a la aplicación ⌨️
 
 En el navegador coloque la URL --> [http://localhost:3000](http://localhost:3000)
 
-Usuario de prueba: emanuel@huellitasfelices.com
+
+### Usuarios de prueba
+
+Email: emanuel@huellitasfelices.com
 Contraseña: 12345
+Rol: Gerencia
+
+Email: admin@huellitasfelices.com
+Contraseña: 12345
+Rol: Admin
+
+Email: gonzalo@huellitasfelices.com
+Contraseña: 12345
+Rol: Ventas
+
+Email: susana@huellitasfelices.com
+Contraseña: 12345
+Rol: Peluquería
+
+Email: paula@huellitasfelices.com
+Contraseña: 12345
+Rol: Clínica
+
+cristian@huellitasfelices.com
+Contraseña: 12345
+Rol: Recepción
+
 
 ## Documentación
 

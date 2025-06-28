@@ -89,33 +89,6 @@ Estas instrucciones te permitirán levantar la app de forma local.
 En el navegador coloque la URL --> [http://localhost:3000](http://localhost:3000)
 
 
-### Usuarios de prueba
-
-Email: emanuel@huellitasfelices.com
-Contraseña: 12345
-Rol: Gerencia
-
-Email: admin@huellitasfelices.com
-Contraseña: 12345
-Rol: Admin
-
-Email: gonzalo@huellitasfelices.com
-Contraseña: 12345
-Rol: Ventas
-
-Email: susana@huellitasfelices.com
-Contraseña: 12345
-Rol: Peluquería
-
-Email: paula@huellitasfelices.com
-Contraseña: 12345
-Rol: Clínica
-
-cristian@huellitasfelices.com
-Contraseña: 12345
-Rol: Recepción
-
-
 ## Estructura del Proyecto 📦
 
 huellitasFelices
@@ -123,15 +96,19 @@ huellitasFelices
 ├─ **controllers/** (Lógica de negocio y controladores que gestionan las peticiones)
 ├─ **data/** (Archivos JSON usados como base de datos local)
 ├─ **middlewares/** (Middlewares personalizados para validaciones y manejo de errores)
-├─ **models/** (Definicion de la estructura de los datos de la aplicacion)
-├─ **node_modules/** (Dependencias instaladas automáticamente por NPM)
+├─ **models/** (Definición de la estructura de los datos de la aplicación)
 ├─ **postmanCollections/** (Colección Postman de las pruebas de los endpoints de la API)
-├─ **public/** (Imagenes, y otros archivos CSS y JS)
-├─ **routes/** (Rutas de la API y vista)
+├─ **public/** (Imágenes, y otros archivos CSS y JS)
+├─ **routes/** (Rutas de la API y vistas)
+├─ **scripts/** (Scripts utilitarios y de inicialización de datos)
+├─ **services/** (Servicios de lógica de negocio y acceso a datos)
+├─ **tests/** (Pruebas automatizadas del sistema)
 ├─ **utils/** (Funciones utilitarias y helpers)
 ├─ **views/** (Plantillas Pug para renderizar vistas en HTML)
 ├─ **.gitignore** (Archivos y carpetas ignorados por Git)
-├─ **app.js** (Archivo Principal de la API)
+├─ **app.js** (Archivo principal de la API)
+├─ **db.js** (Conexión y configuración de la base de datos)
+├─ **eslint.config.mjs** (Configuración de ESLint)
 ├─ **initDataFiles.js** (Script para inicializar los archivos de datos)
 ├─ **package-lock.json** (Archivo generado automáticamente)
 ├─ **package.json** (Configuración del proyecto y dependencias)

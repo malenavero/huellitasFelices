@@ -24,36 +24,57 @@ Aplicación web para la gestión integral de una veterinaria y peluquería canin
 - **Postman:** - Herramienta para el testeo de los endpoints de la API.
 - **Nodemon:** - Utilidad para reiniciar automáticamente el servidor durante el desarrollo.
 
-## Guía de inicio 🚀
 
-Estas instrucciones te permitirán lanzar el proyecto en tu navegador web.
 
-### Requisitos 📋
+## Acceso en producción  🚀
+
+Podés acceder a la aplicación ya desplegada desde este enlace:
+
+🌐 https://huellitas-felices.onrender.com
+
+#### Usuarios de prueba
+Email	Contraseña	Rol
+emanuel@huellitasfelices.com	12345	Gerencia
+admin@huellitasfelices.com	12345	Admin
+gonzalo@huellitasfelices.com	12345	Ventas
+susana@huellitasfelices.com	12345	Peluquería
+paula@huellitasfelices.com	12345	Clínica
+cristian@huellitasfelices.com	12345	Recepción
+
+## Documentación de la API 📚
+
+Accedé a la documentación Swagger para explorar los endpoints disponibles y enviar peticiones de prueba de manera visual:
+
+➡️ https://huellitas-felices.onrender.com/docs
+
+## Guía para ejecutar en local 📋
+
+Estas instrucciones te permitirán levantar la app de forma local.
+
+### Requisitos 
 
 - Tener instalado Node.js. Puede descargarlo desde:
-[https://nodejs.org/](https://nodejs.org/)
+➡️ [https://nodejs.org/](https://nodejs.org/)
     
-### Instalación 🔧
-- Clonar el repositorio usando Bash (Git):
+### Instalación desde una consola Bash 🔧
+- Clonar el repositorio:
 ```bash
     git clone https://github.com/malenavero/huellitasFelices.git
 ```
     
-- Posicionarse en la carpeta del proyecto con Bash (Git):
+- Posicionarse en la carpeta del proyecto:
 ```bash
     cd huellitasFelices
 ```
 
-- Instalar dependencias desde Bash (Git): 
+- Instalar dependencias: 
 ```bash
     npm install
 ```
 
 
 - Crear archivo .env con los datos provistos en la entrega final.
-### Como ejecutar ⚙️
-
-Utilizando Bash (Git) desde la ruta del proyecto levantamos la aplicacion de dos formas: 
+- Por último, desde la ruta del proyecto:
 
 ```bash
     npm run dev
@@ -91,14 +112,6 @@ cristian@huellitasfelices.com
 Contraseña: 12345
 Rol: Recepción
 
-
-## Documentación
-
-Una vez levantada la aplicacion podra acceder a la documentacion interactiva generada con Swagger, para ello debera utilizar:
-
-URL --> [http://localhost:3000/docs](http://localhost:3000/docs)
-
-Esto le permitira explorar los endpoints disponibles y enviar peticiones de prueba de manera visual.
 
 ## Estructura del Proyecto 📦
 

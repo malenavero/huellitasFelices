@@ -844,7 +844,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"Nicolás\",\n  \"apellido\": \"Pereyra\",\n  \"telefono\": \"1155337799\",\n  \"direccion\": \"Av. Salud Animal 100\",\n  \"correo\": \"nicolas@ejemplo.com\",\n  \"password\": \"12345\",\n  \"rol\": \"gerente\"\n}",
+							"raw": "{\n  \"nombre\": \"Nicolás\",\n  \"apellido\": \"Pereyra\",\n  \"telefono\": \"1155337799\",\n  \"direccion\": \"Av. Salud Animal 100\",\n  \"email\": \"nicolas@ejemplo.com\",\n  \"password\": \"12345\",\n  \"rol\": \"gerente\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -892,7 +892,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"nombre\": \"daniel\",\n  \"apellido\": \"pugliese\",\n  \"password\": \"hola123\",\n  \"telefono\": \"011568417854\",\n  \"direccion\": \"Av. de mayo 1112\",\n  \"correo\": \"dani@test.com\",\n  \"rol\": \"recepcion\"\n}",
+							"raw": "{\n  \n  \"email\": \"\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -900,7 +900,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/usuarios/11",
+							"raw": "http://localhost:3000/usuarios/68558bd7d35297459f6cb574",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -908,7 +908,7 @@
 							"port": "3000",
 							"path": [
 								"usuarios",
-								"11"
+								"68558bd7d35297459f6cb574"
 							]
 						}
 					},
@@ -966,7 +966,7 @@
 							"basic": [
 								{
 									"key": "username",
-									"value": "emanuel@huellitasfelices.com",
+									"value": "laura@ejemplo.com",
 									"type": "string"
 								},
 								{
@@ -980,7 +980,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"correo\":\"emanuel@huellitasfelices.com\",\n  \"password\":\"12345\"\n}",
+							"raw": "{\n  \"email\":\"laura@ejemplo.com\",\n  \"password\":\"12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

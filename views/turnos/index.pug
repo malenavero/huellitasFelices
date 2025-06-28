@@ -64,7 +64,7 @@ block content
               td= capitalizar(turno.servicio)
               td
                 if turno.pagado
-                  a.button(href=`/comprobante/${turno._id}`, title="Ver Comprobante") Pagado
+                  a.button() Pagado
                 else
                   form(method="POST", action="/carrito/agregar")
                     input(type="hidden", name="esServicio", value=turno.servicio)
